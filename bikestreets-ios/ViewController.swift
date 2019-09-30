@@ -20,6 +20,8 @@ class ViewController: UIViewController {
         // TODO: Versioning scheme for the KML data
         // TODO: Do we have a cached/downloaded version of the KML data?
         // TODO: Is our cached version of KML the latest & greatest?        
+
+        displayCurrentLocation()
     }
 
     /**
@@ -42,10 +44,38 @@ class ViewController: UIViewController {
         return kmlLayer
     }
     
+    func displayCurrentLocation() {
+        mapView.locationDisplay.initialZoomScale = 20000
+        mapView.locationDisplay.autoPanMode = AGSLocationDisplayAutoPanMode.recenter
+        
+        mapView.locationDisplay.start { [weak self] (error:Error?) -> Void in
+            if let error = error {
+                // TODO: Show an alert through a centralized infrastructure
+//                self?.showAlert(withStatus: error.localizedDescription)
+            }
+        }
+    }
+    /**
+     * Recenter the map on the current location, but don't change the zoom level
+     */
+    func centerMapOnCurrentLocation() {
+        if let currentPosition = mapView.locationDisplay.location?.position {
+            mapView.setViewpointCenter(currentPosition) { [weak self] (finished: Bool) in
+            }
+        }
+    }
+    
     // MARK: View Controller Overrides
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }    
+    }
+    
+    @IBAction func infoButtonTapped(_ sender: Any) {
+    }
+    
+    @IBAction func locationButtonTapped(_ sender: Any) {
+        centerMapOnCurrentLocation()
+    }
 }
 
