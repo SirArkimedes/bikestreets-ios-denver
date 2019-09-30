@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,14 @@
 		4DDE54C1233EBB0C0051BF83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54BF233EBB0C0051BF83 /* LaunchScreen.storyboard */; };
 		4DDE54CC233EBB0C0051BF83 /* bikestreets_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54CB233EBB0C0051BF83 /* bikestreets_iosTests.swift */; };
 		4DDE54D7233EBB0C0051BF83 /* bikestreets_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54D6233EBB0C0051BF83 /* bikestreets_iosUITests.swift */; };
+		4DDE54EB233EC15F0051BF83 /* 5-walk-master-v0.3.kml in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54E6233EC15E0051BF83 /* 5-walk-master-v0.3.kml */; };
+		4DDE54EC233EC15F0051BF83 /* 3-bikelanes-master-v0.3.kml in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54E7233EC15F0051BF83 /* 3-bikelanes-master-v0.3.kml */; };
+		4DDE54ED233EC15F0051BF83 /* 2-trails-master-v0.3.kml in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54E8233EC15F0051BF83 /* 2-trails-master-v0.3.kml */; };
+		4DDE54EE233EC15F0051BF83 /* 1-bikestreets-master-v0.3.kml in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54E9233EC15F0051BF83 /* 1-bikestreets-master-v0.3.kml */; };
+		4DDE54EF233EC15F0051BF83 /* 4-bikesidewalks-master-v0.3.kml in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54EA233EC15F0051BF83 /* 4-bikesidewalks-master-v0.3.kml */; };
+		B9731858F50A9B19F2176035 /* Pods_bikestreets_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F55165BA578AB0E111F4DC /* Pods_bikestreets_iosUITests.framework */; };
+		EF54BD152575ECA281BDA026 /* Pods_bikestreets_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80DFEAF1527091FB78E3487 /* Pods_bikestreets_iosTests.framework */; };
+		FFEDF28C95CFD9E95B276923 /* Pods_bikestreets_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87B649139E41B4E2197E22E4 /* Pods_bikestreets_ios.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		42BA69389DBF12EC6C40C4DF /* Pods-bikestreets-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bikestreets-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-bikestreets-iosTests/Pods-bikestreets-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
+		45F55165BA578AB0E111F4DC /* Pods_bikestreets_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bikestreets_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDE54B3233EBB0C0051BF83 /* bikestreets-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bikestreets-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DDE54B8233EBB0C0051BF83 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +57,18 @@
 		4DDE54D2233EBB0C0051BF83 /* bikestreets-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "bikestreets-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDE54D6233EBB0C0051BF83 /* bikestreets_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikestreets_iosUITests.swift; sourceTree = "<group>"; };
 		4DDE54D8233EBB0C0051BF83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DDE54E6233EC15E0051BF83 /* 5-walk-master-v0.3.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "5-walk-master-v0.3.kml"; sourceTree = "<group>"; };
+		4DDE54E7233EC15F0051BF83 /* 3-bikelanes-master-v0.3.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "3-bikelanes-master-v0.3.kml"; sourceTree = "<group>"; };
+		4DDE54E8233EC15F0051BF83 /* 2-trails-master-v0.3.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "2-trails-master-v0.3.kml"; sourceTree = "<group>"; };
+		4DDE54E9233EC15F0051BF83 /* 1-bikestreets-master-v0.3.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "1-bikestreets-master-v0.3.kml"; sourceTree = "<group>"; };
+		4DDE54EA233EC15F0051BF83 /* 4-bikesidewalks-master-v0.3.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "4-bikesidewalks-master-v0.3.kml"; sourceTree = "<group>"; };
+		637BF84059333FF07925F0C8 /* Pods-bikestreets-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bikestreets-iosUITests.release.xcconfig"; path = "Target Support Files/Pods-bikestreets-iosUITests/Pods-bikestreets-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
+		87B649139E41B4E2197E22E4 /* Pods_bikestreets_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bikestreets_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		919B57A95D5CBD62996F355B /* Pods-bikestreets-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bikestreets-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-bikestreets-iosUITests/Pods-bikestreets-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		957A276B9DEA2027E8A62043 /* Pods-bikestreets-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bikestreets-ios.debug.xcconfig"; path = "Target Support Files/Pods-bikestreets-ios/Pods-bikestreets-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		AF19ECBFB91A23BAF9262610 /* Pods-bikestreets-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bikestreets-iosTests.release.xcconfig"; path = "Target Support Files/Pods-bikestreets-iosTests/Pods-bikestreets-iosTests.release.xcconfig"; sourceTree = "<group>"; };
+		E6D449B0AFAAB0B573AE9AC8 /* Pods-bikestreets-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bikestreets-ios.release.xcconfig"; path = "Target Support Files/Pods-bikestreets-ios/Pods-bikestreets-ios.release.xcconfig"; sourceTree = "<group>"; };
+		E80DFEAF1527091FB78E3487 /* Pods_bikestreets_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bikestreets_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFEDF28C95CFD9E95B276923 /* Pods_bikestreets_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF54BD152575ECA281BDA026 /* Pods_bikestreets_iosTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9731858F50A9B19F2176035 /* Pods_bikestreets_iosUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +106,8 @@
 				4DDE54CA233EBB0C0051BF83 /* bikestreets-iosTests */,
 				4DDE54D5233EBB0C0051BF83 /* bikestreets-iosUITests */,
 				4DDE54B4233EBB0C0051BF83 /* Products */,
+				E7AB0668C46210F34889EDB4 /* Pods */,
+				D08C9AFD9727EF5615D802DD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +130,7 @@
 				4DDE54BD233EBB0C0051BF83 /* Assets.xcassets */,
 				4DDE54BF233EBB0C0051BF83 /* LaunchScreen.storyboard */,
 				4DDE54C2233EBB0C0051BF83 /* Info.plist */,
+				4DDE54E4233EC12A0051BF83 /* Resources */,
 			);
 			path = "bikestreets-ios";
 			sourceTree = "<group>";
@@ -125,6 +153,49 @@
 			path = "bikestreets-iosUITests";
 			sourceTree = "<group>";
 		};
+		4DDE54E4233EC12A0051BF83 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4DDE54E5233EC1460051BF83 /* kml */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4DDE54E5233EC1460051BF83 /* kml */ = {
+			isa = PBXGroup;
+			children = (
+				4DDE54E9233EC15F0051BF83 /* 1-bikestreets-master-v0.3.kml */,
+				4DDE54E8233EC15F0051BF83 /* 2-trails-master-v0.3.kml */,
+				4DDE54E7233EC15F0051BF83 /* 3-bikelanes-master-v0.3.kml */,
+				4DDE54EA233EC15F0051BF83 /* 4-bikesidewalks-master-v0.3.kml */,
+				4DDE54E6233EC15E0051BF83 /* 5-walk-master-v0.3.kml */,
+			);
+			path = kml;
+			sourceTree = "<group>";
+		};
+		D08C9AFD9727EF5615D802DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				87B649139E41B4E2197E22E4 /* Pods_bikestreets_ios.framework */,
+				E80DFEAF1527091FB78E3487 /* Pods_bikestreets_iosTests.framework */,
+				45F55165BA578AB0E111F4DC /* Pods_bikestreets_iosUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E7AB0668C46210F34889EDB4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				957A276B9DEA2027E8A62043 /* Pods-bikestreets-ios.debug.xcconfig */,
+				E6D449B0AFAAB0B573AE9AC8 /* Pods-bikestreets-ios.release.xcconfig */,
+				42BA69389DBF12EC6C40C4DF /* Pods-bikestreets-iosTests.debug.xcconfig */,
+				AF19ECBFB91A23BAF9262610 /* Pods-bikestreets-iosTests.release.xcconfig */,
+				919B57A95D5CBD62996F355B /* Pods-bikestreets-iosUITests.debug.xcconfig */,
+				637BF84059333FF07925F0C8 /* Pods-bikestreets-iosUITests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +203,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4DDE54DB233EBB0C0051BF83 /* Build configuration list for PBXNativeTarget "bikestreets-ios" */;
 			buildPhases = (
+				4349EEA9E26F089EC0543649 /* [CP] Check Pods Manifest.lock */,
 				4DDE54AF233EBB0C0051BF83 /* Sources */,
 				4DDE54B0233EBB0C0051BF83 /* Frameworks */,
 				4DDE54B1233EBB0C0051BF83 /* Resources */,
+				4ED4E4ADADCF368AF21542B4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -149,6 +222,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4DDE54DE233EBB0C0051BF83 /* Build configuration list for PBXNativeTarget "bikestreets-iosTests" */;
 			buildPhases = (
+				9E4CF14C6E155762C1E0E3D7 /* [CP] Check Pods Manifest.lock */,
 				4DDE54C3233EBB0C0051BF83 /* Sources */,
 				4DDE54C4233EBB0C0051BF83 /* Frameworks */,
 				4DDE54C5233EBB0C0051BF83 /* Resources */,
@@ -167,6 +241,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4DDE54E1233EBB0C0051BF83 /* Build configuration list for PBXNativeTarget "bikestreets-iosUITests" */;
 			buildPhases = (
+				1FE3A40F616AAD180F135BBC /* [CP] Check Pods Manifest.lock */,
 				4DDE54CE233EBB0C0051BF83 /* Sources */,
 				4DDE54CF233EBB0C0051BF83 /* Frameworks */,
 				4DDE54D0233EBB0C0051BF83 /* Resources */,
@@ -230,7 +305,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DDE54C1233EBB0C0051BF83 /* LaunchScreen.storyboard in Resources */,
+				4DDE54EF233EC15F0051BF83 /* 4-bikesidewalks-master-v0.3.kml in Resources */,
+				4DDE54EE233EC15F0051BF83 /* 1-bikestreets-master-v0.3.kml in Resources */,
+				4DDE54ED233EC15F0051BF83 /* 2-trails-master-v0.3.kml in Resources */,
 				4DDE54BE233EBB0C0051BF83 /* Assets.xcassets in Resources */,
+				4DDE54EB233EC15F0051BF83 /* 5-walk-master-v0.3.kml in Resources */,
+				4DDE54EC233EC15F0051BF83 /* 3-bikelanes-master-v0.3.kml in Resources */,
 				4DDE54BC233EBB0C0051BF83 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,6 +330,92 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1FE3A40F616AAD180F135BBC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-bikestreets-iosUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4349EEA9E26F089EC0543649 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-bikestreets-ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4ED4E4ADADCF368AF21542B4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bikestreets-ios/Pods-bikestreets-ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bikestreets-ios/Pods-bikestreets-ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bikestreets-ios/Pods-bikestreets-ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E4CF14C6E155762C1E0E3D7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-bikestreets-iosTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4DDE54AF233EBB0C0051BF83 /* Sources */ = {
@@ -430,6 +596,7 @@
 		};
 		4DDE54DC233EBB0C0051BF83 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 957A276B9DEA2027E8A62043 /* Pods-bikestreets-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -448,6 +615,7 @@
 		};
 		4DDE54DD233EBB0C0051BF83 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E6D449B0AFAAB0B573AE9AC8 /* Pods-bikestreets-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -466,6 +634,7 @@
 		};
 		4DDE54DF233EBB0C0051BF83 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42BA69389DBF12EC6C40C4DF /* Pods-bikestreets-iosTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -487,6 +656,7 @@
 		};
 		4DDE54E0233EBB0C0051BF83 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF19ECBFB91A23BAF9262610 /* Pods-bikestreets-iosTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -508,6 +678,7 @@
 		};
 		4DDE54E2233EBB0C0051BF83 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 919B57A95D5CBD62996F355B /* Pods-bikestreets-iosUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -528,6 +699,7 @@
 		};
 		4DDE54E3233EBB0C0051BF83 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 637BF84059333FF07925F0C8 /* Pods-bikestreets-iosUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

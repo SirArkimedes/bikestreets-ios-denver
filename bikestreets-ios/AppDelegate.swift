@@ -1,10 +1,4 @@
-//
-//  AppDelegate.swift
-//  bikestreets-ios
-//
-//  Created by Mark Kristensson on 9/27/19.
-//  Copyright © 2019 Bike Streets. All rights reserved.
-//
+
 
 import UIKit
 
