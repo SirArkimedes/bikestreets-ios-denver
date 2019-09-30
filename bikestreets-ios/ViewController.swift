@@ -41,5 +41,11 @@ class ViewController: UIViewController {
         
         return kmlLayer
     }
+    
+    // MARK: View Controller Overrides
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }    
 }
 
