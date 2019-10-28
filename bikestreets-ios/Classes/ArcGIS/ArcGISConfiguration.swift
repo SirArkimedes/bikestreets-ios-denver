@@ -3,6 +3,7 @@ import Foundation
 
 struct ArcGISConfiguration {
     static let clientID: String = "owehr3TUwlJEiNVY"
+    static let clientSecret: String = ""
     
     static let urlScheme: String = "bikestreets"
     static let urlAuthPath: String = "bikestreets.com/oauth"
