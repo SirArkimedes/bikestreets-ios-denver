@@ -403,6 +403,29 @@
     </Placemark>
 
     <Placemark>
+      <name>Coaster at Colorado Blvd</name>
+      <description>Street View: https://goo.gl/maps/CmikhodHSHUgNCvB8
+        <br/><br/>
+        West to East<br/><br/>
+        Walk E at the traffic light across Colorado Blvd<br/>
+        Walk E on the sidewalk along 17th Ave<br/>
+        Ride N or S on Albion<br/><br/>
+
+        East to West<br/><br/>
+        Walk W on the sidewalk along 17th Ave<br/>
+        Walk W at the traffic light across Colorado Blvd<br/>
+        Ride W on City Park Trail<br/>
+      </description>
+      <styleUrl>#line-C2185B-4294-nodesc</styleUrl>
+      <LineString>
+        <tessellate>1</tessellate>
+        <coordinates>
+          -104.94093149900436,39.74390261867354 -104.94053721427917,39.74383249781977 -104.93898957967758,39.74383662257785
+        </coordinates>
+      </LineString>
+    </Placemark>
+
+    <Placemark>
       <name>Coaster at Montview</name>
       <description>Street View: https://goo.gl/maps/yVpHDDnMnGrtzKLM8
         <br/><br/>
@@ -448,31 +471,6 @@
         <tessellate>1</tessellate>
         <coordinates>
           -104.912950694561,39.74195364484429 -104.9129493534565,39.74200108084066 -104.91251349449158,39.742006236925256 -104.9123364686966,39.742006236925256 -104.91233512759209,39.742558966956366
-        </coordinates>
-      </LineString>
-    </Placemark>
-
-    <Placemark>
-      <name>Country at University</name>
-      <description>Street View: https://goo.gl/maps/vYLwQnM8T3J2 > https://goo.gl/maps/DmP8g4DG5EL2
-        <br/><br/>
-        West to East<br/><br/>
-        Walk E on the sidewalk along Ohio to the traffic light<br/>
-        Walk E at the traffic light across University<br/>
-        Walk S on the sidewalk along University<br/>
-        Ride E on Kentucky<br/><br/>
-
-        East to West<br/><br/>
-        Walk N on the sidewalk along University to the traffic light<br/>
-        Walk W at the traffic light across University<br/>
-        Walk W on the sidewalk along Ohio<br/>
-        Ride S on York<br/>
-      </description>
-      <styleUrl>#line-C2185B-4294-nodesc</styleUrl>
-      <LineString>
-        <tessellate>1</tessellate>
-        <coordinates>
-          -104.96050827205181,39.701980311712056 -104.9602997303009,39.70197824808083 -104.95944947004318,39.701980311712056 -104.95935425162315,39.701983407158814 -104.95919197797775,39.701991661682754 -104.95919600129126,39.70151908859659 -104.95919466018675,39.70093094726629 -104.95919600129126,39.700315973076094
         </coordinates>
       </LineString>
     </Placemark>
@@ -936,28 +934,6 @@
     </Placemark>
 
     <Placemark>
-      <name>Exchange at Evans</name>
-      <description>Street View: https://goo.gl/maps/KttwUq2KoUH2
-        <br/><br/>
-        North to South<br/><br/>
-        Walk S at the traffic light across Evans<br/>
-        Ride S on Oneida
-        <br/><br/>
-
-        South to North<br/><br/>
-        Walk N at the traffic light across Evans<br/>
-        Ride N on Oneida<br/>
-      </description>
-      <styleUrl>#line-C2185B-4294-nodesc</styleUrl>
-      <LineString>
-        <tessellate>1</tessellate>
-        <coordinates>
-          -104.90833193063735,39.67857012142535 -104.90835271775723,39.678328078180556
-        </coordinates>
-      </LineString>
-    </Placemark>
-
-    <Placemark>
       <name>Exchange at Hampden</name>
       <description>Street View: https://goo.gl/maps/S19Zh9tJ2e22
         <br/><br/>
@@ -1197,6 +1173,27 @@
       </LineString>
     </Placemark>
 
+    <Placemark>
+      <name>General at Pecos</name>
+      <description>Street View: https://goo.gl/maps/jBVoAiP1JcZsWeTs6 > https://goo.gl/maps/V9ptqS7sZBe8RSWLA
+        <br/><br/>
+        North to South<br/><br/>
+        Walk S on the sidewalk along Pecos<br/>
+        Ride SE into Highland Gateway Park
+        <br/><br/>
+
+        South to North<br/><br/>
+        Walk N on the sidewalk along Pecos<br/>
+        Ride W on 33rd Ave<br/>
+      </description>
+      <styleUrl>#line-C2185B-4294-nodesc</styleUrl>
+      <LineString>
+        <tessellate>1</tessellate>
+        <coordinates>
+          -105.00636935234068,39.763172836327634 -105.00635862350464,39.762121310238314
+        </coordinates>
+      </LineString>
+    </Placemark>
 
     <Placemark>
       <name>General at Blake</name>
@@ -1898,6 +1895,29 @@
       </LineString>
     </Placemark>
 
+    <Placemark>
+      <name>Outlook at Sheridan</name>
+      <description>Street View: https://goo.gl/maps/mArke8xBA3WL2v9R8 >> https://goo.gl/maps/RSUvLBVdeSUVdATS9
+        <br/><br/>
+        West to East<br/><br/>
+        Walk E at the traffic light across Sheridan<br/>
+        Walk E on the sidewalk along Alameda<br/>
+        Ride N or S at Weir Gulch Trail
+        <br/><br/>
+
+        East to West<br/><br/>
+        Walk W on the sidewalk along Alameda<br/>
+        Walk W at the traffic light across Sheridan<br/>
+        Ride W on the sidewalk along Sheridan<br/>
+      </description>
+      <styleUrl>#line-C2185B-4294-nodesc</styleUrl>
+      <LineString>
+        <tessellate>1</tessellate>
+        <coordinates>
+          -105.05309343338013,39.7112041266616 -105.05259990692137,39.7112123800825 -105.05246043205261,39.71122888692133 -105.05219489336014,39.71122476021201 -105.05178719758987,39.71122476021201 -105.05058556795119,39.71121857014754 -105.05025029182434,39.71121650679258 -105.05014300346373,39.7112123800825
+        </coordinates>
+      </LineString>
+    </Placemark>
 
     <Placemark>
       <name>Outlook at Federal</name>
@@ -2140,22 +2160,50 @@
     </Placemark>
 
     <Placemark>
-      <name>Rebar at Colfax</name>
-      <description>Street View: https://goo.gl/maps/P1zSfiS1rcT2
-        <br/><br/>
-        North to South<br/><br/>
-        Walk S at the traffic light across Colfax<br/>
-        Ride S on Lipan<br/><br/>
-
-        South to North<br/><br/>
-        Walk N at the traffic light across Colfax<br/>
-        Walk N into Auraria Campus<br/>
+      <name>Rebar at Lawrence Plaza</name>
+      <description>
       </description>
       <styleUrl>#line-C2185B-4294-nodesc</styleUrl>
       <LineString>
         <tessellate>1</tessellate>
         <coordinates>
-          -105.00149846076965,39.74043567571936 -105.00147700309752,39.74025623965914 -105.0014877319336,39.739955116025435
+          -105.00299245119095,39.74451720427934 -105.00271752476692,39.74406863982219
+        </coordinates>
+      </LineString>
+    </Placemark>
+
+    <Placemark>
+      <name>Rebar at 9th St Park</name>
+      <description>
+      </description>
+      <styleUrl>#line-C2185B-4294-nodesc</styleUrl>
+      <LineString>
+        <tessellate>1</tessellate>
+        <coordinates>
+          -105.00408679246902,39.742106264890054 -105.00426113605499,39.7420196427434 -105.00351816415787,39.74103379254579 -105.00350743532181,39.74099254327614
+        </coordinates>
+      </LineString>
+    </Placemark>
+
+    <Placemark>
+      <name>Rebar at Colfax</name>
+      <description>Street View: https://goo.gl/maps/P1zSfiS1rcT2 >> https://goo.gl/maps/yMYUMNNvFGEMLMCt6 >> https://goo.gl/maps/7Q6KPj1XFqaJqEKSA
+        <br/><br/>
+        North to South<br/><br/>
+        Walk E on the sidewalk along Colfax
+        Walk S at the traffic light across Colfax<br/>
+        Ride S on Lipan<br/><br/>
+
+        South to North<br/><br/>
+        Walk N at the traffic light across Colfax<br/>
+        Walk W on the sidewalk along Colfax
+        Ride N on 9th St<br/>
+      </description>
+      <styleUrl>#line-C2185B-4294-nodesc</styleUrl>
+      <LineString>
+        <tessellate>1</tessellate>
+        <coordinates>
+          -105.00281542539597,39.740330489120026 -105.0027322769165,39.74022736484718 -105.00245600938797,39.74023561479469 -105.00202149152756,39.740258302145236 -105.0014743208885,39.74026036463129 -105.00148504972458,39.739955116025435
         </coordinates>
       </LineString>
     </Placemark>
@@ -2509,6 +2557,81 @@
     </Placemark>
 
     <Placemark>
+      <name>Sonnet at 38th Ave</name>
+      <description>Street View: https://goo.gl/maps/1j1uRJKZXn765h889 > https://goo.gl/maps/42hY2iq2M4yv4P3X7 > https://goo.gl/maps/nez2KyDA8yAAf9zdA
+        <br/><br/>
+        North to South<br/><br/>
+        Walk S on the sidewalk along Lowell<br/>
+        Walk S at the traffic light across 38th Ave<br/>
+        Walk S on the sidewalk along Lowell<br/>
+        Ride E on Clyde
+        <br/><br/>
+
+        South to North<br/><br/>
+        Walk N on the sidewalk along Lowell<br/>
+        Walk N at the traffic light across 38th Ave<br/>
+        Walk N on the sidewalk along Lowell<br/>
+        Ride E on 39th Ave<br/>
+      </description>
+      <styleUrl>#line-C2185B-4294-nodesc</styleUrl>
+      <LineString>
+        <tessellate>1</tessellate>
+        <coordinates>
+          -105.03452181816101,39.77072067283743 -105.03454327583313,39.769644522746205 -105.03458619117737,39.769450731478756 -105.03458350896835,39.769178598139696 -105.03457009792326,39.76838693140053
+        </coordinates>
+      </LineString>
+    </Placemark>
+
+    <Placemark>
+      <name>Sonnet at 26th</name>
+      <description>Street View: https://goo.gl/maps/SFKWKWuSWFaf25QF9 > https://goo.gl/maps/QSTfYESmaJB6FBVc6
+        <br/><br/>
+        North to South<br/><br/>
+        Walk E on the sidewalk along 26th to the driveway<br/>
+        Walk S at across 26th Ave (no traffic light)<br/>
+        Ride S Julian
+        <br/><br/>
+
+        South to North<br/><br/>
+        Walk N across 26th Ave (no traffic light)<br/>
+        Walk W on the sidewalk along 26th Ave<br/>
+        Ride N on Julian<br/>
+      </description>
+      <styleUrl>#line-C2185B-4294-nodesc</styleUrl>
+      <LineString>
+        <tessellate>1</tessellate>
+        <coordinates>
+          -105.03222584724426,39.75494782448994 -105.03155797719955,39.75494988653628 -105.03156334161758,39.75477873647958
+        </coordinates>
+      </LineString>
+    </Placemark>
+
+    <Placemark>
+      <name>Sonnet at Colfax</name>
+      <description>Street View: https://goo.gl/maps/2asdjTQo3wR29hAs8 > https://goo.gl/maps/bBEVSmaxS86aPLWS6 > https://goo.gl/maps/r5MzVAFnBFmMaBsz5
+        <br/><br/>
+        North to South<br/><br/>
+        Walk W on the sidewalk along Colfax to the traffic light at Knox<br/>
+        Walk S at the traffic light across Colfax<br/>
+        Ride S on Knox
+        <br/><br/>
+
+        South to North<br/><br/>
+        Walk N at the traffic light across Colfax<br/>
+        Walk W on the sidewalk along Colfax<br/>
+        Ride N on Julian<br/>
+      </description>
+      <styleUrl>#line-C2185B-4294-nodesc</styleUrl>
+      <LineString>
+        <tessellate>1</tessellate>
+        <coordinates>
+          -105.03160089254379,39.74044805060284 -105.03215879201889,39.740443925641934 -105.03218561410904,39.740239739768086
+        </coordinates>
+      </LineString>
+    </Placemark>
+
+
+    <Placemark>
       <name>Story at Walnut/Marion</name>
       <description>Street View: https://goo.gl/maps/mejkAEm3bNK2 > https://goo.gl/maps/b2e84be8VRw > https://goo.gl/maps/NZGuVKpHJ792
         <br/><br/>
@@ -2731,6 +2854,29 @@
         <tessellate>1</tessellate>
         <coordinates>
           -105.0189220905304,39.769386821473034 -105.01805573701859,39.76938269824482 -105.01801550388336,39.769201275959034 -105.01890063285826,39.7692033375786
+        </coordinates>
+      </LineString>
+    </Placemark>
+
+    <Placemark>
+      <name>Topic at Speer</name>
+      <description>Street View: https://goo.gl/maps/KDtNS3dspPLXpCEHA
+        <br/><br/>
+        North to South<br/><br/>
+        Walk S on the sidewalk along Zuni<br/>
+        Walk S at the traffic light across Speer<br/>
+        Ride S on on the sidewalk trail along Zuni<br/><br/>
+
+        South to North<br/><br/>
+        Walk N at the traffic light across Speer<br/>
+        Walk N on the sidewalk along Zuni<br/>
+        Ride E on 27th Ave<br/>
+      </description>
+      <styleUrl>#line-C2185B-4294-nodesc</styleUrl>
+      <LineString>
+        <tessellate>1</tessellate>
+        <coordinates>
+          -105.01572221517563,39.75652114790519 -105.01571148633957,39.75611080882738
         </coordinates>
       </LineString>
     </Placemark>
