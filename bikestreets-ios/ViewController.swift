@@ -10,11 +10,12 @@ class ViewController: UIViewController {
         
         let defaultLatitude = 39.7430
         let defaultLongitude = -104.9706
-        let defaultDetailLevel = 12
+        let defaultDetailLevel = 11
         
         // Display a map using the ArcGIS Online imagery basemap service
-        self.mapView.map = AGSMap(basemapType: .streetsVector, latitude: defaultLatitude, longitude: defaultLongitude, levelOfDetail: defaultDetailLevel)
-     
+        mapView.map = AGSMap(basemapType: .lightGrayCanvas, latitude: defaultLatitude, longitude: defaultLongitude, levelOfDetail: defaultDetailLevel)
+        
+        
         loadMapFromShippedResources()
 
         // TODO: Versioning scheme for the KML data
