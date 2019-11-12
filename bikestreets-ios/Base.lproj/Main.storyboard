@@ -42,7 +42,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="4i5-lb-Tcf"/>
                                     <constraint firstAttribute="bottom" secondItem="CgL-vY-92E" secondAttribute="bottom" id="FcE-AI-8YO"/>
@@ -65,6 +65,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="buttonWrapperView" destination="MhF-lv-NVL" id="y7K-vo-VEZ"/>
                         <outlet property="mapView" destination="TBz-DB-Mfh" id="wG0-zE-5T7"/>
                     </connections>
                 </viewController>

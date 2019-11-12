@@ -5,6 +5,7 @@ import ArcGIS
 class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: AGSMapView!
+    @IBOutlet weak var buttonWrapperView: UIView!
     
     // MARK: UIViewController overrides
     
@@ -26,11 +27,15 @@ class MapViewController: UIViewController {
 
         // TODO: Versioning scheme for the KML data
         // TODO: Do we have a cached/downloaded version of the KML data?
-        // TODO: Is our cached version of KML the latest & greatest?        
-
+        // TODO: Is our cached version of KML the latest & greatest?
+        
         displayCurrentLocation()
         centerMapOnCurrentLocation()
         
+        buttonWrapperView.layer.cornerRadius = 5.0
+        buttonWrapperView.layer.masksToBounds = true
+        
+        // Notify us about changes to UserDefaults
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(userDefaultsDidChange),
                                                name: UserDefaults.didChangeNotification,
