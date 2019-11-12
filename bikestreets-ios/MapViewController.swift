@@ -16,7 +16,10 @@ class MapViewController: UIViewController {
         let defaultDetailLevel = 11
         
         // Display a map using the ArcGIS Online imagery basemap service
-        mapView.map = AGSMap(basemapType: .lightGrayCanvas, latitude: defaultLatitude, longitude: defaultLongitude, levelOfDetail: defaultDetailLevel)
+        mapView.map = AGSMap(basemapType: .lightGrayCanvas,
+                             latitude: defaultLatitude,
+                             longitude: defaultLongitude,
+                             levelOfDetail: defaultDetailLevel)
         
         
         loadMapFromShippedResources()
@@ -26,6 +29,12 @@ class MapViewController: UIViewController {
         // TODO: Is our cached version of KML the latest & greatest?        
 
         displayCurrentLocation()
+        centerMapOnCurrentLocation()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(userDefaultsDidChange),
+                                               name: UserDefaults.didChangeNotification,
+                                               object: nil)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -55,11 +64,22 @@ class MapViewController: UIViewController {
     }
     
     func displayCurrentLocation() {
+        mapView.locationDisplay.stop()
+
+        // Do we need to prevent the screen from locking?
+        UIApplication.shared.isIdleTimerDisabled = UserSettings.preventScreenLockOnMap
+
+        // How should we orient the map? North or Direction of Travel?
+        if (UserSettings.mapOrientation == MapDirectionOfTravel.directionOfTravel.rawValue) {
+            mapView.locationDisplay.autoPanMode = AGSLocationDisplayAutoPanMode.navigation
+        } else {
+            mapView.locationDisplay.autoPanMode = AGSLocationDisplayAutoPanMode.recenter
+            mapView.setViewpointRotation(0.0, completion: nil)
+        }
+        
         mapView.locationDisplay.initialZoomScale = 20000
-        mapView.locationDisplay.autoPanMode = AGSLocationDisplayAutoPanMode.recenter
-        
         mapView.locationDisplay.useCourseSymbolOnMovement = true
-        
+                
         mapView.locationDisplay.start { [weak self] (error:Error?) -> Void in
             if let error = error {
                 // TODO: Show an alert through a centralized infrastructure
@@ -77,13 +97,22 @@ class MapViewController: UIViewController {
         }
     }
     
+    @objc
+    func userDefaultsDidChange(_ notification: Notification) {
+        // TODO: Make this more targeted by observing on the values we care about in UserDefaults
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
+                                      execute: {
+                                        self.displayCurrentLocation()
+                                        self.centerMapOnCurrentLocation()
+        })
+    }
+    
     // MARK: Button Action Methods
     
     @IBAction func infoButtonTapped(_ sender: Any) {
         let mapSettingsViewController = MapSettingsViewController()
         let navController = UINavigationController(rootViewController: mapSettingsViewController)
-        
-        
         present(navController, animated: true, completion: nil)
     }
     
