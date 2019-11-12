@@ -5,6 +5,9 @@ import ArcGIS
 class ViewController: UIViewController {
 
     @IBOutlet weak var mapView: AGSMapView!
+    
+    // MARK: ViewController overrides
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,6 +28,12 @@ class ViewController: UIViewController {
         displayCurrentLocation()
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+
+    // MARK: --
+    
     /**
      * Load the default Bike Streets map from KML resources files bundled into the app
      */
@@ -49,6 +58,8 @@ class ViewController: UIViewController {
         mapView.locationDisplay.initialZoomScale = 20000
         mapView.locationDisplay.autoPanMode = AGSLocationDisplayAutoPanMode.recenter
         
+        mapView.locationDisplay.useCourseSymbolOnMovement = true
+        
         mapView.locationDisplay.start { [weak self] (error:Error?) -> Void in
             if let error = error {
                 // TODO: Show an alert through a centralized infrastructure
@@ -66,11 +77,7 @@ class ViewController: UIViewController {
         }
     }
     
-    // MARK: View Controller Overrides
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    // MARK: Button Action Methods
     
     @IBAction func infoButtonTapped(_ sender: Any) {
     }
