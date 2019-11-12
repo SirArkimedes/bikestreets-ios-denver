@@ -6,7 +6,7 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: AGSMapView!
     
-    // MARK: ViewController overrides
+    // MARK: UIViewController overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +80,11 @@ class MapViewController: UIViewController {
     // MARK: Button Action Methods
     
     @IBAction func infoButtonTapped(_ sender: Any) {
+        let mapSettingsViewController = MapSettingsViewController()
+        let navController = UINavigationController(rootViewController: mapSettingsViewController)
+        
+        
+        present(navController, animated: true, completion: nil)
     }
     
     @IBAction func locationButtonTapped(_ sender: Any) {

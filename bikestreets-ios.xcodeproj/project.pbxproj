@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4D32C50D23634E0400D59696 /* ArcGISAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D32C50C23634E0300D59696 /* ArcGISAuth.swift */; };
+		4D7FDD56237B1872002FFE23 /* MapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */; };
 		4DD9034C2342EF49001C7093 /* ArcGISConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD9034B2342EF49001C7093 /* ArcGISConfiguration.swift */; };
 		4DDE54B7233EBB0C0051BF83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */; };
 		4DDE54B9233EBB0C0051BF83 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54B8233EBB0C0051BF83 /* MapViewController.swift */; };
@@ -47,6 +48,7 @@
 		42BA69389DBF12EC6C40C4DF /* Pods-bikestreets-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bikestreets-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-bikestreets-iosTests/Pods-bikestreets-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		45F55165BA578AB0E111F4DC /* Pods_bikestreets_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bikestreets_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D32C50C23634E0300D59696 /* ArcGISAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcGISAuth.swift; sourceTree = "<group>"; };
+		4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSettingsViewController.swift; sourceTree = "<group>"; };
 		4DD9034B2342EF49001C7093 /* ArcGISConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcGISConfiguration.swift; sourceTree = "<group>"; };
 		4DDE54B3233EBB0C0051BF83 /* Bike Streets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bike Streets.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -153,11 +155,12 @@
 		4DDE54B5233EBB0C0051BF83 /* bikestreets-ios */ = {
 			isa = PBXGroup;
 			children = (
-				4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */,
-				4DDE54B8233EBB0C0051BF83 /* MapViewController.swift */,
-				4DDE54BA233EBB0C0051BF83 /* Main.storyboard */,
-				4DDE54BD233EBB0C0051BF83 /* Assets.xcassets */,
 				4DDE54BF233EBB0C0051BF83 /* LaunchScreen.storyboard */,
+				4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */,
+				4DDE54BA233EBB0C0051BF83 /* Main.storyboard */,
+				4DDE54B8233EBB0C0051BF83 /* MapViewController.swift */,
+				4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */,
+				4DDE54BD233EBB0C0051BF83 /* Assets.xcassets */,
 				4DDE54C2233EBB0C0051BF83 /* Info.plist */,
 				4DD903492342EF1D001C7093 /* Classes */,
 				4DDE54E4233EC12A0051BF83 /* Resources */,
@@ -455,6 +458,7 @@
 				4DDE54B9233EBB0C0051BF83 /* MapViewController.swift in Sources */,
 				4DD9034C2342EF49001C7093 /* ArcGISConfiguration.swift in Sources */,
 				4D32C50D23634E0400D59696 /* ArcGISAuth.swift in Sources */,
+				4D7FDD56237B1872002FFE23 /* MapSettingsViewController.swift in Sources */,
 				4DDE54B7233EBB0C0051BF83 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
