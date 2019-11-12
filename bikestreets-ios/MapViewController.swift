@@ -2,7 +2,7 @@
 import UIKit
 import ArcGIS
 
-class ViewController: UIViewController {
+class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: AGSMapView!
     

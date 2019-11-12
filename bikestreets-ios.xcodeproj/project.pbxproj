@@ -10,7 +10,7 @@
 		4D32C50D23634E0400D59696 /* ArcGISAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D32C50C23634E0300D59696 /* ArcGISAuth.swift */; };
 		4DD9034C2342EF49001C7093 /* ArcGISConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD9034B2342EF49001C7093 /* ArcGISConfiguration.swift */; };
 		4DDE54B7233EBB0C0051BF83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */; };
-		4DDE54B9233EBB0C0051BF83 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54B8233EBB0C0051BF83 /* ViewController.swift */; };
+		4DDE54B9233EBB0C0051BF83 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54B8233EBB0C0051BF83 /* MapViewController.swift */; };
 		4DDE54BC233EBB0C0051BF83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54BA233EBB0C0051BF83 /* Main.storyboard */; };
 		4DDE54BE233EBB0C0051BF83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54BD233EBB0C0051BF83 /* Assets.xcassets */; };
 		4DDE54C1233EBB0C0051BF83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54BF233EBB0C0051BF83 /* LaunchScreen.storyboard */; };
@@ -50,7 +50,7 @@
 		4DD9034B2342EF49001C7093 /* ArcGISConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcGISConfiguration.swift; sourceTree = "<group>"; };
 		4DDE54B3233EBB0C0051BF83 /* Bike Streets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bike Streets.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4DDE54B8233EBB0C0051BF83 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4DDE54B8233EBB0C0051BF83 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4DDE54BB233EBB0C0051BF83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4DDE54BD233EBB0C0051BF83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4DDE54C0233EBB0C0051BF83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */,
-				4DDE54B8233EBB0C0051BF83 /* ViewController.swift */,
+				4DDE54B8233EBB0C0051BF83 /* MapViewController.swift */,
 				4DDE54BA233EBB0C0051BF83 /* Main.storyboard */,
 				4DDE54BD233EBB0C0051BF83 /* Assets.xcassets */,
 				4DDE54BF233EBB0C0051BF83 /* LaunchScreen.storyboard */,
@@ -452,7 +452,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DDE54B9233EBB0C0051BF83 /* ViewController.swift in Sources */,
+				4DDE54B9233EBB0C0051BF83 /* MapViewController.swift in Sources */,
 				4DD9034C2342EF49001C7093 /* ArcGISConfiguration.swift in Sources */,
 				4D32C50D23634E0400D59696 /* ArcGISAuth.swift in Sources */,
 				4DDE54B7233EBB0C0051BF83 /* AppDelegate.swift in Sources */,
