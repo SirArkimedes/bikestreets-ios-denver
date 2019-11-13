@@ -12,9 +12,9 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let defaultLatitude = 39.7430
-        let defaultLongitude = -104.9706
-        let defaultDetailLevel = 11
+        let defaultLatitude = 39.7390
+        let defaultLongitude = -104.9911
+        let defaultDetailLevel = 15
         
         // Display a map using the ArcGIS Online imagery basemap service
         mapView.map = AGSMap(basemapType: .lightGrayCanvas,
@@ -31,7 +31,7 @@ class MapViewController: UIViewController {
         
         displayCurrentLocation()
         centerMapOnCurrentLocation()
-        
+
         buttonWrapperView.layer.cornerRadius = 5.0
         buttonWrapperView.layer.masksToBounds = true
         
@@ -68,9 +68,7 @@ class MapViewController: UIViewController {
         return kmlLayer
     }
     
-    func displayCurrentLocation() {
-        mapView.locationDisplay.stop()
-
+    func configureMapPerspective() {
         // Do we need to prevent the screen from locking?
         UIApplication.shared.isIdleTimerDisabled = UserSettings.preventScreenLockOnMap
 
@@ -81,8 +79,9 @@ class MapViewController: UIViewController {
             mapView.locationDisplay.autoPanMode = AGSLocationDisplayAutoPanMode.recenter
             mapView.setViewpointRotation(0.0, completion: nil)
         }
-        
-        mapView.locationDisplay.initialZoomScale = 20000
+    }
+    
+    func displayCurrentLocation() {
         mapView.locationDisplay.useCourseSymbolOnMovement = true
                 
         mapView.locationDisplay.start { [weak self] (error:Error?) -> Void in
@@ -108,7 +107,7 @@ class MapViewController: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
                                       execute: {
-                                        self.displayCurrentLocation()
+                                        self.configureMapPerspective()
                                         self.centerMapOnCurrentLocation()
         })
     }
