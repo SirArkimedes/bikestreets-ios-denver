@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
         let defaultDetailLevel = 15
         
         // Display a map using the ArcGIS Online imagery basemap service
-        mapView.map = AGSMap(basemapType: .lightGrayCanvas,
+        mapView.map = AGSMap(basemapType: .lightGrayCanvasVector,
                              latitude: defaultLatitude,
                              longitude: defaultLongitude,
                              levelOfDetail: defaultDetailLevel)
