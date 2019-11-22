@@ -32,6 +32,9 @@ struct UserSettingStorage<T> {
  * Simple class to store user settings such as map preferences, whether the user accepted ToS, etc.
  */
 struct UserSettings {
+    @UserSettingStorage(key: "mapviewtype_key", defaultValue: MapViewType.map.rawValue)
+    static var mapViewType: String
+    
     @UserSettingStorage(key: "maporientation_key", defaultValue: MapDirectionOfTravel.north.rawValue)
     static var mapOrientation: String
     

@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
         let defaultDetailLevel = 15
         
         // Display a map using the ArcGIS Online imagery basemap service
-        mapView.map = AGSMap(basemapType: .lightGrayCanvasVector,
+        mapView.map = AGSMap(basemapType: .imageryWithLabelsVector,
                              latitude: defaultLatitude,
                              longitude: defaultLongitude,
                              levelOfDetail: defaultDetailLevel)
@@ -69,6 +69,12 @@ class MapViewController: UIViewController {
     }
     
     func configureMapPerspective() {
+        if UserSettings.mapViewType == MapViewType.satellite.rawValue {
+            mapView.map?.basemap = .imageryWithLabelsVector()
+        } else {
+            mapView.map?.basemap = .lightGrayCanvasVector()
+        }
+        
         // Do we need to prevent the screen from locking?
         UIApplication.shared.isIdleTimerDisabled = UserSettings.preventScreenLockOnMap
 

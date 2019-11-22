@@ -2,8 +2,14 @@
 import UIKit
 
 enum MapSettingsSections: Int {
-    case orientation = 0
-    case other = 1
+    case viewType = 0
+    case orientation = 1
+    case other = 2
+}
+
+enum MapViewType: String {
+    case map = "map"
+    case satellite = "satellite"
 }
 
 enum MapDirectionOfTravel: String {
@@ -29,11 +35,13 @@ class MapSettingsViewController: UITableViewController {
     // MARK: UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
+        case MapSettingsSections.viewType.rawValue:
+            return NSLocalizedString("View:", comment: "")
         case MapSettingsSections.orientation.rawValue:
             return NSLocalizedString("Orient Map to:", comment: "")
         case MapSettingsSections.other.rawValue:
@@ -45,6 +53,8 @@ class MapSettingsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
+        case MapSettingsSections.viewType.rawValue:
+            return 2
         case MapSettingsSections.orientation.rawValue:
             return 2
         case MapSettingsSections.other.rawValue:
@@ -56,6 +66,21 @@ class MapSettingsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
+        case MapSettingsSections.viewType.rawValue:
+            let mapViewType = UserSettings.mapViewType
+            
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "checkmark")
+            cell.selectionStyle = .none
+            if indexPath.row == 0 {
+                cell.textLabel?.text = NSLocalizedString("Map", comment: "")
+                cell.accessoryType = (mapViewType == MapViewType.map.rawValue) ? .checkmark : .none
+            } else {
+                cell.textLabel?.text = NSLocalizedString("Satellite", comment: "")
+                cell.accessoryType = (mapViewType == MapViewType.satellite.rawValue) ? .checkmark : .none
+            }
+
+            return cell
+
         case MapSettingsSections.orientation.rawValue:
             let orientation = UserSettings.mapOrientation
             
@@ -92,6 +117,17 @@ class MapSettingsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
+        case MapSettingsSections.viewType.rawValue:
+            // Save the change
+            if indexPath.row == 0 {
+                UserSettings.mapViewType = MapViewType.map.rawValue
+            } else {
+                UserSettings.mapViewType = MapViewType.satellite.rawValue
+            }
+
+            // Update the UI
+            checkOnlyCellAt(indexPath: indexPath, in: tableView)
+            
         case MapSettingsSections.orientation.rawValue:
             // Save the change
             if indexPath.row == 0 {
