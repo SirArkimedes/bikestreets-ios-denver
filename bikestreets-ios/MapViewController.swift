@@ -9,18 +9,22 @@ class MapViewController: UIViewController {
     
     // MARK: UIViewController overrides
     
+    struct MapViewDefaults {
+        static let basemapType = AGSBasemapType.lightGrayCanvasVector
+        static let latitude = 39.7390
+        static let longitude = -104.9911
+        static let detailLevel = 15
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let defaultLatitude = 39.7390
-        let defaultLongitude = -104.9911
-        let defaultDetailLevel = 15
         
         // Display a map using the ArcGIS Online imagery basemap service
-        mapView.map = AGSMap(basemapType: .imageryWithLabelsVector,
-                             latitude: defaultLatitude,
-                             longitude: defaultLongitude,
-                             levelOfDetail: defaultDetailLevel)
+        mapView.map = AGSMap(basemapType: MapViewDefaults.basemapType,
+                             latitude: MapViewDefaults.latitude,
+                             longitude: MapViewDefaults.longitude,
+                             levelOfDetail: MapViewDefaults.detailLevel)
         
         
         loadMapFromShippedResources()
