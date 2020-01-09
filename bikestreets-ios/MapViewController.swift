@@ -7,6 +7,10 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: AGSMapView!
     @IBOutlet weak var buttonWrapperView: UIView!
     
+    var mapViewTypeObserver: NSObject?
+    var mapOrientationObserver: NSObject?
+    var keepScreenOnObserver: NSObject?
+    
     // MARK: UIViewController overrides
     
     struct MapViewDefaults {
@@ -40,6 +44,7 @@ class MapViewController: UIViewController {
 
         // Configure
         configureMapPerspective()
+        configureKeepScreenOn()
         
         mapView.locationDisplay.useCourseSymbolOnMovement = true
 
@@ -54,12 +59,8 @@ class MapViewController: UIViewController {
         // Style the buttons
         buttonWrapperView.layer.cornerRadius = 5.0
         buttonWrapperView.layer.masksToBounds = true
-        
-        // Notify us about changes to UserDefaults
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(userDefaultsDidChange),
-                                               name: UserDefaults.didChangeNotification,
-                                               object: nil)
+     
+        configureUserSettingObservers()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -89,19 +90,35 @@ class MapViewController: UIViewController {
     }
     
     /**
+     * Street or Satellite view?
+     */
+    func changeBaseMapType() {
+        if UserSettings.mapViewType == MapViewType.satellite.rawValue {
+            mapView.map?.basemap = .imageryWithLabelsVector()
+        } else {
+            mapView.map?.basemap = .lightGrayCanvasVector()
+        }
+    }
+    
+    /**
      * Change the map's perspective depending upon the user setting
      */
-    func configureMapPerspective() {
-        // Do we need to prevent the screen from locking?
-        UIApplication.shared.isIdleTimerDisabled = UserSettings.preventScreenLockOnMap
-
+    func configureMapPerspective(isChange: Bool = false) {
         // How should we orient the map? North or Direction of Travel?
         if (UserSettings.mapOrientation == MapDirectionOfTravel.directionOfTravel.rawValue) {
             mapView.locationDisplay.autoPanMode = AGSLocationDisplayAutoPanMode.navigation
         } else {
             mapView.locationDisplay.autoPanMode = AGSLocationDisplayAutoPanMode.recenter
-//            mapView.setViewpointRotation(0.0, completion: nil) // Cannot do this until after location has been determined
+            if isChange {
+                mapView.setViewpointRotation(0.0, completion: nil)
+                centerMapOnCurrentLocation()
+            }
         }
+    }
+    
+    func configureKeepScreenOn() {
+        // Do we need to prevent the screen from locking?
+        UIApplication.shared.isIdleTimerDisabled = UserSettings.preventScreenLockOnMap
     }
     
     /**
@@ -114,26 +131,30 @@ class MapViewController: UIViewController {
         }
     }
     
-    /**
-     * Street or Satellite view?
-     */
-    func changeBaseMapType() {
-        if UserSettings.mapViewType == MapViewType.satellite.rawValue {
-            mapView.map?.basemap = .imageryWithLabelsVector()
-        } else {
-            mapView.map?.basemap = .lightGrayCanvasVector()
+    // MARK:
+    func configureUserSettingObservers() {
+        // Watch for changes to the UserSettings
+        mapViewTypeObserver = UserSettings.$mapViewType.observe { [weak self] old, new in
+            guard let strongSelf = self else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
+                                          execute: {
+                                            strongSelf.changeBaseMapType()
+            })
         }
-    }
-    
-    @objc
-    func userDefaultsDidChange(_ notification: Notification) {
-        // TODO: Make this more targeted by observing on the values we care about in UserDefaults
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
-                                      execute: {
-                                        self.changeBaseMapType()
-                                        self.configureMapPerspective()
-        })
+        mapOrientationObserver = UserSettings.$mapOrientation.observe { [weak self] old, new in
+            guard let strongSelf = self else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
+                                          execute: {
+                                            strongSelf.configureMapPerspective(isChange: true)
+            })
+        }
+        keepScreenOnObserver = UserSettings.$preventScreenLockOnMap.observe { [weak self] old, new in
+            guard let strongSelf = self else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
+                                          execute: {
+                                            strongSelf.configureKeepScreenOn()
+            })
+        }
     }
     
     // MARK: Button Action Methods
