@@ -110,6 +110,8 @@ class MapViewController: UIViewController {
         } else {
             mapView.locationDisplay.autoPanMode = AGSLocationDisplayAutoPanMode.recenter
             if isChange {
+                // We should not change the viewpoint rotation & (re)center the map unless this is a change
+                // in map perspective.
                 mapView.setViewpointRotation(0.0, completion: nil)
                 centerMapOnCurrentLocation()
             }
