@@ -7,10 +7,12 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: AGSMapView!
     @IBOutlet weak var buttonWrapperView: UIView!
     
+    // Array to hold on to observer objects for watching changes to UserDefaults
     var userSettingObservers: [NSObject]?
-    
-    // MARK: UIViewController overrides
-    
+        
+    /**
+     * Defaults for the map view
+     */
     struct MapViewDefaults {
         static let basemapType = AGSBasemapType.lightGrayCanvasVector
         static let latitude = 39.7390
@@ -18,6 +20,7 @@ class MapViewController: UIViewController {
         static let detailLevel = 15
     }
     
+    // MARK: UIViewController overrides
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -116,8 +119,10 @@ class MapViewController: UIViewController {
         }
     }
     
+    /**
+     * Do we need to prevent the screen from locking?
+     */
     func configureKeepScreenOn() {
-        // Do we need to prevent the screen from locking?
         UIApplication.shared.isIdleTimerDisabled = UserSettings.preventScreenLockOnMap
     }
     
@@ -131,9 +136,10 @@ class MapViewController: UIViewController {
         }
     }
     
-    // MARK:
+    /**
+     * Watch for changes to the UserSettings
+     */
     func configureUserSettingObservers() {
-        // Watch for changes to the UserSettings
         var observer = UserSettings.$mapViewType.observe { [weak self] old, new in
             guard let strongSelf = self else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
