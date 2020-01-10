@@ -51,6 +51,7 @@ class MapViewController: UIViewController {
 
         // Begin the location display (ie show the little dot with the user's location)
         mapView.locationDisplay.start { [weak self] (error:Error?) -> Void in
+            guard let strongSelf = self else { return }
             if let error = error {
                 // TODO: Show an alert through a centralized infrastructure
 //                self?.showAlert(withStatus: error.localizedDescription)
