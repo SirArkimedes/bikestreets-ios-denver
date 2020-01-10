@@ -131,8 +131,7 @@ class MapViewController: UIViewController {
      */
     func centerMapOnCurrentLocation() {
         if let currentPosition = mapView.locationDisplay.location?.position {
-            mapView.setViewpointCenter(currentPosition) { [weak self] (finished: Bool) in
-            }
+            mapView.setViewpointCenter(currentPosition)
         }
     }
     
