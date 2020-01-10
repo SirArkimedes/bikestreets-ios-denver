@@ -7,9 +7,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: AGSMapView!
     @IBOutlet weak var buttonWrapperView: UIView!
     
-    var mapViewTypeObserver: NSObject?
-    var mapOrientationObserver: NSObject?
-    var keepScreenOnObserver: NSObject?
+    var userSettingObservers: [NSObject]?
     
     // MARK: UIViewController overrides
     
@@ -136,27 +134,30 @@ class MapViewController: UIViewController {
     // MARK:
     func configureUserSettingObservers() {
         // Watch for changes to the UserSettings
-        mapViewTypeObserver = UserSettings.$mapViewType.observe { [weak self] old, new in
+        var observer = UserSettings.$mapViewType.observe { [weak self] old, new in
             guard let strongSelf = self else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
                                           execute: {
                                             strongSelf.changeBaseMapType()
             })
         }
-        mapOrientationObserver = UserSettings.$mapOrientation.observe { [weak self] old, new in
+        userSettingObservers?.append(observer)
+        observer = UserSettings.$mapOrientation.observe { [weak self] old, new in
             guard let strongSelf = self else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
                                           execute: {
                                             strongSelf.configureMapPerspective(isChange: true)
             })
         }
-        keepScreenOnObserver = UserSettings.$preventScreenLockOnMap.observe { [weak self] old, new in
+        userSettingObservers?.append(observer)
+        observer = UserSettings.$preventScreenLockOnMap.observe { [weak self] old, new in
             guard let strongSelf = self else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
                                           execute: {
                                             strongSelf.configureKeepScreenOn()
             })
         }
+        userSettingObservers?.append(observer)
     }
     
     // MARK: Button Action Methods
