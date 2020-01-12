@@ -1,6 +1,8 @@
 # Cocoapods
 Pods/
 
+**/.DS_Store
+
 # User Data
 xcuserdata/
 bikestreets-ios.xcworkspace/xcuserdata/
