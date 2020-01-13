@@ -13,6 +13,7 @@
 		4D212A9A23CCDADC0085B916 /* 5-walk-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 4D212A9923CCDADC0085B916 /* 5-walk-master-v0.3.geojson */; };
 		4D212A9C23CCDB600085B916 /* 2-trails-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 4D212A9B23CCDB600085B916 /* 2-trails-master-v0.3.geojson */; };
 		4D212A9E23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 4D212A9D23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson */; };
+		4D212AA023CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 4D212A9F23CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson */; };
 		4D32C50D23634E0400D59696 /* ArcGISAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D32C50C23634E0300D59696 /* ArcGISAuth.swift */; };
 		4D7FDD56237B1872002FFE23 /* MapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */; };
 		4D7FDD59237B3120002FFE23 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FDD58237B3120002FFE23 /* UserSettings.swift */; };
@@ -63,6 +64,7 @@
 		4D212A9923CCDADC0085B916 /* 5-walk-master-v0.3.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-walk-master-v0.3.geojson"; sourceTree = "<group>"; };
 		4D212A9B23CCDB600085B916 /* 2-trails-master-v0.3.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-trails-master-v0.3.geojson"; sourceTree = "<group>"; };
 		4D212A9D23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3-bikelanes-master-v0.3.geojson"; sourceTree = "<group>"; };
+		4D212A9F23CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "4-bikesidewalks-master-v0.3.geojson"; sourceTree = "<group>"; };
 		4D32C50C23634E0300D59696 /* ArcGISAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcGISAuth.swift; sourceTree = "<group>"; };
 		4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSettingsViewController.swift; sourceTree = "<group>"; };
 		4D7FDD58237B3120002FFE23 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				4D212A9623CC1E790085B916 /* 1-bikestreets-master-v0.3.geojson */,
 				4D212A9B23CCDB600085B916 /* 2-trails-master-v0.3.geojson */,
 				4D212A9D23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson */,
+				4D212A9F23CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson */,
 				4D212A9923CCDADC0085B916 /* 5-walk-master-v0.3.geojson */,
 			);
 			path = geojson;
@@ -344,6 +347,7 @@
 				4DDE54BE233EBB0C0051BF83 /* Assets.xcassets in Resources */,
 				4D212A9A23CCDADC0085B916 /* 5-walk-master-v0.3.geojson in Resources */,
 				4D212A9E23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson in Resources */,
+				4D212AA023CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson in Resources */,
 				4DDE54BC233EBB0C0051BF83 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
