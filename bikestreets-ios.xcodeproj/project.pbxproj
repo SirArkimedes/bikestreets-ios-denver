@@ -580,6 +580,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.3;
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bikestreets.bikestreets-ios";
 				PRODUCT_NAME = "Bike Streets";
 				SWIFT_VERSION = 5.0;
@@ -604,6 +605,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.3;
+				OTHER_SWIFT_FLAGS = "-DRELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bikestreets.bikestreets-ios";
 				PRODUCT_NAME = "Bike Streets";
 				SWIFT_VERSION = 5.0;

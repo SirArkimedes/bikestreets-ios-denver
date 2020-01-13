@@ -6,6 +6,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
 
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var buttonWrapperView: UIView!
+    @IBOutlet weak var debugInfoLabel: UILabel!
     
     // Array to hold on to observer objects for watching changes to UserDefaults
     var userSettingObservers: [NSObject]?
@@ -50,6 +51,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         buttonWrapperView.layer.masksToBounds = true
      
         configureUserSettingObservers()
+        
+        #if DEBUG
+        debugInfoLabel.isHidden = false
+        #else
+        debugInfoLabel.isHidden = true
+        #endif
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -62,6 +69,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         // Wait until the map is loaded before adding to the map.
         loadMapFromShippedResources()
     }
+    
+    #if DEBUG
+    func mapViewRegionIsChanging(_ mapView: MGLMapView) {
+        debugInfoLabel.text = "Zoom Level: \(mapView.zoomLevel.rounded())"
+    }
+    #endif
     
     // MARK: - Load Bike Streets Data
     
