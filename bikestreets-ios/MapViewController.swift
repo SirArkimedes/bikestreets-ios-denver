@@ -112,15 +112,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         
         switch layerName {
         case "bikestreets":
-            layer = BikeStreetsStyles.bikeStreetsStyleLayer(withIdentifier: layerName, source: source)
+            layer = BikeStreetsStyles.bikeStreetStyleLayer(withIdentifier: layerName, source: source)
         case "trails":
-            layer = BikeStreetsStyles.trailsStyleLayer(withIdentifier: layerName, source: source)
+            layer = BikeStreetsStyles.trailStyleLayer(withIdentifier: layerName, source: source)
         case "bikelanes":
-            layer = BikeStreetsStyles.bikeStreetsStyleLayer(withIdentifier: layerName, source: source)
+            layer = BikeStreetsStyles.bikeLaneStyleLayer(withIdentifier: layerName, source: source)
         case "bikesidewalks":
-            layer = BikeStreetsStyles.bikeStreetsStyleLayer(withIdentifier: layerName, source: source)
+            layer = BikeStreetsStyles.bikeStreetStyleLayer(withIdentifier: layerName, source: source)
         case "walk":
-            layer = BikeStreetsStyles.bikeStreetsStyleLayer(withIdentifier: layerName, source: source)
+            layer = BikeStreetsStyles.walkStyleLayer(withIdentifier: layerName, source: source)
         default:
             fatalError("ack")
         }
@@ -243,24 +243,29 @@ private extension String {
 }
 
 struct BikeStreetsStyles {
-    static func bikeStreetsStyleLayer(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
-       // Create new layer for the line.
-       let layer = MGLLineStyleLayer(identifier: identifier, source: source)
+    static let bikeStreetBlue = UIColor(red: 0/255, green: 0/255, blue: 255/255, alpha: 0.7)
+    static let trailGreen = UIColor(red: 0/255, green: 178/255, blue: 0/255, alpha: 0.7)
+    static let bikeLaneOrange = UIColor(red: 216/255, green: 146/255, blue: 15/255, alpha: 0.7)
+    static let walkBlack = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
+
+    // Use `NSExpression` to smoothly adjust the line width from 2pt to 20pt between zoom levels 14 and 18. The `interpolationBase` parameter allows the values to interpolate along an exponential curve.
+    static let lineWidth =  NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
+          [14: 2, 18: 8])
     
-       // Set the line join and cap to a rounded end.
-       layer.lineJoin = NSExpression(forConstantValue: "round")
-       layer.lineCap = NSExpression(forConstantValue: "round")
+    static func bikeStreetStyleLayer(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
+        // Create new layer for the line.
+        let layer = MGLLineStyleLayer(identifier: identifier, source: source)
     
-       // Set the line color to a constant blue color.
-       layer.lineColor = NSExpression(forConstantValue: UIColor(red: 59/255, green: 178/255, blue: 208/255, alpha: 1))
+        // Set the line join and cap to a rounded end.
+        layer.lineJoin = NSExpression(forConstantValue: "round")
+        layer.lineCap = NSExpression(forConstantValue: "round")
     
-       // Use `NSExpression` to smoothly adjust the line width from 2pt to 20pt between zoom levels 14 and 18. The `interpolationBase` parameter allows the values to interpolate along an exponential curve.
-       layer.lineWidth = NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
-       [14: 2, 18: 20])
+        layer.lineColor = NSExpression(forConstantValue: bikeStreetBlue)
+        layer.lineWidth = lineWidth
                 
         return layer
     }
-    static func trailsStyleLayer(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
+    static func trailStyleLayer(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
        // Create new layer for the line.
        let layer = MGLLineStyleLayer(identifier: identifier, source: source)
     
@@ -268,12 +273,34 @@ struct BikeStreetsStyles {
        layer.lineJoin = NSExpression(forConstantValue: "round")
        layer.lineCap = NSExpression(forConstantValue: "round")
     
-       // Set the line color to a constant blue color.
-       layer.lineColor = NSExpression(forConstantValue: UIColor(red: 0/255, green: 178/255, blue: 0/255, alpha: 1))
+       layer.lineColor = NSExpression(forConstantValue: trailGreen)
+       layer.lineWidth = lineWidth
+                
+        return layer
+    }
+    static func bikeLaneStyleLayer(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
+       // Create new layer for the line.
+       let layer = MGLLineStyleLayer(identifier: identifier, source: source)
     
-       // Use `NSExpression` to smoothly adjust the line width from 2pt to 20pt between zoom levels 14 and 18. The `interpolationBase` parameter allows the values to interpolate along an exponential curve.
-       layer.lineWidth = NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
-       [14: 2, 18: 20])
+       // Set the line join and cap to a rounded end.
+       layer.lineJoin = NSExpression(forConstantValue: "round")
+       layer.lineCap = NSExpression(forConstantValue: "round")
+    
+       layer.lineColor = NSExpression(forConstantValue: bikeLaneOrange)
+       layer.lineWidth = lineWidth
+                
+        return layer
+    }
+    static func walkStyleLayer(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
+       // Create new layer for the line.
+       let layer = MGLLineStyleLayer(identifier: identifier, source: source)
+    
+       // Set the line join and cap to a rounded end.
+       layer.lineJoin = NSExpression(forConstantValue: "round")
+       layer.lineCap = NSExpression(forConstantValue: "round")
+    
+       layer.lineColor = NSExpression(forConstantValue: walkBlack)
+       layer.lineWidth = lineWidth
                 
         return layer
     }
