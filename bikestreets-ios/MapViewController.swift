@@ -96,42 +96,32 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     }
  
     func loadMapLayerFrom(_ fileURL: URL) {
-        let layerName = fileURL.lastPathComponent.layerName()
+        // MGLMapView.style is optional, so you must guard against it not being set.
+        guard let style = self.mapView.style else {
+            return
+        }
         
+        // Get the layer name from the file name. We'll use it in a couple of places
+        guard let layerName = fileURL.lastPathComponent.layerName() else {
+            fatalError("Unable to locate layer name in file name \(fileURL.lastPathComponent)")
+        }
 
+        // Get the geoJSON out of the file
         guard let jsonData = try? Data(contentsOf: fileURL) else {
             preconditionFailure("Failed to parse GeoJSON file")
         }
         
+        // Parse the geoJSON into a Shape object
         guard let shapeFromGeoJSON = try? MGLShape(data: jsonData, encoding: String.Encoding.utf8.rawValue) else {
             fatalError("Could not generate MGLShape")
         }
         
         let source = MGLShapeSource(identifier: layerName, shape: shapeFromGeoJSON, options: nil)
-        let layer: MGLStyleLayer!
+        let layer = BikeStreetsStyles.style(forLayer: layerName, source: source)
         
-        switch layerName {
-        case "bikestreets":
-            layer = BikeStreetsStyles.bikeStreetStyleLayer(withIdentifier: layerName, source: source)
-        case "trails":
-            layer = BikeStreetsStyles.trailStyleLayer(withIdentifier: layerName, source: source)
-        case "bikelanes":
-            layer = BikeStreetsStyles.bikeLaneStyleLayer(withIdentifier: layerName, source: source)
-        case "bikesidewalks":
-            layer = BikeStreetsStyles.bikeStreetStyleLayer(withIdentifier: layerName, source: source)
-        case "walk":
-            layer = BikeStreetsStyles.walkStyleLayer(withIdentifier: layerName, source: source)
-        default:
-            fatalError("ack")
-        }
-
         DispatchQueue.main.async {
             // Add our GeoJSON data to the map as an MGLGeoJSONSource.
             // We can then reference this data from an MGLStyleLayer.
-        
-            // MGLMapView.style is optional, so you must guard against it not being set.
-            guard let style = self.mapView.style else { return }
-        
             style.addSource(source)
             style.addLayer(layer)
         }
@@ -236,9 +226,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
 }
 
 private extension String {
-    func layerName() -> String {
+    func layerName() -> String? {
         let fileNameComponents = components(separatedBy: "-")
-        return fileNameComponents[1]
+        if fileNameComponents.count >= 2 {
+            return fileNameComponents[1]
+        }
+        return nil
     }
 }
 
@@ -252,56 +245,33 @@ struct BikeStreetsStyles {
     static let lineWidth =  NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
           [14: 2, 18: 8])
     
-    static func bikeStreetStyleLayer(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
+    static func style(forLayer layerName: String, source: MGLShapeSource) -> MGLStyleLayer {
         // Create new layer for the line.
-        let layer = MGLLineStyleLayer(identifier: identifier, source: source)
-    
+        let layer = MGLLineStyleLayer(identifier: layerName, source: source)
+        
         // Set the line join and cap to a rounded end.
         layer.lineJoin = NSExpression(forConstantValue: "round")
         layer.lineCap = NSExpression(forConstantValue: "round")
-    
-        layer.lineColor = NSExpression(forConstantValue: bikeStreetBlue)
+        
+        let lineColor: UIColor!
+        switch layerName {
+        case "trails":
+            lineColor = trailGreen
+        case "bikelanes":
+            lineColor = bikeLaneOrange
+        case "bikesidewalks":
+            lineColor = bikeStreetBlue
+        case "walk":
+            lineColor = walkBlack
+        case "bikestreets":
+            fallthrough
+        default:
+            lineColor = bikeStreetBlue
+        }
+
+        layer.lineColor = NSExpression(forConstantValue: lineColor)
         layer.lineWidth = lineWidth
-                
-        return layer
-    }
-    static func trailStyleLayer(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
-       // Create new layer for the line.
-       let layer = MGLLineStyleLayer(identifier: identifier, source: source)
-    
-       // Set the line join and cap to a rounded end.
-       layer.lineJoin = NSExpression(forConstantValue: "round")
-       layer.lineCap = NSExpression(forConstantValue: "round")
-    
-       layer.lineColor = NSExpression(forConstantValue: trailGreen)
-       layer.lineWidth = lineWidth
-                
-        return layer
-    }
-    static func bikeLaneStyleLayer(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
-       // Create new layer for the line.
-       let layer = MGLLineStyleLayer(identifier: identifier, source: source)
-    
-       // Set the line join and cap to a rounded end.
-       layer.lineJoin = NSExpression(forConstantValue: "round")
-       layer.lineCap = NSExpression(forConstantValue: "round")
-    
-       layer.lineColor = NSExpression(forConstantValue: bikeLaneOrange)
-       layer.lineWidth = lineWidth
-                
-        return layer
-    }
-    static func walkStyleLayer(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
-       // Create new layer for the line.
-       let layer = MGLLineStyleLayer(identifier: identifier, source: source)
-    
-       // Set the line join and cap to a rounded end.
-       layer.lineJoin = NSExpression(forConstantValue: "round")
-       layer.lineCap = NSExpression(forConstantValue: "round")
-    
-       layer.lineColor = NSExpression(forConstantValue: walkBlack)
-       layer.lineWidth = lineWidth
-                
+                    
         return layer
     }
 }
