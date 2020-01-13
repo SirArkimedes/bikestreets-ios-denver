@@ -76,34 +76,52 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         DispatchQueue.global().async {
             if let fileURLs = Bundle.main.urls(forResourcesWithExtension: "geojson", subdirectory: nil) {
                 for fileURL in fileURLs {
-                    guard let jsonData = try? Data(contentsOf: fileURL) else {
-                        preconditionFailure("Failed to parse GeoJSON file")
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.drawPolyline(withIdentifier: fileURL.lastPathComponent, geoJson: jsonData)
-                    }
+                    self.loadMapLayerFrom(fileURL)
                 }
             }
         }
     }
  
-    func drawPolyline(withIdentifier identifier: String, geoJson: Data) {
-        // Add our GeoJSON data to the map as an MGLGeoJSONSource.
-        // We can then reference this data from an MGLStyleLayer.
-     
-        // MGLMapView.style is optional, so you must guard against it not being set.
-        guard let style = self.mapView.style else { return }
-     
-        guard let shapeFromGeoJSON = try? MGLShape(data: geoJson, encoding: String.Encoding.utf8.rawValue) else {
+    func loadMapLayerFrom(_ fileURL: URL) {
+        let layerName = fileURL.lastPathComponent.layerName()
+        
+
+        guard let jsonData = try? Data(contentsOf: fileURL) else {
+            preconditionFailure("Failed to parse GeoJSON file")
+        }
+        
+        guard let shapeFromGeoJSON = try? MGLShape(data: jsonData, encoding: String.Encoding.utf8.rawValue) else {
             fatalError("Could not generate MGLShape")
         }
         
-        let source = MGLShapeSource(identifier: identifier, shape: shapeFromGeoJSON, options: nil)
-        style.addSource(source)
-     
-        let layer = BikeStreetsStyles.streetRouteStyle(withIdentifier: identifier, source: source)
-        style.addLayer(layer)
+        let source = MGLShapeSource(identifier: layerName, shape: shapeFromGeoJSON, options: nil)
+        let layer: MGLStyleLayer!
+        
+        switch layerName {
+        case "bikestreets":
+            layer = BikeStreetsStyles.bikeStreetsStyleLayer(withIdentifier: layerName, source: source)
+        case "trails":
+            layer = BikeStreetsStyles.trailsStyleLayer(withIdentifier: layerName, source: source)
+        case "bikelanes":
+            layer = BikeStreetsStyles.bikeStreetsStyleLayer(withIdentifier: layerName, source: source)
+        case "bikesidewalks":
+            layer = BikeStreetsStyles.bikeStreetsStyleLayer(withIdentifier: layerName, source: source)
+        case "walk":
+            layer = BikeStreetsStyles.bikeStreetsStyleLayer(withIdentifier: layerName, source: source)
+        default:
+            fatalError("ack")
+        }
+
+        DispatchQueue.main.async {
+            // Add our GeoJSON data to the map as an MGLGeoJSONSource.
+            // We can then reference this data from an MGLStyleLayer.
+        
+            // MGLMapView.style is optional, so you must guard against it not being set.
+            guard let style = self.mapView.style else { return }
+        
+            style.addSource(source)
+            style.addLayer(layer)
+        }
     }
     
     // MARK: - Configuration Methods
@@ -204,8 +222,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     }
 }
 
+private extension String {
+    func layerName() -> String {
+        let fileNameComponents = components(separatedBy: "-")
+        return fileNameComponents[1]
+    }
+}
+
 struct BikeStreetsStyles {
-    static func streetRouteStyle(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
+    static func bikeStreetsStyleLayer(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
        // Create new layer for the line.
        let layer = MGLLineStyleLayer(identifier: identifier, source: source)
     
@@ -215,6 +240,23 @@ struct BikeStreetsStyles {
     
        // Set the line color to a constant blue color.
        layer.lineColor = NSExpression(forConstantValue: UIColor(red: 59/255, green: 178/255, blue: 208/255, alpha: 1))
+    
+       // Use `NSExpression` to smoothly adjust the line width from 2pt to 20pt between zoom levels 14 and 18. The `interpolationBase` parameter allows the values to interpolate along an exponential curve.
+       layer.lineWidth = NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
+       [14: 2, 18: 20])
+                
+        return layer
+    }
+    static func trailsStyleLayer(withIdentifier identifier: String, source: MGLShapeSource) -> MGLStyleLayer {
+       // Create new layer for the line.
+       let layer = MGLLineStyleLayer(identifier: identifier, source: source)
+    
+       // Set the line join and cap to a rounded end.
+       layer.lineJoin = NSExpression(forConstantValue: "round")
+       layer.lineCap = NSExpression(forConstantValue: "round")
+    
+       // Set the line color to a constant blue color.
+       layer.lineColor = NSExpression(forConstantValue: UIColor(red: 0/255, green: 178/255, blue: 0/255, alpha: 1))
     
        // Use `NSExpression` to smoothly adjust the line width from 2pt to 20pt between zoom levels 14 and 18. The `interpolationBase` parameter allows the values to interpolate along an exponential curve.
        layer.lineWidth = NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
