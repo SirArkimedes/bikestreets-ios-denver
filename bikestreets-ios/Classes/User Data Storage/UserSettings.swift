@@ -113,7 +113,7 @@ struct UserSettings {
     @UserSettingStorage(key: .mapViewType, defaultValue: MapViewType.map.rawValue)
     static var mapViewType: String
     
-    @UserSettingStorage(key: .mapOrientation, defaultValue: MapDirectionOfTravel.north.rawValue)
+    @UserSettingStorage(key: .mapOrientation, defaultValue: MapDirectionOfTravel.fixed.rawValue)
     static var mapOrientation: String
     
     @UserSettingStorage(key: .preventScreenLockOnMap, defaultValue: false)

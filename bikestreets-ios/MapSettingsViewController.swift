@@ -13,7 +13,7 @@ enum MapViewType: String {
 }
 
 enum MapDirectionOfTravel: String {
-    case north = "north"
+    case fixed = "fixed"
     case directionOfTravel = "directionOfTravel"
 }
 
@@ -87,8 +87,8 @@ class MapSettingsViewController: UITableViewController {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "checkmark")
             cell.selectionStyle = .none
             if indexPath.row == 0 {
-                cell.textLabel?.text = NSLocalizedString("North", comment: "")
-                cell.accessoryType = (orientation == MapDirectionOfTravel.north.rawValue) ? .checkmark : .none
+                cell.textLabel?.text = NSLocalizedString("Fixed", comment: "")
+                cell.accessoryType = (orientation == MapDirectionOfTravel.fixed.rawValue) ? .checkmark : .none
             } else {
                 cell.textLabel?.text = NSLocalizedString("Direction of Travel", comment: "")
                 cell.accessoryType = (orientation == MapDirectionOfTravel.directionOfTravel.rawValue) ? .checkmark : .none
@@ -131,7 +131,7 @@ class MapSettingsViewController: UITableViewController {
         case MapSettingsSections.orientation.rawValue:
             // Save the change
             if indexPath.row == 0 {
-                UserSettings.mapOrientation = MapDirectionOfTravel.north.rawValue
+                UserSettings.mapOrientation = MapDirectionOfTravel.fixed.rawValue
             } else {
                 UserSettings.mapOrientation = MapDirectionOfTravel.directionOfTravel.rawValue
             }

@@ -10,7 +10,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     @IBOutlet weak var debugInfoLabel: UILabel!
     
     // Array to hold on to observer objects for watching changes to UserDefaults
-    var userSettingObservers: [NSObject]?
+    var userSettingObservers: [NSObject] = [NSObject]()
             
     // MARK: - UIViewController overrides
     override func viewDidLoad() {
@@ -130,7 +130,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     func configureMapPerspective(isChange: Bool = false) {
         mapView.showsUserLocation = true
         
-        // How should we orient the map? North or Direction of Travel?
+        // How should we orient the map? Fixed or Direction of Travel?
         if (UserSettings.mapOrientation == MapDirectionOfTravel.directionOfTravel.rawValue) {
             mapView.userTrackingMode = .followWithHeading
             mapView.showsUserHeadingIndicator = true
@@ -177,7 +177,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                                             strongSelf.configureMapStyle()
             })
         }
-        userSettingObservers?.append(observer)
+        userSettingObservers.append(observer)
         observer = UserSettings.$mapOrientation.observe { [weak self] old, new in
             guard let strongSelf = self else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
@@ -185,7 +185,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                                             strongSelf.configureMapPerspective(isChange: true)
             })
         }
-        userSettingObservers?.append(observer)
+        userSettingObservers.append(observer)
         observer = UserSettings.$preventScreenLockOnMap.observe { [weak self] old, new in
             guard let strongSelf = self else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
@@ -193,7 +193,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                                             strongSelf.configureKeepScreenOn()
             })
         }
-        userSettingObservers?.append(observer)
+        userSettingObservers.append(observer)
     }
     
     // MARK: - Button Action Methods
