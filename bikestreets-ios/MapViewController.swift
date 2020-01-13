@@ -4,30 +4,14 @@ import Mapbox
 
 class MapViewController: UIViewController, MGLMapViewDelegate {
 
+    // UI Objcs in the storyboard
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var buttonWrapperView: UIView!
     @IBOutlet weak var debugInfoLabel: UILabel!
     
     // Array to hold on to observer objects for watching changes to UserDefaults
     var userSettingObservers: [NSObject]?
-        
-    struct MapStyles {
-        // List of available styles here: https://docs.mapbox.com/api/maps/#styles
-        static let street = URL(string: "mapbox://styles/mapbox/streets-v11")
-        static let satellite = URL(string: "mapbox://styles/mapbox/satellite-v9")
-        static let satelliteWithLabels = URL(string: "mapbox://styles/mapbox/satellite-streets-v9")
-    }
-    
-    /**
-     * Defaults for the map view
-     */
-    struct MapViewDefaults {
-        static let mapStyle = MapStyles.street
-        static let latitude = 39.7390
-        static let longitude = -104.9911
-        static let detailLevel = 14.0
-    }
-    
+            
     // MARK: - UIViewController overrides
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,7 +111,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         }
     }
     
-    // MARK: - Configuration Methods
+    // MARK: - Map Configuration Methods
     
     /**
      * Street or Satellite view?
@@ -225,6 +209,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     }
 }
 
+// MARK: -
 private extension String {
     func layerName() -> String? {
         let fileNameComponents = components(separatedBy: "-")
@@ -235,15 +220,37 @@ private extension String {
     }
 }
 
+// MARK: -
+/**
+ * List of available map styles, which are URLs in mapbox. List of available styles here: https://docs.mapbox.com/api/maps/#styles
+ */
+struct MapStyles {
+    static let street = URL(string: "mapbox://styles/mapbox/streets-v11")
+    static let satellite = URL(string: "mapbox://styles/mapbox/satellite-v9")
+    static let satelliteWithLabels = URL(string: "mapbox://styles/mapbox/satellite-streets-v9")
+}
+
+// MARK: -
+/**
+ * Defaults for the map view
+ */
+struct MapViewDefaults {
+    static let mapStyle = MapStyles.street
+    static let latitude = 39.7390
+    static let longitude = -104.9911
+    static let detailLevel = 14.0
+}
+
+// MARK: -
 struct BikeStreetsStyles {
-    static let bikeStreetBlue = UIColor(red: 0/255, green: 0/255, blue: 255/255, alpha: 0.7)
-    static let trailGreen = UIColor(red: 0/255, green: 178/255, blue: 0/255, alpha: 0.7)
-    static let bikeLaneOrange = UIColor(red: 216/255, green: 146/255, blue: 15/255, alpha: 0.7)
-    static let bikeSidewalkYellow = UIColor(red: 255/255, green: 255/255, blue: 0/255, alpha: 0.7)
-    static let walkBlack = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
+    private static let bikeStreetBlue = UIColor(red: 0/255, green: 0/255, blue: 255/255, alpha: 0.7)
+    private static let trailGreen = UIColor(red: 0/255, green: 178/255, blue: 0/255, alpha: 0.7)
+    private static let bikeLaneOrange = UIColor(red: 216/255, green: 146/255, blue: 15/255, alpha: 0.7)
+    private static let bikeSidewalkYellow = UIColor(red: 255/255, green: 255/255, blue: 0/255, alpha: 0.7)
+    private static let walkBlack = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
 
     // Use `NSExpression` to smoothly adjust the line width from 2pt to 20pt between zoom levels 14 and 18. The `interpolationBase` parameter allows the values to interpolate along an exponential curve.
-    static let lineWidth =  NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
+    private static let lineWidth =  NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
           [14: 2, 18: 8])
     
     static func style(forLayer layerName: String, source: MGLShapeSource) -> MGLStyleLayer {
