@@ -1,10 +1,10 @@
 
 import UIKit
 
-enum MapSettingsSections: Int {
-    case viewType = 0
-    case orientation = 1
-    case other = 2
+enum MapSettingsSection: Int, CaseIterable {
+    case viewType
+    case orientation
+    case other
 }
 
 enum MapViewType: String {
@@ -35,38 +35,43 @@ class MapSettingsViewController: UITableViewController {
     // MARK: UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return MapSettingsSection.allCases.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case MapSettingsSections.viewType.rawValue:
-            return NSLocalizedString("View:", comment: "")
-        case MapSettingsSections.orientation.rawValue:
-            return NSLocalizedString("Orient Map to:", comment: "")
-        case MapSettingsSections.other.rawValue:
-            return " "
-        default:
+        guard let settingsSection = MapSettingsSection(rawValue: section) else {
             fatalError("Invalid section \(section)")
+        }
+        switch settingsSection {
+        case .viewType:
+            return NSLocalizedString("View:", comment: "")
+        case .orientation:
+            return NSLocalizedString("Orient Map to:", comment: "")
+        case .other:
+            return " "
         }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case MapSettingsSections.viewType.rawValue:
-            return 2
-        case MapSettingsSections.orientation.rawValue:
-            return 2
-        case MapSettingsSections.other.rawValue:
-            return 1
-        default:
+        guard let settingsSection = MapSettingsSection(rawValue: section) else {
             fatalError("Invalid section \(section)")
+        }
+        switch settingsSection {
+        case .viewType:
+            return 2
+        case .orientation:
+            return 2
+        case .other:
+            return 1
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case MapSettingsSections.viewType.rawValue:
+        guard let settingsSection = MapSettingsSection(rawValue: indexPath.section) else {
+            fatalError("Invalid section \(indexPath.section)")
+        }
+        switch settingsSection {
+        case .viewType:
             let mapViewType = UserSettings.mapViewType
             
             let cell = UITableViewCell(style: .default, reuseIdentifier: "checkmark")
@@ -81,7 +86,7 @@ class MapSettingsViewController: UITableViewController {
 
             return cell
 
-        case MapSettingsSections.orientation.rawValue:
+        case .orientation:
             let orientation = UserSettings.mapOrientation
             
             let cell = UITableViewCell(style: .default, reuseIdentifier: "checkmark")
@@ -96,7 +101,7 @@ class MapSettingsViewController: UITableViewController {
 
             return cell
             
-        case MapSettingsSections.other.rawValue:
+        case .other:
             let toggleSwitch = UISwitch()
             toggleSwitch.isOn = UserSettings.preventScreenLockOnMap
             toggleSwitch.addTarget(self, action: #selector(toggleScreenLockSwitch(_:)), for: .valueChanged)
@@ -108,16 +113,17 @@ class MapSettingsViewController: UITableViewController {
             
             return cell
         
-        default:
-            fatalError("Invalid section \(indexPath.section)")
         }
     }
     
     // MARK: UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case MapSettingsSections.viewType.rawValue:
+        guard let settingsSection = MapSettingsSection(rawValue: indexPath.section) else {
+            fatalError("Invalid section \(indexPath.section)")
+        }
+        switch settingsSection {
+        case .viewType:
             // Save the change
             if indexPath.row == 0 {
                 UserSettings.mapViewType = MapViewType.map.rawValue
@@ -128,7 +134,7 @@ class MapSettingsViewController: UITableViewController {
             // Update the UI
             checkOnlyCellAt(indexPath: indexPath, in: tableView)
             
-        case MapSettingsSections.orientation.rawValue:
+        case .orientation:
             // Save the change
             if indexPath.row == 0 {
                 UserSettings.mapOrientation = MapDirectionOfTravel.fixed.rawValue
@@ -139,10 +145,8 @@ class MapSettingsViewController: UITableViewController {
             // Update the UI
             checkOnlyCellAt(indexPath: indexPath, in: tableView)
             
-        case MapSettingsSections.other.rawValue:
+        case .other:
             return
-        default:
-            fatalError("Invalid section \(indexPath.section)")
         }
     }
     
