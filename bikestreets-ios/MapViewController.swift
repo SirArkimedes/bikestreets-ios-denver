@@ -70,11 +70,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         // TODO: Do we have a cached/downloaded version of the geojson data?
         // TODO: Is our cached version of geojson the latest & greatest?
 
-        DispatchQueue.global().async {
-            if let fileURLs = Bundle.main.urls(forResourcesWithExtension: "geojson", subdirectory: nil) {
-                for fileURL in fileURLs {
-                    self.loadMapLayerFrom(fileURL)
-                }
+        if let fileURLs = Bundle.main.urls(forResourcesWithExtension: "geojson", subdirectory: nil) {
+            for fileURL in fileURLs {
+                self.loadMapLayerFrom(fileURL)
             }
         }
     }
@@ -90,24 +88,29 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
             fatalError("Unable to locate layer name in file name \(fileURL.lastPathComponent)")
         }
 
-        // Get the geoJSON out of the file
-        guard let jsonData = try? Data(contentsOf: fileURL) else {
-            preconditionFailure("Failed to parse GeoJSON file")
-        }
-        
-        // Parse the geoJSON into a Shape object
-        guard let shapeFromGeoJSON = try? MGLShape(data: jsonData, encoding: String.Encoding.utf8.rawValue) else {
-            fatalError("Could not generate MGLShape")
-        }
-        
-        let source = MGLShapeSource(identifier: layerName, shape: shapeFromGeoJSON, options: nil)
-        let layer = BikeStreetsStyles.style(forLayer: layerName, source: source)
-        
-        DispatchQueue.main.async {
-            // Add our GeoJSON data to the map as an MGLGeoJSONSource.
-            // We can then reference this data from an MGLStyleLayer.
-            style.addSource(source)
-            style.addLayer(layer)
+        // Jump off the main thread to do the heavy lifting of reading the file and parsing the JSON
+        DispatchQueue.global().async {
+            // Get the geoJSON out of the file
+            guard let jsonData = try? Data(contentsOf: fileURL) else {
+                preconditionFailure("Failed to parse GeoJSON file")
+            }
+            
+            // Parse the geoJSON into a Shape object
+            guard let shapeFromGeoJSON = try? MGLShape(data: jsonData, encoding: String.Encoding.utf8.rawValue) else {
+                fatalError("Could not generate MGLShape")
+            }
+            
+            // Create the shape and layer from the JSON
+            let source = MGLShapeSource(identifier: layerName, shape: shapeFromGeoJSON, options: nil)
+            let layer = BikeStreetsStyles.style(forLayer: layerName, source: source)
+            
+            // Jump back to the main thread for the UI work of rendering the shape and layer
+            DispatchQueue.main.async {
+                // Add our GeoJSON data to the map as an MGLGeoJSONSource.
+                // We can then reference this data from an MGLStyleLayer.
+                style.addSource(source)
+                style.addLayer(layer)
+            }
         }
     }
     
