@@ -7,16 +7,6 @@ enum MapSettingsSection: Int, CaseIterable {
     case other
 }
 
-enum MapViewType: String {
-    case map = "map"
-    case satellite = "satellite"
-}
-
-enum MapDirectionOfTravel: String {
-    case fixed = "fixed"
-    case directionOfTravel = "directionOfTravel"
-}
-
 class MapSettingsViewController: UITableViewController {
     
     // MARK: UIViewController overrides

@@ -1,6 +1,33 @@
 
 import Foundation
 
+// MARK: -
+
+/**
+ * Simple class to store user settings such as map preferences, whether the user accepted ToS, etc.
+ */
+struct UserSettings {
+    @UserSettingStorage(key: .mapViewType, defaultValue: MapViewType.map.rawValue)
+    static var mapViewType: String
+    
+    @UserSettingStorage(key: .mapOrientation, defaultValue: MapDirectionOfTravel.fixed.rawValue)
+    static var mapOrientation: String
+    
+    @UserSettingStorage(key: .preventScreenLockOnMap, defaultValue: false)
+    static var preventScreenLockOnMap: Bool
+}
+
+enum MapViewType: String {
+    case map = "map"
+    case satellite = "satellite"
+}
+
+enum MapDirectionOfTravel: String {
+    case fixed = "fixed"
+    case directionOfTravel = "directionOfTravel"
+}
+
+// MARK: -
 /**
  * Wrap the keys (strings) in a simple object
  */
@@ -20,6 +47,7 @@ extension Key {
     static let preventScreenLockOnMap: Key = "preventscreenlockonmap_key"
 }
 
+// MARK: -
 /**
  * Use a protocol to safely limit the data types that can be stored in UserDefaults
  */
@@ -37,6 +65,7 @@ extension Float: PropertyListValue {}
 extension Array: PropertyListValue where Element: PropertyListValue {}
 extension Dictionary: PropertyListValue where Key == String, Value: PropertyListValue {}
 
+// MARK: -
 /**
  * Generic wrapper for user settings that stores the values in UserDefaults
  *
@@ -72,6 +101,7 @@ struct UserSettingStorage<T: PropertyListValue> {
     }
 }
 
+// MARK: -
 /**
  * Class to wrap key/value observation of a specific UserDefaults entry (key)
  */
@@ -105,17 +135,4 @@ class UserDefaultsObserver: NSObject {
     deinit {
         UserDefaults.standard.removeObserver(self, forKeyPath: key.rawValue, context: nil)
     }
-}
-/**
- * Simple class to store user settings such as map preferences, whether the user accepted ToS, etc.
- */
-struct UserSettings {
-    @UserSettingStorage(key: .mapViewType, defaultValue: MapViewType.map.rawValue)
-    static var mapViewType: String
-    
-    @UserSettingStorage(key: .mapOrientation, defaultValue: MapDirectionOfTravel.fixed.rawValue)
-    static var mapOrientation: String
-    
-    @UserSettingStorage(key: .preventScreenLockOnMap, defaultValue: false)
-    static var preventScreenLockOnMap: Bool
 }
