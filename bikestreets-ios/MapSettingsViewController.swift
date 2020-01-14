@@ -5,6 +5,7 @@ enum MapSettingsSection: Int, CaseIterable {
     case viewType
     case orientation
     case other
+    case mapKey
 }
 
 class MapSettingsViewController: UITableViewController {
@@ -39,6 +40,8 @@ class MapSettingsViewController: UITableViewController {
             return NSLocalizedString("Orient Map to:", comment: "")
         case .other:
             return " "
+        case .mapKey:
+            return NSLocalizedString("Map Key:", comment: "")
         }
     }
     
@@ -53,6 +56,8 @@ class MapSettingsViewController: UITableViewController {
             return 2
         case .other:
             return 1
+        case .mapKey:
+            return 5
         }
     }
     
@@ -103,6 +108,32 @@ class MapSettingsViewController: UITableViewController {
             
             return cell
         
+        case .mapKey:
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "key")
+            let accessoryView = UIView(frame: CGRect(x: 100, y: 0, width: 200, height: 5))
+            cell.accessoryView = accessoryView
+            
+            switch indexPath.row {
+            case 0:
+                cell.textLabel?.text = NSLocalizedString("Bike Street", comment: "")
+                accessoryView.backgroundColor = BikeStreetsStyles.bikeStreetBlue
+            case 1:
+                cell.textLabel?.text = NSLocalizedString("Trail", comment: "")
+                accessoryView.backgroundColor = BikeStreetsStyles.trailGreen
+            case 2:
+                cell.textLabel?.text = NSLocalizedString("Bike Lane", comment: "")
+                accessoryView.backgroundColor = BikeStreetsStyles.bikeLaneOrange
+            case 3:
+                cell.textLabel?.text = NSLocalizedString("Bike on Sidewalk", comment: "")
+                accessoryView.backgroundColor = BikeStreetsStyles.bikeSidewalkYellow
+            case 4:
+                cell.textLabel?.text = NSLocalizedString("Walk", comment: "")
+                accessoryView.backgroundColor = BikeStreetsStyles.walkBlack
+            default:
+                fatalError("Invalid row \(indexPath.row)")
+            }
+
+            return cell
         }
     }
     
@@ -136,6 +167,8 @@ class MapSettingsViewController: UITableViewController {
             checkOnlyCellAt(indexPath: indexPath, in: tableView)
             
         case .other:
+            return
+        case .mapKey:
             return
         }
     }

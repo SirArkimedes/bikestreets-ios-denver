@@ -246,11 +246,11 @@ struct MapViewDefaults {
 
 // MARK: -
 struct BikeStreetsStyles {
-    private static let bikeStreetBlue = UIColor(red: 0/255, green: 0/255, blue: 255/255, alpha: 0.7)
-    private static let trailGreen = UIColor(red: 0/255, green: 178/255, blue: 0/255, alpha: 0.7)
-    private static let bikeLaneOrange = UIColor(red: 216/255, green: 146/255, blue: 15/255, alpha: 0.7)
-    private static let bikeSidewalkYellow = UIColor(red: 255/255, green: 255/255, blue: 0/255, alpha: 0.7)
-    private static let walkBlack = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
+    static let bikeStreetBlue = UIColor(red: 0/255, green: 0/255, blue: 255/255, alpha: 0.7)
+    static let trailGreen = UIColor(red: 0/255, green: 178/255, blue: 0/255, alpha: 0.7)
+    static let bikeLaneOrange = UIColor(red: 216/255, green: 146/255, blue: 15/255, alpha: 0.7)
+    static let bikeSidewalkYellow = UIColor(red: 255/255, green: 255/255, blue: 0/255, alpha: 0.7)
+    static let walkBlack = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
 
     // Use `NSExpression` to smoothly adjust the line width from 2pt to 20pt between zoom levels 14 and 18. The `interpolationBase` parameter allows the values to interpolate along an exponential curve.
     private static let lineWidth =  NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
