@@ -8,10 +8,26 @@ import Foundation
  */
 struct UserSettings {
     @UserSettingStorage(key: .mapViewType, defaultValue: MapViewType.map.rawValue)
-    static var mapViewType: String
+    static var mapViewTypeRaw: String
+    static var mapViewType: MapViewType {
+        get {
+            return MapViewType(rawValue: mapViewTypeRaw)!
+        }
+        set {
+            mapViewTypeRaw = newValue.rawValue
+        }
+    }
     
-    @UserSettingStorage(key: .mapOrientation, defaultValue: MapDirectionOfTravel.fixed.rawValue)
-    static var mapOrientation: String
+    @UserSettingStorage(key: .mapOrientation, defaultValue: MapOrientation.fixed.rawValue)
+    static var mapOrientationRaw: String
+    static var mapOrientation: MapOrientation {
+        get {
+            return MapOrientation(rawValue: mapOrientationRaw)!
+        }
+        set {
+            mapOrientationRaw = newValue.rawValue
+        }
+    }
     
     @UserSettingStorage(key: .preventScreenLockOnMap, defaultValue: false)
     static var preventScreenLockOnMap: Bool
@@ -22,7 +38,7 @@ enum MapViewType: String {
     case satellite = "satellite"
 }
 
-enum MapDirectionOfTravel: String {
+enum MapOrientation: String {
     case fixed = "fixed"
     case directionOfTravel = "directionOfTravel"
 }

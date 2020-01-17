@@ -120,7 +120,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
      * Street or Satellite view?
      */
     func configureMapStyle() {
-        if UserSettings.mapViewType == MapViewType.satellite.rawValue {
+        if UserSettings.mapViewType == .satellite {
             mapView.styleURL = MapStyles.satelliteWithLabels
         } else {
             mapView.styleURL = MapStyles.street
@@ -134,7 +134,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         mapView.showsUserLocation = true
         
         // How should we orient the map? Fixed or Direction of Travel?
-        if (UserSettings.mapOrientation == MapDirectionOfTravel.directionOfTravel.rawValue) {
+        if (UserSettings.mapOrientation == .directionOfTravel) {
             mapView.userTrackingMode = .followWithHeading
             mapView.showsUserHeadingIndicator = true
         } else {
@@ -173,7 +173,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
      * Watch for changes to the UserSettings
      */
     func configureUserSettingObservers() {
-        var observer = UserSettings.$mapViewType.observe { [weak self] old, new in
+        var observer = UserSettings.$mapViewTypeRaw.observe { [weak self] old, new in
             guard let strongSelf = self else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
                                           execute: {
@@ -181,7 +181,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
             })
         }
         userSettingObservers.append(observer)
-        observer = UserSettings.$mapOrientation.observe { [weak self] old, new in
+        observer = UserSettings.$mapOrientationRaw.observe { [weak self] old, new in
             guard let strongSelf = self else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
                                           execute: {
