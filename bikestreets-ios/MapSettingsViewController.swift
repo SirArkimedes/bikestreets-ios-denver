@@ -34,11 +34,11 @@ class MapSettingsViewController: UITableViewController {
         }
         switch settingsSection {
         case .viewType:
-            return NSLocalizedString("View:", comment: "")
+            return NSLocalizedString("View", comment: "")
         case .orientation:
-            return NSLocalizedString("Orient Map to:", comment: "")
+            return NSLocalizedString("Orientation", comment: "")
         case .other:
-            return " "
+            return "Misc."
         }
     }
     
@@ -67,7 +67,7 @@ class MapSettingsViewController: UITableViewController {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "checkmark")
             cell.selectionStyle = .none
             if indexPath.row == 0 {
-                cell.textLabel?.text = NSLocalizedString("Map", comment: "")
+                cell.textLabel?.text = NSLocalizedString("Street", comment: "")
                 cell.accessoryType = (mapViewType == .map) ? .checkmark : .none
             } else {
                 cell.textLabel?.text = NSLocalizedString("Satellite", comment: "")
