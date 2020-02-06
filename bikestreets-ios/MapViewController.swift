@@ -4,7 +4,7 @@ import Mapbox
 
 class MapViewController: UIViewController, MGLMapViewDelegate {
 
-    // UI Objcs in the storyboard
+    // UI Objects in the storyboard
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var buttonWrapperView: UIView!
     @IBOutlet weak var debugInfoLabel: UILabel!
@@ -223,7 +223,7 @@ private extension String {
     }
 }
 
-// MARK: -
+// MARK: - Bike Streets Styling
 /**
  * List of available map styles, which are URLs in mapbox. List of available styles here: https://docs.mapbox.com/api/maps/#styles
  */
