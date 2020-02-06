@@ -246,7 +246,7 @@ struct MapViewDefaults {
 
 // MARK: -
 struct BikeStreetsStyles {
-    private static let bikeStreetBlue = UIColor(red: 0/255, green: 0/255, blue: 255/255, alpha: 0.7)
+    private static let bikeStreetBlue = UIColor(red: 52/255, green: 90/255, blue: 168/255, alpha: 0.7)
     private static let trailGreen = UIColor(red: 0/255, green: 178/255, blue: 0/255, alpha: 0.7)
     private static let bikeLaneOrange = UIColor(red: 216/255, green: 146/255, blue: 15/255, alpha: 0.7)
     private static let bikeSidewalkYellow = UIColor(red: 255/255, green: 255/255, blue: 0/255, alpha: 0.7)
