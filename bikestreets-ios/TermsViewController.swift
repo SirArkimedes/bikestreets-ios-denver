@@ -11,7 +11,7 @@ class TermsViewController: UIViewController {
     
     // MARK: - View Controller overrides
     override func viewDidLoad() {
-        termsTextView.text = NSLocalizedString("I won't sue Avi!", comment: "This is legal text that must be approved by an attorney.")
+        termsTextView.text = TermsManager.currentTermsText
         declineButton.titleLabel?.text = NSLocalizedString("Decline", comment: "As in 'Decline' the terms of the app")
         acceptButton.titleLabel?.text = NSLocalizedString("Accept", comment: "As in 'Accept' the terms of the app")
     }
