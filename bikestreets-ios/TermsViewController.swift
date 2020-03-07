@@ -22,7 +22,7 @@ class TermsViewController: UIViewController {
         // TODO: Quit the app?
     }
     @IBAction func acceptButtonAction(_ sender: Any) {
-        // TODO: Save the acceptance of the Terms
+        UserSettings.lastTermsAccepted = TermsManager.currentTermsVersion
         // TODO: Log the acceptance of the Terms
         self.dismiss(animated: true, completion: nil)
     }

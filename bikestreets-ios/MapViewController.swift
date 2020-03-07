@@ -22,6 +22,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     var userSettingObservers: [NSObject] = [NSObject]()
             
     // MARK: - UIViewController overrides
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -52,10 +56,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         #endif
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+    override func viewDidAppear(_ animated: Bool) {
+        if !TermsManager.hasUserAcceptedCurrentTerms() {
+            guard let termsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsViewController") as? TermsViewController else {
+                fatalError("Unable to locate the TermsViewController")
+            }
+            present(termsViewController, animated: true, completion: nil)
+        }
     }
-
+    
     // MARK: - MGLMapViewDelegate
     
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
