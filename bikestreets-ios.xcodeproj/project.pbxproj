@@ -15,6 +15,7 @@
 		4D212A9E23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 4D212A9D23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson */; };
 		4D212AA023CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 4D212A9F23CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson */; };
 		4D4516E123EC8EB5008830E9 /* BikeStreetsStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4516E023EC8EB5008830E9 /* BikeStreetsStyles.swift */; };
+		4D4CF0D0240EF5C900298500 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4CF0CF240EF5C900298500 /* TermsViewController.swift */; };
 		4D7FDD56237B1872002FFE23 /* MapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */; };
 		4D7FDD59237B3120002FFE23 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FDD58237B3120002FFE23 /* UserSettings.swift */; };
 		4DDE54B7233EBB0C0051BF83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */; };
@@ -65,6 +66,7 @@
 		4D212A9D23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3-bikelanes-master-v0.3.geojson"; sourceTree = "<group>"; };
 		4D212A9F23CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "4-bikesidewalks-master-v0.3.geojson"; sourceTree = "<group>"; };
 		4D4516E023EC8EB5008830E9 /* BikeStreetsStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStreetsStyles.swift; sourceTree = "<group>"; };
+		4D4CF0CF240EF5C900298500 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSettingsViewController.swift; sourceTree = "<group>"; };
 		4D7FDD58237B3120002FFE23 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		4DDE54B3233EBB0C0051BF83 /* Bike Streets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bike Streets.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +192,7 @@
 				4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */,
 				4DDE54BA233EBB0C0051BF83 /* Main.storyboard */,
 				4DDE54B8233EBB0C0051BF83 /* MapViewController.swift */,
+				4D4CF0CF240EF5C900298500 /* TermsViewController.swift */,
 				4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */,
 				4DDE54BD233EBB0C0051BF83 /* Assets.xcassets */,
 				4DDE54C2233EBB0C0051BF83 /* Info.plist */,
@@ -396,6 +399,7 @@
 				4D7FDD59237B3120002FFE23 /* UserSettings.swift in Sources */,
 				4D7FDD56237B1872002FFE23 /* MapSettingsViewController.swift in Sources */,
 				4D4516E123EC8EB5008830E9 /* BikeStreetsStyles.swift in Sources */,
+				4D4CF0D0240EF5C900298500 /* TermsViewController.swift in Sources */,
 				4DDE54B7233EBB0C0051BF83 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
