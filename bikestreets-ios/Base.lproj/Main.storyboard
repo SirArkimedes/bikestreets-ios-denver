@@ -94,18 +94,21 @@
         <!--Terms View Controller-->
         <scene sceneID="E2c-7R-WIO">
             <objects>
-                <viewController id="7V3-GU-v39" customClass="TermsViewController" customModule="Bike_Streets" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TermsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7V3-GU-v39" customClass="TermsViewController" customModule="Bike_Streets" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SKu-pt-pi3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F2y-0W-MMK">
-                                <rect key="frame" x="0.0" y="56" width="414" height="718"/>
-                                <viewLayoutGuide key="contentLayoutGuide" id="t0K-n4-nd8"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="M80-4B-d7m"/>
-                            </scrollView>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0iw-As-zYP">
-                                <rect key="frame" x="57" y="774" width="300" height="80"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CFN-Hi-MFi" userLabel="Terms Text View">
+                                <rect key="frame" x="0.0" y="44" width="414" height="728"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0iw-As-zYP">
+                                <rect key="frame" x="57" y="782" width="300" height="80"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fbF-pS-2yz">
                                         <rect key="frame" x="20" y="20" width="260" height="60"/>
@@ -138,19 +141,21 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="F2y-0W-MMK" firstAttribute="leading" secondItem="wKm-Er-KHE" secondAttribute="leading" id="3ou-f2-j0V"/>
-                            <constraint firstItem="wKm-Er-KHE" firstAttribute="trailing" secondItem="F2y-0W-MMK" secondAttribute="trailing" id="5bq-sK-weu"/>
-                            <constraint firstItem="0iw-As-zYP" firstAttribute="top" secondItem="F2y-0W-MMK" secondAttribute="bottom" id="NYq-aL-33i"/>
-                            <constraint firstItem="F2y-0W-MMK" firstAttribute="top" secondItem="wKm-Er-KHE" secondAttribute="top" id="ZNc-eM-EG2"/>
+                            <constraint firstItem="CFN-Hi-MFi" firstAttribute="bottom" secondItem="0iw-As-zYP" secondAttribute="top" constant="-10" id="6pD-s8-RNU"/>
+                            <constraint firstItem="CFN-Hi-MFi" firstAttribute="top" secondItem="wKm-Er-KHE" secondAttribute="top" id="KZx-BU-i5m"/>
+                            <constraint firstItem="CFN-Hi-MFi" firstAttribute="leading" secondItem="wKm-Er-KHE" secondAttribute="leading" id="jxV-wp-m2p"/>
+                            <constraint firstItem="0iw-As-zYP" firstAttribute="centerX" secondItem="SKu-pt-pi3" secondAttribute="centerX" id="kSA-b5-X7F"/>
                             <constraint firstItem="0iw-As-zYP" firstAttribute="bottom" secondItem="wKm-Er-KHE" secondAttribute="bottom" id="sp1-Od-wax"/>
+                            <constraint firstItem="wKm-Er-KHE" firstAttribute="trailing" secondItem="CFN-Hi-MFi" secondAttribute="trailing" id="t1k-w0-zdP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wKm-Er-KHE"/>
                     </view>
                     <connections>
                         <outlet property="acceptButton" destination="zU4-SN-w7g" id="b8O-FE-hTS"/>
                         <outlet property="declineButton" destination="SX0-aa-mbm" id="BgQ-6c-MK2"/>
+                        <outlet property="termsTextView" destination="CFN-Hi-MFi" id="MOV-5b-6j0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1B-Tk-gAi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -160,13 +165,13 @@
         <!--Map Settings View Controller-->
         <scene sceneID="ZSP-Yi-exa">
             <objects>
-                <tableViewController id="uqp-xk-Yjw" customClass="MapSettingsViewController" customModule="Bike_Streets" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MapSettingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uqp-xk-Yjw" customClass="MapSettingsViewController" customModule="Bike_Streets" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="S7H-qx-rJL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="qfk-bo-ywH">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrototypeCell" id="qfk-bo-ywH">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qfk-bo-ywH" id="vqA-pg-7rM">

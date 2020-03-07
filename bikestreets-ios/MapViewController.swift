@@ -211,7 +211,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     // MARK: - Button Action Methods
     
     @IBAction func infoButtonTapped(_ sender: Any) {
-        let mapSettingsViewController = MapSettingsViewController()
+        guard let mapSettingsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapSettingsViewController") as? MapSettingsViewController else {
+            fatalError("Unable to locate the MapSettingsViewController")
+        }
+
         let navController = UINavigationController(rootViewController: mapSettingsViewController)
         present(navController, animated: true, completion: nil)
     }
