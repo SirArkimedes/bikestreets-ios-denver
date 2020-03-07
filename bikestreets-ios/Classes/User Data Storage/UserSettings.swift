@@ -7,6 +7,9 @@ import Foundation
  * Simple class to store user settings such as map preferences, whether the user accepted ToS, etc.
  */
 struct UserSettings {
+    @UserSettingStorage(key: .lastTermsAccepted, defaultValue: 0)
+    static var lastTermsAccepted: Int
+    
     @UserSettingStorage(key: .mapViewType, defaultValue: MapViewType.map.rawValue)
     static var mapViewTypeRaw: String
     static var mapViewType: MapViewType {
@@ -58,6 +61,7 @@ extension Key: ExpressibleByStringLiteral {
 }
 
 extension Key {
+    static let lastTermsAccepted: Key = "lasttermsaccepted_key"
     static let mapViewType: Key = "mapviewtype_key"
     static let mapOrientation: Key = "maporientation_key"
     static let preventScreenLockOnMap: Key = "preventscreenlockonmap_key"
