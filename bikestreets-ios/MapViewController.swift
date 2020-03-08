@@ -57,7 +57,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        if !TermsManager.hasUserAcceptedCurrentTerms() {
+        if !TermsManager.hasAcceptedCurrentTerms() {
             guard let termsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsViewController") as? TermsViewController else {
                 fatalError("Unable to locate the TermsViewController")
             }

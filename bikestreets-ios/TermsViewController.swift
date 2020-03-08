@@ -31,8 +31,8 @@ class TermsViewController: UIViewController {
     }
     @IBAction func acceptButtonAction(_ sender: Any) {
         // Save that the Terms version that the user has accepted.
-        UserSettings.lastTermsAccepted = TermsManager.currentTermsVersion
-
+        TermsManager.acceptCurrentTerms()
+        
         // TODO: Log the acceptance of the Terms
 
         self.dismiss(animated: true, completion: nil)
