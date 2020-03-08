@@ -14,16 +14,27 @@ class TermsViewController: UIViewController {
         termsTextView.text = TermsManager.currentTermsText
         declineButton.titleLabel?.text = NSLocalizedString("Decline", comment: "As in 'Decline' the terms of the app")
         acceptButton.titleLabel?.text = NSLocalizedString("Accept", comment: "As in 'Accept' the terms of the app")
+        
+        // Style the buttons
+        declineButton.layer.cornerRadius = 5.0
+        declineButton.layer.masksToBounds = true
+        acceptButton.layer.cornerRadius = 5.0
+        acceptButton.layer.masksToBounds = true
     }
     
     // MARK: - Button Actions
     @IBAction func declineButtonAction(_ sender: Any) {
         // TODO: Log the declining of the Terms
-        // TODO: Quit the app?
+
+        // Quit the app gracefully so a crash is not logged.
+        UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
     }
     @IBAction func acceptButtonAction(_ sender: Any) {
+        // Save that the Terms version that the user has accepted.
         UserSettings.lastTermsAccepted = TermsManager.currentTermsVersion
+
         // TODO: Log the acceptance of the Terms
+
         self.dismiss(animated: true, completion: nil)
     }
 }

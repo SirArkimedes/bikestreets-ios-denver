@@ -99,29 +99,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CFN-Hi-MFi" userLabel="Terms Text View">
-                                <rect key="frame" x="0.0" y="44" width="414" height="728"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CFN-Hi-MFi" userLabel="Terms Text View">
+                                <rect key="frame" x="0.0" y="64" width="414" height="688"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0iw-As-zYP">
-                                <rect key="frame" x="57" y="782" width="300" height="80"/>
+                                <rect key="frame" x="47" y="762" width="320" height="80"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fbF-pS-2yz">
-                                        <rect key="frame" x="20" y="20" width="260" height="60"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="fbF-pS-2yz">
+                                        <rect key="frame" x="20" y="20" width="280" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SX0-aa-mbm">
-                                                <rect key="frame" x="0.0" y="15" width="130" height="30"/>
-                                                <state key="normal" title="Decline"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="132.5" height="60"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <state key="normal" title="Decline">
+                                                    <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="declineButtonAction:" destination="7V3-GU-v39" eventType="touchUpInside" id="GiP-GA-zHD"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zU4-SN-w7g">
-                                                <rect key="frame" x="130" y="15" width="130" height="30"/>
+                                                <rect key="frame" x="147.5" y="0.0" width="132.5" height="60"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <state key="normal" title="Accept"/>
                                                 <connections>
                                                     <action selector="acceptButtonAction:" destination="7V3-GU-v39" eventType="touchUpInside" id="0xA-Lt-E6g"/>
@@ -130,24 +136,24 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="fbF-pS-2yz" secondAttribute="bottom" id="6Nn-F2-Qqh"/>
                                     <constraint firstItem="fbF-pS-2yz" firstAttribute="top" secondItem="0iw-As-zYP" secondAttribute="top" constant="20" symbolic="YES" id="Aze-PO-Pts"/>
-                                    <constraint firstAttribute="width" constant="300" id="Vlh-ft-SDE"/>
+                                    <constraint firstAttribute="width" constant="320" id="Vlh-ft-SDE"/>
                                     <constraint firstItem="fbF-pS-2yz" firstAttribute="leading" secondItem="0iw-As-zYP" secondAttribute="leading" constant="20" symbolic="YES" id="hKo-pv-Ygr"/>
                                     <constraint firstAttribute="height" constant="80" id="pwl-OP-hwp"/>
                                     <constraint firstAttribute="trailing" secondItem="fbF-pS-2yz" secondAttribute="trailing" constant="20" symbolic="YES" id="x07-S0-cFb"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="CFN-Hi-MFi" firstAttribute="bottom" secondItem="0iw-As-zYP" secondAttribute="top" constant="-10" id="6pD-s8-RNU"/>
-                            <constraint firstItem="CFN-Hi-MFi" firstAttribute="top" secondItem="wKm-Er-KHE" secondAttribute="top" id="KZx-BU-i5m"/>
+                            <constraint firstItem="CFN-Hi-MFi" firstAttribute="top" secondItem="wKm-Er-KHE" secondAttribute="top" constant="20" id="KZx-BU-i5m"/>
                             <constraint firstItem="CFN-Hi-MFi" firstAttribute="leading" secondItem="wKm-Er-KHE" secondAttribute="leading" id="jxV-wp-m2p"/>
                             <constraint firstItem="0iw-As-zYP" firstAttribute="centerX" secondItem="SKu-pt-pi3" secondAttribute="centerX" id="kSA-b5-X7F"/>
-                            <constraint firstItem="0iw-As-zYP" firstAttribute="bottom" secondItem="wKm-Er-KHE" secondAttribute="bottom" id="sp1-Od-wax"/>
+                            <constraint firstItem="0iw-As-zYP" firstAttribute="bottom" secondItem="wKm-Er-KHE" secondAttribute="bottom" constant="-20" id="sp1-Od-wax"/>
                             <constraint firstItem="wKm-Er-KHE" firstAttribute="trailing" secondItem="CFN-Hi-MFi" secondAttribute="trailing" id="t1k-w0-zdP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wKm-Er-KHE"/>
