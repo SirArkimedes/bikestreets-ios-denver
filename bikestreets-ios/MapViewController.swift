@@ -18,6 +18,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     @IBOutlet weak var buttonWrapperView: UIView!
     @IBOutlet weak var debugInfoLabel: UILabel!
     
+    let logger = Logger(name: "MapViewController")
+    
     // Array to hold on to observer objects for watching changes to UserDefaults
     var userSettingObservers: [NSObject] = [NSObject]()
             
@@ -220,6 +222,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     // MARK: - Button Action Methods
     
     @IBAction func infoButtonTapped(_ sender: Any) {
+        logger.log(eventName: "map info button tapped")
+        
         guard let mapSettingsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapSettingsViewController") as? MapSettingsViewController else {
             fatalError("Unable to locate the MapSettingsViewController")
         }
@@ -229,6 +233,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     }
     
     @IBAction func locationButtonTapped(_ sender: Any) {
+        logger.log(eventName: "map location button tapped")
+
         centerMapOnCurrentLocation()
     }
 }

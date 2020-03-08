@@ -9,6 +9,8 @@ class TermsViewController: UIViewController {
     @IBOutlet weak var declineButton: UIButton!
     @IBOutlet weak var acceptButton: UIButton!
     
+    let logger = Logger(name: "TermsViewController")
+    
     // MARK: - View Controller overrides
     override func viewDidLoad() {
         termsTextView.text = TermsManager.currentTermsText
@@ -24,8 +26,9 @@ class TermsViewController: UIViewController {
     
     // MARK: - Button Actions
     @IBAction func declineButtonAction(_ sender: Any) {
-        // TODO: Log the declining of the Terms
-
+        // Log the declining of the Terms
+        logger.log(eventName: "decline button tapped")
+        
         // Quit the app gracefully so a crash is not logged.
         UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
     }
@@ -33,7 +36,8 @@ class TermsViewController: UIViewController {
         // Save that the Terms version that the user has accepted.
         TermsManager.acceptCurrentTerms()
         
-        // TODO: Log the acceptance of the Terms
+        // Log the acceptance of the Terms
+        logger.log(eventName: "accept button tapped")
 
         self.dismiss(animated: true, completion: nil)
     }
