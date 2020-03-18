@@ -189,6 +189,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         }
     }
     
+    func enableUserTrackingMode() {
+        if (UserSettings.mapOrientation == .directionOfTravel) {
+            mapView.userTrackingMode = .followWithHeading
+        } else {
+            mapView.userTrackingMode = .follow
+        }
+    }
+    
     /**
      * Watch for changes to the UserSettings
      */
@@ -236,6 +244,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         logger.log(eventName: "map location button tapped")
 
         centerMapOnCurrentLocation()
+
+        // Re-enable tracking/panning because this gets disabled when the user starts panning the map
+        enableUserTrackingMode()
     }
 }
 
