@@ -2,8 +2,13 @@
 import Foundation
 
 class TermsManager {
-    static let currentTermsText = NSLocalizedString("I will not sue Avi", comment: "")
     static let currentTermsVersion: Int = 1
+    static var currentTermsURL: URL? {
+        get {
+            return Bundle.main.url(forResource: "bike streets terms v1.0", withExtension: "webarchive")
+//            return URL(string: "https://www.bikestreets.com/terms")
+        }
+    }
     
     static func hasAcceptedCurrentTerms() -> Bool {
         if UserSettings.lastTermsAccepted == TermsManager.currentTermsVersion {
