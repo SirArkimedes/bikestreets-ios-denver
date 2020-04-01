@@ -7,7 +7,7 @@ struct MapViewDefaults {
     static let mapStyle = BikeStreetsMapTypes.street
     static let latitude = 39.7390
     static let longitude = -104.9911
-    static let detailLevel = 16.0
+    static let detailLevel = 15.0
     
     static let locationArrowSolid = UIImage(named: "location-arrow-solid")
     static let locationArrowOutline = UIImage(named: "location-arrow-outline")
