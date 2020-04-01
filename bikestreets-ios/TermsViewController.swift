@@ -32,11 +32,9 @@ class TermsViewController: UIViewController, WKNavigationDelegate {
         declineButton.titleLabel?.text = NSLocalizedString("Decline", comment: "As in 'Decline' the terms of the app")
         acceptButton.titleLabel?.text = NSLocalizedString("Accept", comment: "As in 'Accept' the terms of the app")
         
-        // Style the buttons
-        declineButton.layer.cornerRadius = 5.0
-        declineButton.layer.masksToBounds = true
-        acceptButton.layer.cornerRadius = 5.0
-        acceptButton.layer.masksToBounds = true
+        // Styling
+        TermsViewController.configureStyleFor(button: declineButton)
+        TermsViewController.configureStyleFor(button: acceptButton)
     }
     
     // MARK: - WKNavigationDelegate
@@ -60,5 +58,13 @@ class TermsViewController: UIViewController, WKNavigationDelegate {
         logger.log(eventName: "accept button tapped")
 
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - Private Methods
+    class func configureStyleFor(button: UIButton) {
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderWidth = 1.0
+        button.layer.cornerRadius = 5.0
+        button.layer.masksToBounds = true
     }
 }
