@@ -7,7 +7,7 @@ struct MapViewDefaults {
     static let mapStyle = BikeStreetsMapTypes.street
     static let latitude = 39.7390
     static let longitude = -104.9911
-    static let detailLevel = 14.0
+    static let detailLevel = 16.0
 }
 
 // MARK: -
