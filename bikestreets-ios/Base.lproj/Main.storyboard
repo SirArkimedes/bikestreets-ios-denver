@@ -51,7 +51,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rg0-wX-AI7" userLabel="Location Button">
                                                 <rect key="frame" x="0.0" y="40" width="40" height="40"/>
-                                                <state key="normal" image="location.fill" catalog="system"/>
+                                                <state key="normal" image="location-arrow-outline"/>
                                                 <connections>
                                                     <action selector="locationButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="beQ-mY-Ye1"/>
                                                 </connections>
@@ -84,6 +84,7 @@
                     <connections>
                         <outlet property="buttonWrapperView" destination="MhF-lv-NVL" id="y7K-vo-VEZ"/>
                         <outlet property="debugInfoLabel" destination="fUE-4Z-4kd" id="U6B-Z3-nAn"/>
+                        <outlet property="infoButton" destination="4B7-BZ-iIT" id="X6d-Xq-BEv"/>
                         <outlet property="mapView" destination="TBz-DB-Mfh" id="wG0-zE-5T7"/>
                     </connections>
                 </viewController>
@@ -205,6 +206,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="location.fill" catalog="system" width="64" height="56"/>
+        <image name="location-arrow-outline" width="170.66667175292969" height="170.66667175292969"/>
     </resources>
 </document>

@@ -8,6 +8,9 @@ struct MapViewDefaults {
     static let latitude = 39.7390
     static let longitude = -104.9911
     static let detailLevel = 16.0
+    
+    static let locationArrowSolid = UIImage(named: "location-arrow-solid")
+    static let locationArrowOutline = UIImage(named: "location-arrow-outline")
 }
 
 // MARK: -
@@ -16,6 +19,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     // UI Objects in the storyboard
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var buttonWrapperView: UIView!
+    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var debugInfoLabel: UILabel!
     
     let logger = Logger(name: "MapViewController")
@@ -44,6 +49,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         configureMapStyle()
         configureMapPerspective()
         configureKeepScreenOn()
+        enableUserTrackingMode()
 
         // Style the buttons
         buttonWrapperView.layer.cornerRadius = 5.0
@@ -152,13 +158,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
      */
     func configureMapPerspective(isChange: Bool = false) {
         mapView.showsUserLocation = true
-        
         // How should we orient the map? Fixed or Direction of Travel?
         if (UserSettings.mapOrientation == .directionOfTravel) {
-            mapView.userTrackingMode = .followWithHeading
             mapView.showsUserHeadingIndicator = true
         } else {
-            mapView.userTrackingMode = .follow
             mapView.showsUserHeadingIndicator = false
 
             if isChange {
@@ -195,6 +198,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         } else {
             mapView.userTrackingMode = .follow
         }
+//        locationButton.setImage(MapViewDefaults.locationArrowSolid, for: .normal)
     }
     
     /**
