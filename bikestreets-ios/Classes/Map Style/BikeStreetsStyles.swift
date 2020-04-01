@@ -7,6 +7,7 @@ import Mapbox
  * List of available map styles, which are URLs in mapbox. List of available styles here: https://docs.mapbox.com/api/maps/#styles
  */
 struct BikeStreetsMapTypes {
+    static let bikeStreets = Bundle.main.url(forResource: "bike streets map style", withExtension: "json")
     static let street = URL(string: "mapbox://styles/mapbox/streets-v11")
     static let satellite = URL(string: "mapbox://styles/mapbox/satellite-v9")
     static let satelliteWithLabels = URL(string: "mapbox://styles/mapbox/satellite-streets-v9")

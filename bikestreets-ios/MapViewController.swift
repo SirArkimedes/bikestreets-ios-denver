@@ -143,7 +143,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         if UserSettings.mapViewType == .satellite {
             mapView.styleURL = BikeStreetsMapTypes.satelliteWithLabels
         } else {
-            mapView.styleURL = BikeStreetsMapTypes.street
+            mapView.styleURL = BikeStreetsMapTypes.bikeStreets
         }
     }
     

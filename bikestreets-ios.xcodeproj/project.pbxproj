@@ -21,6 +21,7 @@
 		4D7FDD56237B1872002FFE23 /* MapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */; };
 		4D7FDD59237B3120002FFE23 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FDD58237B3120002FFE23 /* UserSettings.swift */; };
 		4DBB449524310F4D00E936DE /* bike streets terms v1.0.webarchive in Resources */ = {isa = PBXBuildFile; fileRef = 4DBB449424310F4D00E936DE /* bike streets terms v1.0.webarchive */; };
+		4DBB44992435381400E936DE /* bike streets map style.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DBB44982435381400E936DE /* bike streets map style.json */; };
 		4DDE54B7233EBB0C0051BF83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */; };
 		4DDE54B9233EBB0C0051BF83 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54B8233EBB0C0051BF83 /* MapViewController.swift */; };
 		4DDE54BC233EBB0C0051BF83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54BA233EBB0C0051BF83 /* Main.storyboard */; };
@@ -75,6 +76,7 @@
 		4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSettingsViewController.swift; sourceTree = "<group>"; };
 		4D7FDD58237B3120002FFE23 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		4DBB449424310F4D00E936DE /* bike streets terms v1.0.webarchive */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "bike streets terms v1.0.webarchive"; sourceTree = "<group>"; };
+		4DBB44982435381400E936DE /* bike streets map style.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bike streets map style.json"; sourceTree = "<group>"; };
 		4DDE54B3233EBB0C0051BF83 /* Bike Streets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bike Streets.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DDE54B8233EBB0C0051BF83 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +179,15 @@
 			path = Resources/terms;
 			sourceTree = "<group>";
 		};
+		4DBB44972435381400E936DE /* map style */ = {
+			isa = PBXGroup;
+			children = (
+				4DBB44982435381400E936DE /* bike streets map style.json */,
+			);
+			name = "map style";
+			path = "Resources/map style";
+			sourceTree = "<group>";
+		};
 		4DD903492342EF1D001C7093 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +234,7 @@
 				4DDE54C2233EBB0C0051BF83 /* Info.plist */,
 				4DD903492342EF1D001C7093 /* Classes */,
 				4DDE54E4233EC12A0051BF83 /* Resources */,
+				4DBB44972435381400E936DE /* map style */,
 				4DBB449324310F4D00E936DE /* terms */,
 			);
 			path = "bikestreets-ios";
@@ -376,6 +388,7 @@
 				4DBB449524310F4D00E936DE /* bike streets terms v1.0.webarchive in Resources */,
 				4D212AA023CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson in Resources */,
 				4DDE54BC233EBB0C0051BF83 /* Main.storyboard in Resources */,
+				4DBB44992435381400E936DE /* bike streets map style.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
