@@ -86,6 +86,16 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     }
     #endif
     
+    func mapView(_ mapView: MGLMapView, didChange mode: MGLUserTrackingMode, animated: Bool) {
+        // If the map is no longer tracking the user (likely because the user panned the map), we need to
+        // change from the arrow on the location button from solid to outline.
+        if mode == .none {
+            locationButton.setImage(MapViewDefaults.locationArrowOutline, for: .normal)
+        } else {
+            locationButton.setImage(MapViewDefaults.locationArrowSolid, for: .normal)
+        }
+    }
+    
     // MARK: - Load Bike Streets Data
     
     /**
@@ -198,7 +208,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         } else {
             mapView.userTrackingMode = .follow
         }
-//        locationButton.setImage(MapViewDefaults.locationArrowSolid, for: .normal)
     }
     
     /**
