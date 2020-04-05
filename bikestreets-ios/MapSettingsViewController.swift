@@ -39,7 +39,7 @@ class MapSettingsViewController: UITableViewController {
         case .orientation:
             return NSLocalizedString("Orient Map to:", comment: "")
         case .other:
-            return " "
+            return NSLocalizedString("Misc.:", comment: "")
         case .mapKey:
             return NSLocalizedString("Map Key:", comment: "")
         }
@@ -72,11 +72,11 @@ class MapSettingsViewController: UITableViewController {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "checkmark")
             cell.selectionStyle = .none
             if indexPath.row == 0 {
-                cell.textLabel?.text = NSLocalizedString("Map", comment: "")
-                cell.accessoryType = (mapViewType == MapViewType.map.rawValue) ? .checkmark : .none
+                cell.textLabel?.text = NSLocalizedString("Street", comment: "")
+                cell.accessoryType = (mapViewType == .map) ? .checkmark : .none
             } else {
                 cell.textLabel?.text = NSLocalizedString("Satellite", comment: "")
-                cell.accessoryType = (mapViewType == MapViewType.satellite.rawValue) ? .checkmark : .none
+                cell.accessoryType = (mapViewType == .satellite) ? .checkmark : .none
             }
 
             return cell
@@ -88,10 +88,10 @@ class MapSettingsViewController: UITableViewController {
             cell.selectionStyle = .none
             if indexPath.row == 0 {
                 cell.textLabel?.text = NSLocalizedString("Fixed", comment: "")
-                cell.accessoryType = (orientation == MapDirectionOfTravel.fixed.rawValue) ? .checkmark : .none
+                cell.accessoryType = (orientation == .fixed) ? .checkmark : .none
             } else {
                 cell.textLabel?.text = NSLocalizedString("Direction of Travel", comment: "")
-                cell.accessoryType = (orientation == MapDirectionOfTravel.directionOfTravel.rawValue) ? .checkmark : .none
+                cell.accessoryType = (orientation == .directionOfTravel) ? .checkmark : .none
             }
 
             return cell
@@ -147,9 +147,9 @@ class MapSettingsViewController: UITableViewController {
         case .viewType:
             // Save the change
             if indexPath.row == 0 {
-                UserSettings.mapViewType = MapViewType.map.rawValue
+                UserSettings.mapViewType = .map
             } else {
-                UserSettings.mapViewType = MapViewType.satellite.rawValue
+                UserSettings.mapViewType = .satellite
             }
 
             // Update the UI
@@ -158,9 +158,9 @@ class MapSettingsViewController: UITableViewController {
         case .orientation:
             // Save the change
             if indexPath.row == 0 {
-                UserSettings.mapOrientation = MapDirectionOfTravel.fixed.rawValue
+                UserSettings.mapOrientation = .fixed
             } else {
-                UserSettings.mapOrientation = MapDirectionOfTravel.directionOfTravel.rawValue
+                UserSettings.mapOrientation = .directionOfTravel
             }
 
             // Update the UI

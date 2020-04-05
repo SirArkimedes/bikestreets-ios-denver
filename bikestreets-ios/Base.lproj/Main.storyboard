@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -51,7 +51,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rg0-wX-AI7" userLabel="Location Button">
                                                 <rect key="frame" x="0.0" y="40" width="40" height="40"/>
-                                                <state key="normal" image="location.fill" catalog="system"/>
+                                                <state key="normal" image="location-arrow-outline"/>
                                                 <connections>
                                                     <action selector="locationButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="beQ-mY-Ye1"/>
                                                 </connections>
@@ -59,7 +59,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="4i5-lb-Tcf"/>
                                     <constraint firstAttribute="bottom" secondItem="CgL-vY-92E" secondAttribute="bottom" id="FcE-AI-8YO"/>
@@ -84,6 +84,8 @@
                     <connections>
                         <outlet property="buttonWrapperView" destination="MhF-lv-NVL" id="y7K-vo-VEZ"/>
                         <outlet property="debugInfoLabel" destination="fUE-4Z-4kd" id="U6B-Z3-nAn"/>
+                        <outlet property="infoButton" destination="4B7-BZ-iIT" id="X6d-Xq-BEv"/>
+                        <outlet property="locationButton" destination="Rg0-wX-AI7" id="bei-Kt-9Vi"/>
                         <outlet property="mapView" destination="TBz-DB-Mfh" id="wG0-zE-5T7"/>
                     </connections>
                 </viewController>
@@ -91,16 +93,100 @@
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
         </scene>
+        <!--Terms View Controller-->
+        <scene sceneID="E2c-7R-WIO">
+            <objects>
+                <viewController storyboardIdentifier="TermsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7V3-GU-v39" customClass="TermsViewController" customModule="Bike_Streets" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SKu-pt-pi3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" allowsLinkPreview="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcp-gS-I80">
+                                <rect key="frame" x="0.0" y="64" width="414" height="688"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO" allowsPictureInPictureMediaPlayback="NO" suppressesIncrementalRendering="YES">
+                                    <dataDetectorTypes key="dataDetectorTypes" none="YES"/>
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences" javaScriptEnabled="NO"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="dwR-rq-z1O">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                            </activityIndicatorView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0iw-As-zYP">
+                                <rect key="frame" x="47" y="762" width="320" height="80"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="fbF-pS-2yz">
+                                        <rect key="frame" x="20" y="20" width="280" height="60"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SX0-aa-mbm">
+                                                <rect key="frame" x="0.0" y="0.0" width="132.5" height="60"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <state key="normal" title="Decline">
+                                                    <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="declineButtonAction:" destination="7V3-GU-v39" eventType="touchUpInside" id="GiP-GA-zHD"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zU4-SN-w7g">
+                                                <rect key="frame" x="147.5" y="0.0" width="132.5" height="60"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <state key="normal" title="Accept"/>
+                                                <connections>
+                                                    <action selector="acceptButtonAction:" destination="7V3-GU-v39" eventType="touchUpInside" id="0xA-Lt-E6g"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="fbF-pS-2yz" secondAttribute="bottom" id="6Nn-F2-Qqh"/>
+                                    <constraint firstItem="fbF-pS-2yz" firstAttribute="top" secondItem="0iw-As-zYP" secondAttribute="top" constant="20" symbolic="YES" id="Aze-PO-Pts"/>
+                                    <constraint firstAttribute="width" constant="320" id="Vlh-ft-SDE"/>
+                                    <constraint firstItem="fbF-pS-2yz" firstAttribute="leading" secondItem="0iw-As-zYP" secondAttribute="leading" constant="20" symbolic="YES" id="hKo-pv-Ygr"/>
+                                    <constraint firstAttribute="height" constant="80" id="pwl-OP-hwp"/>
+                                    <constraint firstAttribute="trailing" secondItem="fbF-pS-2yz" secondAttribute="trailing" constant="20" symbolic="YES" id="x07-S0-cFb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="tcp-gS-I80" firstAttribute="top" secondItem="wKm-Er-KHE" secondAttribute="top" constant="20" id="E0u-Rx-AbI"/>
+                            <constraint firstItem="tcp-gS-I80" firstAttribute="bottom" secondItem="0iw-As-zYP" secondAttribute="top" constant="-10" id="Ev0-pD-nd9"/>
+                            <constraint firstItem="dwR-rq-z1O" firstAttribute="centerX" secondItem="SKu-pt-pi3" secondAttribute="centerX" id="K0p-jc-iQH"/>
+                            <constraint firstItem="wKm-Er-KHE" firstAttribute="trailing" secondItem="tcp-gS-I80" secondAttribute="trailing" id="MxX-fb-b8o"/>
+                            <constraint firstItem="0iw-As-zYP" firstAttribute="centerX" secondItem="SKu-pt-pi3" secondAttribute="centerX" id="kSA-b5-X7F"/>
+                            <constraint firstItem="0iw-As-zYP" firstAttribute="bottom" secondItem="wKm-Er-KHE" secondAttribute="bottom" constant="-20" id="sp1-Od-wax"/>
+                            <constraint firstItem="dwR-rq-z1O" firstAttribute="centerY" secondItem="SKu-pt-pi3" secondAttribute="centerY" id="uZS-Lk-msC"/>
+                            <constraint firstItem="tcp-gS-I80" firstAttribute="leading" secondItem="wKm-Er-KHE" secondAttribute="leading" id="zD6-AR-S6Y"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wKm-Er-KHE"/>
+                    </view>
+                    <connections>
+                        <outlet property="acceptButton" destination="zU4-SN-w7g" id="b8O-FE-hTS"/>
+                        <outlet property="declineButton" destination="SX0-aa-mbm" id="BgQ-6c-MK2"/>
+                        <outlet property="termsWebView" destination="tcp-gS-I80" id="dlC-5G-vNV"/>
+                        <outlet property="waitingView" destination="dwR-rq-z1O" id="E1O-Nh-zgb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w1B-Tk-gAi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1037.68115942029" y="-185.49107142857142"/>
+        </scene>
         <!--Map Settings View Controller-->
         <scene sceneID="ZSP-Yi-exa">
             <objects>
-                <tableViewController id="uqp-xk-Yjw" customClass="MapSettingsViewController" customModule="Bike_Streets" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MapSettingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uqp-xk-Yjw" customClass="MapSettingsViewController" customModule="Bike_Streets" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="S7H-qx-rJL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="qfk-bo-ywH">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrototypeCell" id="qfk-bo-ywH">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qfk-bo-ywH" id="vqA-pg-7rM">
@@ -117,10 +203,10 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BLn-qV-BM6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1506" y="126"/>
+            <point key="canvasLocation" x="1039" y="529"/>
         </scene>
     </scenes>
     <resources>
-        <image name="location.fill" catalog="system" width="64" height="56"/>
+        <image name="location-arrow-outline" width="170.66667175292969" height="170.66667175292969"/>
     </resources>
 </document>

@@ -2,17 +2,37 @@
 import UIKit
 import Mapbox
 
+// MARK: - Defaults for the map view
+struct MapViewDefaults {
+    static let mapStyle = BikeStreetsMapTypes.street
+    static let latitude = 39.7390
+    static let longitude = -104.9911
+    static let zoomLevel = 15.0
+    
+    static let locationArrowSolid = UIImage(named: "location-arrow-solid")
+    static let locationArrowOutline = UIImage(named: "location-arrow-outline")
+}
+
+// MARK: -
 class MapViewController: UIViewController, MGLMapViewDelegate {
 
-    // UI Objcs in the storyboard
+    // UI Objects in the storyboard
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var buttonWrapperView: UIView!
+    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var debugInfoLabel: UILabel!
+    
+    let logger = Logger(name: "MapViewController")
     
     // Array to hold on to observer objects for watching changes to UserDefaults
     var userSettingObservers: [NSObject] = [NSObject]()
             
     // MARK: - UIViewController overrides
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,13 +42,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         // permission)
         mapView.setCenter(CLLocationCoordinate2D(latitude: MapViewDefaults.latitude,
                                                  longitude: MapViewDefaults.longitude),
-                          zoomLevel: MapViewDefaults.detailLevel,
+                          zoomLevel: UserSettings.mapZoomLevel,
                           animated: false)
 
         // Street or satellite view?
         configureMapStyle()
         configureMapPerspective()
         configureKeepScreenOn()
+        enableUserTrackingMode()
 
         // Style the buttons
         buttonWrapperView.layer.cornerRadius = 5.0
@@ -43,10 +64,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         #endif
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+    override func viewDidAppear(_ animated: Bool) {
+        if !TermsManager.hasAcceptedCurrentTerms() {
+            guard let termsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsViewController") as? TermsViewController else {
+                fatalError("Unable to locate the TermsViewController")
+            }
+            present(termsViewController, animated: true, completion: nil)
+        }
     }
-
+    
     // MARK: - MGLMapViewDelegate
     
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
@@ -59,6 +85,21 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         debugInfoLabel.text = "Zoom Level: \(mapView.zoomLevel.rounded())"
     }
     #endif
+    
+    func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
+        // Save the user's zoom level
+        UserSettings.mapZoomLevel = mapView.zoomLevel.rounded()
+    }
+    
+    func mapView(_ mapView: MGLMapView, didChange mode: MGLUserTrackingMode, animated: Bool) {
+        // If the map is no longer tracking the user (likely because the user panned the map), we need to
+        // change from the arrow on the location button from solid to outline.
+        if mode == .none {
+            locationButton.setImage(MapViewDefaults.locationArrowOutline, for: .normal)
+        } else {
+            locationButton.setImage(MapViewDefaults.locationArrowSolid, for: .normal)
+        }
+    }
     
     // MARK: - Load Bike Streets Data
     
@@ -120,10 +161,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
      * Street or Satellite view?
      */
     func configureMapStyle() {
-        if UserSettings.mapViewType == MapViewType.satellite.rawValue {
-            mapView.styleURL = MapStyles.satelliteWithLabels
+        if UserSettings.mapViewType == .satellite {
+            mapView.styleURL = BikeStreetsMapTypes.satelliteWithLabels
         } else {
-            mapView.styleURL = MapStyles.street
+            mapView.styleURL = BikeStreetsMapTypes.bikeStreets
         }
     }
     
@@ -132,13 +173,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
      */
     func configureMapPerspective(isChange: Bool = false) {
         mapView.showsUserLocation = true
-        
         // How should we orient the map? Fixed or Direction of Travel?
-        if (UserSettings.mapOrientation == MapDirectionOfTravel.directionOfTravel.rawValue) {
-            mapView.userTrackingMode = .followWithHeading
+        if (UserSettings.mapOrientation == .directionOfTravel) {
             mapView.showsUserHeadingIndicator = true
         } else {
-            mapView.userTrackingMode = .follow
             mapView.showsUserHeadingIndicator = false
 
             if isChange {
@@ -169,11 +207,19 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         }
     }
     
+    func enableUserTrackingMode() {
+        if (UserSettings.mapOrientation == .directionOfTravel) {
+            mapView.userTrackingMode = .followWithHeading
+        } else {
+            mapView.userTrackingMode = .follow
+        }
+    }
+    
     /**
      * Watch for changes to the UserSettings
      */
     func configureUserSettingObservers() {
-        var observer = UserSettings.$mapViewType.observe { [weak self] old, new in
+        var observer = UserSettings.$mapViewTypeRaw.observe { [weak self] old, new in
             guard let strongSelf = self else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
                                           execute: {
@@ -181,7 +227,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
             })
         }
         userSettingObservers.append(observer)
-        observer = UserSettings.$mapOrientation.observe { [weak self] old, new in
+        observer = UserSettings.$mapOrientationRaw.observe { [weak self] old, new in
             guard let strongSelf = self else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
                                           execute: {
@@ -202,13 +248,23 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     // MARK: - Button Action Methods
     
     @IBAction func infoButtonTapped(_ sender: Any) {
-        let mapSettingsViewController = MapSettingsViewController()
+        logger.log(eventName: "map info button tapped")
+        
+        guard let mapSettingsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapSettingsViewController") as? MapSettingsViewController else {
+            fatalError("Unable to locate the MapSettingsViewController")
+        }
+
         let navController = UINavigationController(rootViewController: mapSettingsViewController)
         present(navController, animated: true, completion: nil)
     }
     
     @IBAction func locationButtonTapped(_ sender: Any) {
+        logger.log(eventName: "map location button tapped")
+
         centerMapOnCurrentLocation()
+
+        // Re-enable tracking/panning because this gets disabled when the user starts panning the map
+        enableUserTrackingMode()
     }
 }
 
@@ -220,69 +276,5 @@ private extension String {
             return fileNameComponents[1]
         }
         return nil
-    }
-}
-
-// MARK: -
-/**
- * List of available map styles, which are URLs in mapbox. List of available styles here: https://docs.mapbox.com/api/maps/#styles
- */
-struct MapStyles {
-    static let street = URL(string: "mapbox://styles/mapbox/streets-v11")
-    static let satellite = URL(string: "mapbox://styles/mapbox/satellite-v9")
-    static let satelliteWithLabels = URL(string: "mapbox://styles/mapbox/satellite-streets-v9")
-}
-
-// MARK: -
-/**
- * Defaults for the map view
- */
-struct MapViewDefaults {
-    static let mapStyle = MapStyles.street
-    static let latitude = 39.7390
-    static let longitude = -104.9911
-    static let detailLevel = 14.0
-}
-
-// MARK: -
-struct BikeStreetsStyles {
-    static let bikeStreetBlue = UIColor(red: 0/255, green: 0/255, blue: 255/255, alpha: 0.7)
-    static let trailGreen = UIColor(red: 0/255, green: 178/255, blue: 0/255, alpha: 0.7)
-    static let bikeLaneOrange = UIColor(red: 216/255, green: 146/255, blue: 15/255, alpha: 0.7)
-    static let bikeSidewalkYellow = UIColor(red: 255/255, green: 255/255, blue: 0/255, alpha: 0.7)
-    static let walkBlack = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
-
-    // Use `NSExpression` to smoothly adjust the line width from 2pt to 20pt between zoom levels 14 and 18. The `interpolationBase` parameter allows the values to interpolate along an exponential curve.
-    private static let lineWidth =  NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
-          [14: 2, 18: 8])
-    
-    static func style(forLayer layerName: String, source: MGLShapeSource) -> MGLStyleLayer {
-        // Create new layer for the line.
-        let layer = MGLLineStyleLayer(identifier: layerName, source: source)
-        
-        // Set the line join and cap to a rounded end.
-        layer.lineJoin = NSExpression(forConstantValue: "round")
-        layer.lineCap = NSExpression(forConstantValue: "round")
-        
-        let lineColor: UIColor!
-        switch layerName {
-        case "trails":
-            lineColor = trailGreen
-        case "bikelanes":
-            lineColor = bikeLaneOrange
-        case "bikesidewalks":
-            lineColor = bikeSidewalkYellow
-        case "walk":
-            lineColor = walkBlack
-        case "bikestreets":
-            fallthrough
-        default:
-            lineColor = bikeStreetBlue
-        }
-
-        layer.lineColor = NSExpression(forConstantValue: lineColor)
-        layer.lineWidth = lineWidth
-                    
-        return layer
     }
 }

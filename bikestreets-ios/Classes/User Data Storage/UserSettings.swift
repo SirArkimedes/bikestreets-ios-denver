@@ -7,11 +7,33 @@ import Foundation
  * Simple class to store user settings such as map preferences, whether the user accepted ToS, etc.
  */
 struct UserSettings {
-    @UserSettingStorage(key: .mapViewType, defaultValue: MapViewType.map.rawValue)
-    static var mapViewType: String
+    @UserSettingStorage(key: .lastTermsAccepted, defaultValue: 0)
+    static var lastTermsAccepted: Int
     
-    @UserSettingStorage(key: .mapOrientation, defaultValue: MapDirectionOfTravel.fixed.rawValue)
-    static var mapOrientation: String
+    @UserSettingStorage(key: .mapZoomLevel, defaultValue: MapViewDefaults.zoomLevel)
+    static var mapZoomLevel: Double
+    
+    @UserSettingStorage(key: .mapViewType, defaultValue: MapViewType.map.rawValue)
+    static var mapViewTypeRaw: String
+    static var mapViewType: MapViewType {
+        get {
+            return MapViewType(rawValue: mapViewTypeRaw)!
+        }
+        set {
+            mapViewTypeRaw = newValue.rawValue
+        }
+    }
+    
+    @UserSettingStorage(key: .mapOrientation, defaultValue: MapOrientation.fixed.rawValue)
+    static var mapOrientationRaw: String
+    static var mapOrientation: MapOrientation {
+        get {
+            return MapOrientation(rawValue: mapOrientationRaw)!
+        }
+        set {
+            mapOrientationRaw = newValue.rawValue
+        }
+    }
     
     @UserSettingStorage(key: .preventScreenLockOnMap, defaultValue: false)
     static var preventScreenLockOnMap: Bool
@@ -22,7 +44,7 @@ enum MapViewType: String {
     case satellite = "satellite"
 }
 
-enum MapDirectionOfTravel: String {
+enum MapOrientation: String {
     case fixed = "fixed"
     case directionOfTravel = "directionOfTravel"
 }
@@ -42,6 +64,8 @@ extension Key: ExpressibleByStringLiteral {
 }
 
 extension Key {
+    static let lastTermsAccepted: Key = "lasttermsaccepted_key"
+    static let mapZoomLevel: Key = "mapzoomlevel_key"
     static let mapViewType: Key = "mapviewtype_key"
     static let mapOrientation: Key = "maporientation_key"
     static let preventScreenLockOnMap: Key = "preventscreenlockonmap_key"
