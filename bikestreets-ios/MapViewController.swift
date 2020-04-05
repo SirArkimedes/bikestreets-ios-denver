@@ -7,7 +7,7 @@ struct MapViewDefaults {
     static let mapStyle = BikeStreetsMapTypes.street
     static let latitude = 39.7390
     static let longitude = -104.9911
-    static let detailLevel = 15.0
+    static let zoomLevel = 15.0
     
     static let locationArrowSolid = UIImage(named: "location-arrow-solid")
     static let locationArrowOutline = UIImage(named: "location-arrow-outline")
@@ -42,7 +42,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         // permission)
         mapView.setCenter(CLLocationCoordinate2D(latitude: MapViewDefaults.latitude,
                                                  longitude: MapViewDefaults.longitude),
-                          zoomLevel: MapViewDefaults.detailLevel,
+                          zoomLevel: UserSettings.mapZoomLevel,
                           animated: false)
 
         // Street or satellite view?
@@ -85,6 +85,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         debugInfoLabel.text = "Zoom Level: \(mapView.zoomLevel.rounded())"
     }
     #endif
+    
+    func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
+        // Save the user's zoom level
+        UserSettings.mapZoomLevel = mapView.zoomLevel.rounded()
+    }
     
     func mapView(_ mapView: MGLMapView, didChange mode: MGLUserTrackingMode, animated: Bool) {
         // If the map is no longer tracking the user (likely because the user panned the map), we need to
