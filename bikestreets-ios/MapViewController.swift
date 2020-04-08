@@ -48,6 +48,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                                                  longitude: MapViewDefaults.longitude),
                           zoomLevel: UserSettings.mapZoomLevel,
                           animated: false)
+
+        // Always show the compass - Denverites navigate by ordinals in a way many other cities do not
+        mapView.compassView.compassVisibility = .visible
+
         mapView.minimumZoomLevel = MapViewLimits.minZoomLevel
         
         // Street or satellite view?
