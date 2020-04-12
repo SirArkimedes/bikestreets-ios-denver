@@ -90,7 +90,7 @@ class MapSettingsViewController: UITableViewController {
                 cell.textLabel?.text = NSLocalizedString("Fixed", comment: "")
                 cell.accessoryType = (orientation == .fixed) ? .checkmark : .none
             } else {
-                cell.textLabel?.text = NSLocalizedString("Direction of Travel", comment: "")
+                cell.textLabel?.text = NSLocalizedString("Direction of travel", comment: "")
                 cell.accessoryType = (orientation == .directionOfTravel) ? .checkmark : .none
             }
 

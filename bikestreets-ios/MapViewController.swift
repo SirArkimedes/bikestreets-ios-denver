@@ -4,13 +4,17 @@ import Mapbox
 
 // MARK: - Defaults for the map view
 struct MapViewDefaults {
-    static let mapStyle = BikeStreetsMapTypes.street
     static let latitude = 39.7390
     static let longitude = -104.9911
     static let zoomLevel = 15.0
     
     static let locationArrowSolid = UIImage(named: "location-arrow-solid")
     static let locationArrowOutline = UIImage(named: "location-arrow-outline")
+}
+
+struct MapViewLimits {
+    static let maxZoomLevel = 19.0
+    static let minZoomLevel = 10.0
 }
 
 // MARK: -
@@ -45,6 +49,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                           zoomLevel: UserSettings.mapZoomLevel,
                           animated: false)
 
+        // Always show the compass - Denverites navigate by ordinals in a way many other cities do not
+        mapView.compassView.compassVisibility = .visible
+
+        mapView.minimumZoomLevel = MapViewLimits.minZoomLevel
+        
         // Street or satellite view?
         configureMapStyle()
         configureMapPerspective()
@@ -56,7 +65,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         buttonWrapperView.layer.masksToBounds = true
      
         configureUserSettingObservers()
-        
+
         #if DEBUG
         debugInfoLabel.isHidden = false
         #else
@@ -80,15 +89,28 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         loadMapFromShippedResources()
     }
     
-    #if DEBUG
-    func mapViewRegionIsChanging(_ mapView: MGLMapView) {
-        debugInfoLabel.text = "Zoom Level: \(mapView.zoomLevel.rounded())"
-    }
-    #endif
-    
     func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
+        #if DEBUG
+        debugInfoLabel.text = "Zoom Level: \(mapView.zoomLevel.rounded())"
+        #endif
+
+        let oldZoomLevel = UserSettings.mapZoomLevel
+        var newZoomLevel = mapView.zoomLevel.rounded()
+        
+        // Bail if the zoom level has not changed
+        guard oldZoomLevel != newZoomLevel else {
+            return
+        }
+        
+        // Min & Max zoom levels that we'll save
+        if newZoomLevel > MapViewLimits.maxZoomLevel {
+            newZoomLevel = MapViewLimits.maxZoomLevel
+        } else if newZoomLevel < MapViewLimits.minZoomLevel {
+            newZoomLevel = MapViewLimits.minZoomLevel
+        }
+        
         // Save the user's zoom level
-        UserSettings.mapZoomLevel = mapView.zoomLevel.rounded()
+        UserSettings.mapZoomLevel = newZoomLevel
     }
     
     func mapView(_ mapView: MGLMapView, didChange mode: MGLUserTrackingMode, animated: Bool) {
