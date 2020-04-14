@@ -10,6 +10,8 @@ enum MapSettingsSection: Int, CaseIterable {
 
 class MapSettingsViewController: UITableViewController {
     
+    private let mapLayerSpecs = BikeStreetsStyles.mapLayerSpecs
+    
     // MARK: UIViewController overrides
     
     override func viewDidLoad() {
@@ -57,7 +59,7 @@ class MapSettingsViewController: UITableViewController {
         case .other:
             return 1
         case .mapKey:
-            return 5
+            return mapLayerSpecs.count
         }
     }
     
@@ -113,25 +115,9 @@ class MapSettingsViewController: UITableViewController {
             let accessoryView = UIView(frame: CGRect(x: 100, y: 0, width: 200, height: 5))
             cell.accessoryView = accessoryView
             
-            switch indexPath.row {
-            case 0:
-                cell.textLabel?.text = NSLocalizedString("Bike Street", comment: "")
-                accessoryView.backgroundColor = BikeStreetsStyles.bikeStreetColor
-            case 1:
-                cell.textLabel?.text = NSLocalizedString("Trail", comment: "")
-                accessoryView.backgroundColor = BikeStreetsStyles.trailColor
-            case 2:
-                cell.textLabel?.text = NSLocalizedString("Bike Lane", comment: "")
-                accessoryView.backgroundColor = BikeStreetsStyles.bikeLaneColor
-            case 3:
-                cell.textLabel?.text = NSLocalizedString("Bike on Sidewalk", comment: "")
-                accessoryView.backgroundColor = BikeStreetsStyles.bikeSidewalkColor
-            case 4:
-                cell.textLabel?.text = NSLocalizedString("Walk", comment: "")
-                accessoryView.backgroundColor = BikeStreetsStyles.walkBikeColor
-            default:
-                fatalError("Invalid row \(indexPath.row)")
-            }
+            let mapLayerSpec = mapLayerSpecs[indexPath.row] 
+            cell.textLabel?.text = mapLayerSpec.description
+            accessoryView.backgroundColor = mapLayerSpec.color
 
             return cell
         }

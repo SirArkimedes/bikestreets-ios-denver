@@ -45,14 +45,36 @@ struct BikeStreetsMapTypes {
  * Style elements for Bike Streets
  */
 struct BikeStreetsStyles {
-    private static let bikeStreetAlpha: CGFloat = 0.7
-    
-    static let bikeStreetColor = UIColor(rgb: 0x345aa8, alpha: bikeStreetAlpha)
-    static let trailColor = UIColor(rgb: 0x7a8a47, alpha: bikeStreetAlpha)
-    static let bikeLaneColor = UIColor(rgb: 0xe8238b, alpha: bikeStreetAlpha)
-    static let bikeSidewalkColor = UIColor(rgb: 0xffcf22, alpha: bikeStreetAlpha)
-    static let walkBikeColor = UIColor(rgb: 0x55af9c, alpha: bikeStreetAlpha)
+    private static let bikeStreetLayer = MapLayerSpec("bikestreets", rgb: 0x345aa8, description: "Bike Street")
+    private static let trailLayer = MapLayerSpec("trails", rgb: 0x7a8a47, description: "Trail")
+    private static let bikeLaneLayer = MapLayerSpec("bikelanes", rgb: 0xe8238b, description: "Bike Lane")
+    private static let bikeSidewalkLayer = MapLayerSpec("bikesidewalks", rgb: 0xffcf22, description: "Bike on Sidewalk")
+    private static let walkBikeLayer = MapLayerSpec("walk", rgb: 0x55af9c, description: "Walk your Bike")
 
+    static let mapLayerSpecs: [MapLayerSpec] = [
+        bikeStreetLayer,
+        trailLayer,
+        bikeLaneLayer,
+        bikeSidewalkLayer,
+        walkBikeLayer,
+    ]
+    
+    static func mapLayerSpec(forLayer layerName: String) -> MapLayerSpec? {
+        for layerSpec in mapLayerSpecs {
+            if layerSpec.name == layerName {
+                return layerSpec
+            }
+         }
+        return nil
+    }
+    
+    static func mapLayerColor(forLayer layerName: String) -> UIColor {
+        guard let layerSpec = mapLayerSpec(forLayer: layerName) else {
+            fatalError("Cannot find map layer spec for layer id \(layerName)")
+        }
+        return layerSpec.color
+    }
+    
     // Use `NSExpression` to smoothly adjust the line width from 2pt to 20pt between zoom levels 14 and 18. The `interpolationBase` parameter allows the values to interpolate along an exponential curve.
     private static let lineWidth =  NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
           [14: 2, 18: 8])
@@ -64,26 +86,27 @@ struct BikeStreetsStyles {
         // Set the line join and cap to a rounded end.
         layer.lineJoin = NSExpression(forConstantValue: "round")
         layer.lineCap = NSExpression(forConstantValue: "round")
-        
-        let lineColor: UIColor!
-        switch layerName {
-        case "trails":
-            lineColor = trailColor
-        case "bikelanes":
-            lineColor = bikeLaneColor
-        case "bikesidewalks":
-            lineColor = bikeSidewalkColor
-        case "walk":
-            lineColor = walkBikeColor
-        case "bikestreets":
-            fallthrough
-        default:
-            lineColor = bikeStreetColor
-        }
+
+        // Get the line color for this layer
+        let lineColor = mapLayerColor(forLayer: layerName)
 
         layer.lineColor = NSExpression(forConstantValue: lineColor)
         layer.lineWidth = lineWidth
                     
         return layer
+    }
+}
+
+struct MapLayerSpec {
+    private static let bikeStreetAlpha: CGFloat = 0.7
+
+    let name: String
+    let color: UIColor
+    let description: String
+    
+    init(_ name: String, rgb: Int, description: String) {
+        self.name = name
+        self.color = UIColor(rgb: rgb, alpha: MapLayerSpec.bikeStreetAlpha)
+        self.description = NSLocalizedString(description, comment: "")
     }
 }
