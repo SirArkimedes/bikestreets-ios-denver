@@ -116,19 +116,19 @@ class MapSettingsViewController: UITableViewController {
             switch indexPath.row {
             case 0:
                 cell.textLabel?.text = NSLocalizedString("Bike Street", comment: "")
-                accessoryView.backgroundColor = BikeStreetsStyles.bikeStreetBlue
+                accessoryView.backgroundColor = BikeStreetsStyles.bikeStreetColor
             case 1:
                 cell.textLabel?.text = NSLocalizedString("Trail", comment: "")
-                accessoryView.backgroundColor = BikeStreetsStyles.trailGreen
+                accessoryView.backgroundColor = BikeStreetsStyles.trailColor
             case 2:
                 cell.textLabel?.text = NSLocalizedString("Bike Lane", comment: "")
-                accessoryView.backgroundColor = BikeStreetsStyles.bikeLaneOrange
+                accessoryView.backgroundColor = BikeStreetsStyles.bikeLaneColor
             case 3:
                 cell.textLabel?.text = NSLocalizedString("Bike on Sidewalk", comment: "")
-                accessoryView.backgroundColor = BikeStreetsStyles.bikeSidewalkYellow
+                accessoryView.backgroundColor = BikeStreetsStyles.bikeSidewalkColor
             case 4:
                 cell.textLabel?.text = NSLocalizedString("Walk", comment: "")
-                accessoryView.backgroundColor = BikeStreetsStyles.walkBlack
+                accessoryView.backgroundColor = BikeStreetsStyles.walkBikeColor
             default:
                 fatalError("Invalid row \(indexPath.row)")
             }
