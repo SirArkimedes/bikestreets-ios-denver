@@ -114,7 +114,8 @@ class MapSettingsViewController: UITableViewController {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "key")
             let accessoryView = UIView(frame: CGRect(x: 100, y: 0, width: 200, height: 5))
             cell.accessoryView = accessoryView
-            
+            cell.selectionStyle = .none
+
             let mapLayerSpec = mapLayerSpecs[indexPath.row] 
             cell.textLabel?.text = mapLayerSpec.description
             accessoryView.backgroundColor = mapLayerSpec.color
