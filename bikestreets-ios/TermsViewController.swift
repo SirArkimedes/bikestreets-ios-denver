@@ -4,7 +4,7 @@ import UIKit
 import WebKit
 
 // MARK: -
-class TermsViewController: UIViewController, WKNavigationDelegate {
+class TermsViewController: UIViewController {
     // MARK: - IVARs
     @IBOutlet weak var termsWebView: WKWebView!
     @IBOutlet weak var waitingView: UIActivityIndicatorView!
@@ -37,11 +37,6 @@ class TermsViewController: UIViewController, WKNavigationDelegate {
         TermsViewController.configureStyleFor(button: acceptButton)
     }
     
-    // MARK: - WKNavigationDelegate
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        waitingView.stopAnimating()
-    }
-    
     // MARK: - Button Actions
     @IBAction func declineButtonAction(_ sender: Any) {
         // Log the declining of the Terms
@@ -66,5 +61,28 @@ class TermsViewController: UIViewController, WKNavigationDelegate {
         button.layer.borderWidth = 1.0
         button.layer.cornerRadius = 5.0
         button.layer.masksToBounds = true
+    }
+}
+
+// MARK: - WKNavigationDelegate
+extension TermsViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        waitingView.stopAnimating()
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
+        // If the user taps a link, hand it over to the system to open (probably Safari)
+        if navigationAction.navigationType == .linkActivated,
+            let url = navigationAction.request.url,
+            UIApplication.shared.canOpenURL(url) {
+
+            self.logger.log(eventName: "User tapped URL \(url). Opening URL in Safari")
+            UIApplication.shared.open(url)
+
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
+        }
     }
 }
