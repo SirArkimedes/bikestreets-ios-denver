@@ -18,7 +18,7 @@ struct MapViewLimits {
 }
 
 // MARK: -
-class MapViewController: UIViewController, MGLMapViewDelegate {
+class MapViewController: UIViewController {
 
     // UI Objects in the storyboard
     @IBOutlet weak var mapView: MGLMapView!
@@ -79,47 +79,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                 fatalError("Unable to locate the TermsViewController")
             }
             present(termsViewController, animated: true, completion: nil)
-        }
-    }
-    
-    // MARK: - MGLMapViewDelegate
-    
-    func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
-        // Wait until the map is loaded before adding to the map.
-        loadMapFromShippedResources()
-    }
-    
-    func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
-        #if DEBUG
-        debugInfoLabel.text = "Zoom Level: \(mapView.zoomLevel.rounded())"
-        #endif
-
-        let oldZoomLevel = UserSettings.mapZoomLevel
-        var newZoomLevel = mapView.zoomLevel.rounded()
-        
-        // Bail if the zoom level has not changed
-        guard oldZoomLevel != newZoomLevel else {
-            return
-        }
-        
-        // Min & Max zoom levels that we'll save
-        if newZoomLevel > MapViewLimits.maxZoomLevel {
-            newZoomLevel = MapViewLimits.maxZoomLevel
-        } else if newZoomLevel < MapViewLimits.minZoomLevel {
-            newZoomLevel = MapViewLimits.minZoomLevel
-        }
-        
-        // Save the user's zoom level
-        UserSettings.mapZoomLevel = newZoomLevel
-    }
-    
-    func mapView(_ mapView: MGLMapView, didChange mode: MGLUserTrackingMode, animated: Bool) {
-        // If the map is no longer tracking the user (likely because the user panned the map), we need to
-        // change from the arrow on the location button from solid to outline.
-        if mode == .none {
-            locationButton.setImage(MapViewDefaults.locationArrowOutline, for: .normal)
-        } else {
-            locationButton.setImage(MapViewDefaults.locationArrowSolid, for: .normal)
         }
     }
     
@@ -287,6 +246,48 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
 
         // Re-enable tracking/panning because this gets disabled when the user starts panning the map
         enableUserTrackingMode()
+    }
+}
+
+// MARK: - MGLMapViewDelegate
+extension MapViewController: MGLMapViewDelegate {
+    func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+        // Wait until the map is loaded before adding to the map.
+        loadMapFromShippedResources()
+    }
+    
+    func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
+        #if DEBUG
+        debugInfoLabel.text = "Zoom Level: \(mapView.zoomLevel.rounded())"
+        #endif
+
+        let oldZoomLevel = UserSettings.mapZoomLevel
+        var newZoomLevel = mapView.zoomLevel.rounded()
+        
+        // Bail if the zoom level has not changed
+        guard oldZoomLevel != newZoomLevel else {
+            return
+        }
+        
+        // Min & Max zoom levels that we'll save
+        if newZoomLevel > MapViewLimits.maxZoomLevel {
+            newZoomLevel = MapViewLimits.maxZoomLevel
+        } else if newZoomLevel < MapViewLimits.minZoomLevel {
+            newZoomLevel = MapViewLimits.minZoomLevel
+        }
+        
+        // Save the user's zoom level
+        UserSettings.mapZoomLevel = newZoomLevel
+    }
+    
+    func mapView(_ mapView: MGLMapView, didChange mode: MGLUserTrackingMode, animated: Bool) {
+        // If the map is no longer tracking the user (likely because the user panned the map), we need to
+        // change from the arrow on the location button from solid to outline.
+        if mode == .none {
+            locationButton.setImage(MapViewDefaults.locationArrowOutline, for: .normal)
+        } else {
+            locationButton.setImage(MapViewDefaults.locationArrowSolid, for: .normal)
+        }
     }
 }
 
