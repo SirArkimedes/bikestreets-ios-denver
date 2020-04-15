@@ -1,7 +1,7 @@
 
 import UIKit
 
-enum MapSettingsSection: Int, CaseIterable {
+fileprivate enum MapSettingsSection: Int, CaseIterable {
     case viewType
     case orientation
     case other
@@ -176,7 +176,7 @@ extension MapSettingsViewController {
         }
     }
     
-    func checkOnlyCellAt(indexPath: IndexPath, in tableView: UITableView) {
+    private func checkOnlyCellAt(indexPath: IndexPath, in tableView: UITableView) {
         // Uncheck the other cells in the section
         let numberOfCells = tableView.numberOfRows(inSection: indexPath.section)
         for i in 0..<numberOfCells {
