@@ -31,7 +31,7 @@ class Logger {
     // MARK: - Methods for Logging Events
     func log(eventName: String) {
         #if DEBUG
-        Swift.print("LOGGER \(name): \(eventName)")
+        Swift.print("LOGGER [\(Date())] \(name): \(eventName)")
         #endif
     }
 }
