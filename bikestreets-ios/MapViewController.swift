@@ -51,14 +51,13 @@ class MapViewController: UIViewController {
 
         // Always show the compass - Denverites navigate by ordinals in a way many other cities do not
         mapView.compassView.compassVisibility = .visible
-
         mapView.minimumZoomLevel = MapViewLimits.minZoomLevel
-        
+        mapView.showsUserLocation = true
+
         // Street or satellite view?
         configureMapStyle()
-        configureMapPerspective()
         configureKeepScreenOn()
-        enableUserTrackingMode()
+        configureUserTrackingMode()
 
         // Style the buttons
         buttonWrapperView.layer.cornerRadius = 5.0
@@ -74,6 +73,8 @@ class MapViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        // If the user has not accepted the current Terms of Service for the app then show the
+        // Terms view.
         if !TermsManager.hasAcceptedCurrentTerms() {
             guard let termsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsViewController") as? TermsViewController else {
                 fatalError("Unable to locate the TermsViewController")
@@ -83,7 +84,6 @@ class MapViewController: UIViewController {
     }
     
     // MARK: - Button Action Methods
-    
     @IBAction func infoButtonTapped(_ sender: Any) {
         logger.log(eventName: "map info button tapped")
         
@@ -101,7 +101,7 @@ class MapViewController: UIViewController {
         centerMapOnCurrentLocation()
 
         // Re-enable tracking/panning because this gets disabled when the user starts panning the map
-        enableUserTrackingMode()
+        configureUserTrackingMode()
     }
 }
 
@@ -227,21 +227,13 @@ extension MapViewController {
     }
     
     /**
-     * Change the map's perspective depending upon the user setting
+     * Enable user tracking (i.e. pan/move the map as the user moves)
      */
-    private func configureMapPerspective(isChange: Bool = false) {
-        mapView.showsUserLocation = true
-        // How should we orient the map? Fixed or Direction of Travel?
+    private func configureUserTrackingMode() {
         if (UserSettings.mapOrientation == .directionOfTravel) {
-            mapView.showsUserHeadingIndicator = true
+            mapView.userTrackingMode = .followWithHeading
         } else {
-            mapView.showsUserHeadingIndicator = false
-
-            if isChange {
-                // We should not change the viewpoint rotation & (re)center the map unless this is a change
-                // in map perspective.
-                centerMapOnCurrentLocation()
-            }
+            mapView.userTrackingMode = .follow
         }
     }
     
@@ -266,17 +258,6 @@ extension MapViewController {
     }
     
     /**
-     * Enable user tracking (i.e. pan/move the map as the user moves)
-     */
-    private func enableUserTrackingMode() {
-        if (UserSettings.mapOrientation == .directionOfTravel) {
-            mapView.userTrackingMode = .followWithHeading
-        } else {
-            mapView.userTrackingMode = .follow
-        }
-    }
-    
-    /**
      * Watch for changes to the UserSettings
      */
     private func configureUserSettingObservers() {
@@ -292,7 +273,7 @@ extension MapViewController {
             guard let strongSelf = self else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5,
                                           execute: {
-                                            strongSelf.configureMapPerspective(isChange: true)
+                                            strongSelf.configureUserTrackingMode()
             })
         }
         userSettingObservers.append(observer)
