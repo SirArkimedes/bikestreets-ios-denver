@@ -149,22 +149,14 @@ extension MapSettingsViewController {
         switch settingsSection {
         case .viewType:
             // Save the change
-            if indexPath.row == 0 {
-                UserSettings.mapViewType = .map
-            } else {
-                UserSettings.mapViewType = .satellite
-            }
+            UserSettings.mapViewType = (indexPath.row == 0 ? .map : .satellite)
 
             // Update the UI
             checkOnlyCellAt(indexPath: indexPath, in: tableView)
             
         case .orientation:
             // Save the change
-            if indexPath.row == 0 {
-                UserSettings.mapOrientation = .fixed
-            } else {
-                UserSettings.mapOrientation = .directionOfTravel
-            }
+            UserSettings.mapOrientation = (indexPath.row == 0 ? .fixed : .directionOfTravel)
 
             // Update the UI
             checkOnlyCellAt(indexPath: indexPath, in: tableView)
