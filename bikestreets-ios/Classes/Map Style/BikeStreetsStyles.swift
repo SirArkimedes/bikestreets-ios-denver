@@ -47,9 +47,9 @@ struct BikeStreetsMapTypes {
 struct BikeStreetsStyles {
     private static let bikeStreetLayer = MapLayerSpec("bikestreets", rgb: 0x345aa8, description: "Bike Street")
     private static let trailLayer = MapLayerSpec("trails", rgb: 0x7a8a47, description: "Trail")
-    private static let bikeLaneLayer = MapLayerSpec("bikelanes", rgb: 0xe8238b, description: "Bike Lane")
-    private static let bikeSidewalkLayer = MapLayerSpec("bikesidewalks", rgb: 0xffcf22, description: "Bike on Sidewalk")
-    private static let walkBikeLayer = MapLayerSpec("walk", rgb: 0x55af9c, description: "Walk your Bike")
+    private static let bikeLaneLayer = MapLayerSpec("bikelanes", rgb: 0x58595b, description: "Bike Lane")
+    private static let bikeSidewalkLayer = MapLayerSpec("bikesidewalks", rgb: 0xe82e8b, description: "Bike on Sidewalk")
+    private static let walkBikeLayer = MapLayerSpec("walk", rgb: 0xd8282c, description: "Walk your Bike")
 
     static let mapLayerSpecs: [MapLayerSpec] = [
         bikeStreetLayer,
