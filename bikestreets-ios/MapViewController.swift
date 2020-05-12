@@ -7,9 +7,6 @@ struct MapViewDefaults {
     static let latitude = 39.7390
     static let longitude = -104.9911
     static let zoomLevel = 15.0
-    
-    static let locationArrowSolid = UIImage(named: "location-arrow-solid")
-    static let locationArrowOutline = UIImage(named: "location-arrow-outline")
 }
 
 fileprivate struct MapViewLimits {
@@ -32,6 +29,9 @@ class MapViewController: UIViewController {
     // Array to hold on to observer objects for watching changes to UserDefaults
     private var userSettingObservers: [NSObject] = [NSObject]()
             
+    private var locationArrowSolid: UIImage!
+    private var locationArrowOutline: UIImage!
+    
     // MARK: - UIViewController overrides
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
@@ -137,12 +137,22 @@ extension MapViewController: MGLMapViewDelegate {
     }
     
     func mapView(_ mapView: MGLMapView, didChange mode: MGLUserTrackingMode, animated: Bool) {
+        if locationArrowSolid == nil {
+            if #available(iOS 13.0, *) {
+                locationArrowSolid = UIImage(systemName: "location.fill")
+                locationArrowOutline = UIImage(systemName: "location")
+            } else {
+                locationArrowSolid = UIImage(named: "location-arrow-solid-iOS-12")
+                locationArrowOutline = UIImage(named: "location-arrow-outline-iOS-12")
+            }
+        }
+        
         // If the map is no longer tracking the user (likely because the user panned the map), we need to
         // change from the arrow on the location button from solid to outline.
         if mode == .none {
-            locationButton.setImage(MapViewDefaults.locationArrowOutline, for: .normal)
+            locationButton.setImage(locationArrowOutline, for: .normal)
         } else {
-            locationButton.setImage(MapViewDefaults.locationArrowSolid, for: .normal)
+            locationButton.setImage(locationArrowSolid, for: .normal)
         }
     }
 }
