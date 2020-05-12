@@ -2,6 +2,7 @@
 import UIKit
 
 fileprivate enum MapSettingsSection: Int, CaseIterable {
+    case betaFeedback
     case viewType
     case orientation
     case other
@@ -42,102 +43,116 @@ class MapSettingsViewController: UITableViewController {
 
 // MARK: - UITableViewDataSource
 extension MapSettingsViewController {
-      override func numberOfSections(in tableView: UITableView) -> Int {
-          return MapSettingsSection.allCases.count
-      }
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return MapSettingsSection.allCases.count
+    }
       
-      override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-          guard let settingsSection = MapSettingsSection(rawValue: section) else {
-              fatalError("Invalid section \(section)")
-          }
-          switch settingsSection {
-          case .viewType:
-              return NSLocalizedString("View:", comment: "")
-          case .orientation:
-              return NSLocalizedString("Orient Map to:", comment: "")
-          case .other:
-              return NSLocalizedString("Misc.:", comment: "")
-          case .mapKey:
-              return NSLocalizedString("Map Key:", comment: "")
-          }
-      }
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let settingsSection = MapSettingsSection(rawValue: section) else {
+            fatalError("Invalid section \(section)")
+        }
+        switch settingsSection {
+        case .betaFeedback:
+            return NSLocalizedString("Beta:", comment: "")
+        case .viewType:
+            return NSLocalizedString("View:", comment: "")
+        case .orientation:
+            return NSLocalizedString("Orient Map to:", comment: "")
+        case .other:
+            return NSLocalizedString("Misc.:", comment: "")
+        case .mapKey:
+            return NSLocalizedString("Map Key:", comment: "")
+        }
+    }
       
-      override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-          guard let settingsSection = MapSettingsSection(rawValue: section) else {
-              fatalError("Invalid section \(section)")
-          }
-          switch settingsSection {
-          case .viewType:
-              return 2
-          case .orientation:
-              return 2
-          case .other:
-              return 1
-          case .mapKey:
-              return mapLayerSpecs.count
-          }
-      }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let settingsSection = MapSettingsSection(rawValue: section) else {
+            fatalError("Invalid section \(section)")
+        }
+        switch settingsSection {
+        case .betaFeedback:
+            return 1
+        case .viewType:
+            return 2
+        case .orientation:
+            return 2
+        case .other:
+            return 1
+        case .mapKey:
+            return mapLayerSpecs.count
+        }
+    }
       
-      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          guard let settingsSection = MapSettingsSection(rawValue: indexPath.section) else {
-              fatalError("Invalid section \(indexPath.section)")
-          }
-          switch settingsSection {
-          case .viewType:
-              let mapViewType = UserSettings.mapViewType
-              
-              let cell = UITableViewCell(style: .default, reuseIdentifier: "checkmark")
-              cell.selectionStyle = .none
-              if indexPath.row == 0 {
-                  cell.textLabel?.text = NSLocalizedString("Street", comment: "")
-                  cell.accessoryType = (mapViewType == .map) ? .checkmark : .none
-              } else {
-                  cell.textLabel?.text = NSLocalizedString("Satellite", comment: "")
-                  cell.accessoryType = (mapViewType == .satellite) ? .checkmark : .none
-              }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let settingsSection = MapSettingsSection(rawValue: indexPath.section) else {
+            fatalError("Invalid section \(indexPath.section)")
+        }
+        switch settingsSection {
+        case .betaFeedback:
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "betaFeedback")
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .default
 
-              return cell
+            cell.textLabel?.text = NSLocalizedString("Submit Feedback", comment: "")
+            cell.textLabel?.textColor = .blue
+            
+            return cell
 
-          case .orientation:
-              let orientation = UserSettings.mapOrientation
+        case .viewType:
+            let mapViewType = UserSettings.mapViewType
               
-              let cell = UITableViewCell(style: .default, reuseIdentifier: "checkmark")
-              cell.selectionStyle = .none
-              if indexPath.row == 0 {
-                  cell.textLabel?.text = NSLocalizedString("Fixed", comment: "")
-                  cell.accessoryType = (orientation == .fixed) ? .checkmark : .none
-              } else {
-                  cell.textLabel?.text = NSLocalizedString("Direction of travel", comment: "")
-                  cell.accessoryType = (orientation == .directionOfTravel) ? .checkmark : .none
-              }
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "checkmark")
+            cell.selectionStyle = .none
+            if indexPath.row == 0 {
+                cell.textLabel?.text = NSLocalizedString("Street", comment: "")
+                cell.accessoryType = (mapViewType == .map) ? .checkmark : .none
+            } else {
+                cell.textLabel?.text = NSLocalizedString("Satellite", comment: "")
+                cell.accessoryType = (mapViewType == .satellite) ? .checkmark : .none
+            }
 
-              return cell
+            return cell
+
+        case .orientation:
+            let orientation = UserSettings.mapOrientation
               
-          case .other:
-              let toggleSwitch = UISwitch()
-              toggleSwitch.isOn = UserSettings.preventScreenLockOnMap
-              toggleSwitch.addTarget(self, action: #selector(toggleScreenLockSwitch(_:)), for: .valueChanged)
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "checkmark")
+            cell.selectionStyle = .none
+            if indexPath.row == 0 {
+                cell.textLabel?.text = NSLocalizedString("Fixed", comment: "")
+                cell.accessoryType = (orientation == .fixed) ? .checkmark : .none
+            } else {
+                cell.textLabel?.text = NSLocalizedString("Direction of travel", comment: "")
+                cell.accessoryType = (orientation == .directionOfTravel) ? .checkmark : .none
+            }
+
+            return cell
               
-              let cell = UITableViewCell(style: .default, reuseIdentifier: "switch")
-              cell.selectionStyle = .none
-              cell.textLabel?.text = NSLocalizedString("Keep screen on", comment: "")
-              cell.accessoryView = toggleSwitch
+        case .other:
+            let toggleSwitch = UISwitch()
+            toggleSwitch.isOn = UserSettings.preventScreenLockOnMap
+            toggleSwitch.addTarget(self, action: #selector(toggleScreenLockSwitch(_:)), for: .valueChanged)
               
-              return cell
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "switch")
+            cell.selectionStyle = .none
+            cell.textLabel?.text = NSLocalizedString("Keep screen on", comment: "")
+            cell.accessoryView = toggleSwitch
+              
+            return cell
           
-          case .mapKey:
-              let cell = UITableViewCell(style: .default, reuseIdentifier: "key")
-              let accessoryView = UIView(frame: CGRect(x: 100, y: 0, width: 200, height: 5))
-              cell.accessoryView = accessoryView
-              cell.selectionStyle = .none
+        case .mapKey:
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "key")
+            let accessoryView = UIView(frame: CGRect(x: 100, y: 0, width: 200, height: 5))
+            cell.accessoryView = accessoryView
+            cell.selectionStyle = .none
 
-              let mapLayerSpec = mapLayerSpecs[indexPath.row]
-              cell.textLabel?.text = mapLayerSpec.description
-              accessoryView.backgroundColor = mapLayerSpec.color
+            let mapLayerSpec = mapLayerSpecs[indexPath.row]
+            cell.textLabel?.text = mapLayerSpec.description
+            accessoryView.backgroundColor = mapLayerSpec.color
 
-              return cell
-          }
-      }
+            return cell
+        }
+    }
 }
 
 // MARK: UITableViewDelegate
@@ -147,6 +162,10 @@ extension MapSettingsViewController {
             fatalError("Invalid section \(indexPath.section)")
         }
         switch settingsSection {
+        case .betaFeedback:
+            let feedbackURL = URL(string: "https://www.bikestreets.com/mobile-app-feedback")
+            UIApplication.shared.open(feedbackURL!)
+
         case .viewType:
             // Save the change
             UserSettings.mapViewType = (indexPath.row == 0 ? .map : .satellite)
