@@ -206,7 +206,11 @@ extension MapViewController {
                 // Add our GeoJSON data to the map as an MGLGeoJSONSource.
                 // We can then reference this data from an MGLStyleLayer.
                 style.addSource(source)
-                style.addLayer(layer)
+                if let roadLabelLayer = style.layer(withIdentifier: "road-label") {
+                    style.insertLayer(layer, below: roadLabelLayer)
+                } else {
+                    style.addLayer(layer)
+                }
             }
         }
     }
