@@ -98,7 +98,7 @@ struct BikeStreetsStyles {
 }
 
 struct MapLayerSpec {
-    private static let bikeStreetAlpha: CGFloat = 0.7
+    private static let bikeStreetAlpha: CGFloat = 1.0
 
     let name: String
     let color: UIColor
