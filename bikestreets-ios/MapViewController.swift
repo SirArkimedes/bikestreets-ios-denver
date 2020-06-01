@@ -51,6 +51,7 @@ class MapViewController: UIViewController {
 
         // Always show the compass - Denverites navigate by ordinals in a way many other cities do not
         mapView.compassView.compassVisibility = .visible
+        mapView.compassViewMargins = CGPoint(x: 10, y: buttonWrapperView.frame.height + 20)
         mapView.minimumZoomLevel = MapViewLimits.minZoomLevel
         mapView.showsUserLocation = true
 
