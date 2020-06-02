@@ -53,7 +53,7 @@ extension MapSettingsViewController {
         }
         switch settingsSection {
         case .betaFeedback:
-            return NSLocalizedString("Beta:", comment: "")
+            return NSLocalizedString("", comment: "")
         case .viewType:
             return NSLocalizedString("View:", comment: "")
         case .orientation:
