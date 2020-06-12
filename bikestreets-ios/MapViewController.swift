@@ -80,6 +80,7 @@ class MapViewController: UIViewController {
             guard let termsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsViewController") as? TermsViewController else {
                 fatalError("Unable to locate the TermsViewController")
             }
+            termsViewController.modalPresentationStyle = .overFullScreen
             present(termsViewController, animated: true, completion: nil)
         }
     }
