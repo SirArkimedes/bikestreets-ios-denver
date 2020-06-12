@@ -5,7 +5,7 @@ class TermsManager {
     static let currentTermsVersion: Int = 1
     static var currentTermsURL: URL? {
         get {
-            return Bundle.main.url(forResource: "bike streets terms v1.0", withExtension: "webarchive")
+            return Bundle.main.url(forResource: "bike streets terms v1.0", withExtension: "html")
 //            return URL(string: "https://www.bikestreets.com/terms")
         }
     }
