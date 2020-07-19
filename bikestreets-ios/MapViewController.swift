@@ -52,7 +52,6 @@ class MapViewController: UIViewController {
         // Always show the compass - Denverites navigate by ordinals in a way many other cities do not
         mapView.compassView.compassVisibility = .visible
         mapView.compassViewMargins = CGPoint(x: 10, y: buttonWrapperView.frame.height + 20)
-        mapView.minimumZoomLevel = MapViewLimits.minZoomLevel
         mapView.showsUserLocation = true
 
         // Street or satellite view?
@@ -127,7 +126,8 @@ extension MapViewController: MGLMapViewDelegate {
             return
         }
         
-        // Min & Max zoom levels that we'll save
+        // Min & Max zoom levels that we'll save. Users can Zoom way in or way out, but we don' want to save
+        // that for the next time the app starts up.
         if newZoomLevel > MapViewLimits.maxZoomLevel {
             newZoomLevel = MapViewLimits.maxZoomLevel
         } else if newZoomLevel < MapViewLimits.minZoomLevel {
