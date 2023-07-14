@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct MapboxTesterApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  var body: some Scene {
+    WindowGroup {
+      // Enable DEBUG view
+      // ContentView()
+      SimpleUISearchViewController().ignoresSafeArea()
     }
+  }
 }
