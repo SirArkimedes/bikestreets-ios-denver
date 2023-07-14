@@ -11,7 +11,6 @@
 		357FE2FA2A4F74C100806743 /* SimpleUISearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357FE2F92A4F74C100806743 /* SimpleUISearchViewController.swift */; };
 		357FE2FD2A4F754400806743 /* MapboxSearch in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FC2A4F754400806743 /* MapboxSearch */; };
 		357FE2FF2A4F754400806743 /* MapboxSearchUI in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FE2A4F754400806743 /* MapboxSearchUI */; };
-		35A2F0BD2A4F78FD002BF520 /* MapsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A2F0BC2A4F78FD002BF520 /* MapsSearchViewController.swift */; };
 		35A2F0BF2A4F7957002BF520 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */; };
 		35A482972A37B1E4001035BB /* MapboxTesterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A482962A37B1E4001035BB /* MapboxTesterApp.swift */; };
 		35A482992A37B1E4001035BB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A482982A37B1E4001035BB /* ContentView.swift */; };
@@ -25,7 +24,6 @@
 
 /* Begin PBXFileReference section */
 		357FE2F92A4F74C100806743 /* SimpleUISearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleUISearchViewController.swift; sourceTree = "<group>"; };
-		35A2F0BC2A4F78FD002BF520 /* MapsSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsSearchViewController.swift; sourceTree = "<group>"; };
 		35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		35A482932A37B1E4001035BB /* MapboxTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapboxTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A482962A37B1E4001035BB /* MapboxTesterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapboxTesterApp.swift; sourceTree = "<group>"; };
@@ -80,7 +78,6 @@
 				35A4829A2A37B1E6001035BB /* Assets.xcassets */,
 				35A4829C2A37B1E6001035BB /* Preview Content */,
 				357FE2F92A4F74C100806743 /* SimpleUISearchViewController.swift */,
-				35A2F0BC2A4F78FD002BF520 /* MapsSearchViewController.swift */,
 				35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */,
 			);
 			path = MapboxTester;
@@ -192,7 +189,6 @@
 				357FE2FA2A4F74C100806743 /* SimpleUISearchViewController.swift in Sources */,
 				35A482992A37B1E4001035BB /* ContentView.swift in Sources */,
 				35A482972A37B1E4001035BB /* MapboxTesterApp.swift in Sources */,
-				35A2F0BD2A4F78FD002BF520 /* MapsSearchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
