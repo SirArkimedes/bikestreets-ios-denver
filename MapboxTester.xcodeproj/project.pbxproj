@@ -20,6 +20,7 @@
 		35A482A92A37BD4C001035BB /* MapboxDirections in Frameworks */ = {isa = PBXBuildFile; productRef = 35A482A82A37BD4C001035BB /* MapboxDirections */; };
 		35A482AC2A37BEA9001035BB /* MapboxCoreNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 35A482AB2A37BEA9001035BB /* MapboxCoreNavigation */; };
 		35A482AE2A37BEA9001035BB /* MapboxNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 35A482AD2A37BEA9001035BB /* MapboxNavigation */; };
+		35F04BCF2A61CAE6008083A1 /* BikeStreetsCategoryDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F04BCE2A61CAE6008083A1 /* BikeStreetsCategoryDataProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		35A4829D2A37B1E6001035BB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		35A482AF2A37C02E001035BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		35F04BCD2A61C5D1008083A1 /* Denver, CO.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Denver, CO.gpx"; sourceTree = "<group>"; };
+		35F04BCE2A61CAE6008083A1 /* BikeStreetsCategoryDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStreetsCategoryDataProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				35A4829C2A37B1E6001035BB /* Preview Content */,
 				357FE2F92A4F74C100806743 /* SimpleUISearchViewController.swift */,
 				35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */,
+				35F04BCE2A61CAE6008083A1 /* BikeStreetsCategoryDataProvider.swift */,
 			);
 			path = MapboxTester;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				357FE2FA2A4F74C100806743 /* SimpleUISearchViewController.swift in Sources */,
 				35A482992A37B1E4001035BB /* ContentView.swift in Sources */,
 				35A482972A37B1E4001035BB /* MapboxTesterApp.swift in Sources */,
+				35F04BCF2A61CAE6008083A1 /* BikeStreetsCategoryDataProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

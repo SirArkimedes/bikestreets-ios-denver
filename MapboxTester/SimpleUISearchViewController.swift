@@ -22,15 +22,15 @@ struct SimpleUISearchViewController: UIViewControllerRepresentable {
   }
 }
 
-class SimpleUISearchViewControllerInternal: MapsViewController {
+final class SimpleUISearchViewControllerInternal: MapsViewController {
   private let mapboxControllers: (searchController: MapboxSearchController, panelController: MapboxPanelController) = {
-//    let locationProvider = DefaultLocationProvider(locationManager: CLLocationManager())
-//    let configuration = Configuration(locationProvider: locationProvider)
+    let locationProvider = DefaultLocationProvider()
+    let configuration = Configuration(
+      categoryDataProvider: BikeStreetsCategoryDataProvider(),
+      locationProvider: locationProvider
+    )
 
-    //    let locationProvider = PointLocationProvider(coordinate: .sanFrancisco)
-    //    var configuration = Configuration(locationProvider: locationProvider)
-
-    let searchController = MapboxSearchController() //(configuration: configuration)
+    let searchController = MapboxSearchController(configuration: configuration)
 
     let panelController = MapboxPanelController(rootViewController: searchController)
 
