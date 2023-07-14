@@ -33,6 +33,7 @@
 		35A4829A2A37B1E6001035BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		35A4829D2A37B1E6001035BB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		35A482AF2A37C02E001035BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		35F04BCD2A61C5D1008083A1 /* Denver, CO.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Denver, CO.gpx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +57,7 @@
 		35A4828A2A37B1E4001035BB = {
 			isa = PBXGroup;
 			children = (
+				35F04BCC2A61C5C1008083A1 /* GPX */,
 				35A482952A37B1E4001035BB /* MapboxTester */,
 				35A482942A37B1E4001035BB /* Products */,
 			);
@@ -90,6 +92,14 @@
 				35A4829D2A37B1E6001035BB /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		35F04BCC2A61C5C1008083A1 /* GPX */ = {
+			isa = PBXGroup;
+			children = (
+				35F04BCD2A61C5D1008083A1 /* Denver, CO.gpx */,
+			);
+			path = GPX;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
