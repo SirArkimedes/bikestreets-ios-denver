@@ -26,7 +26,7 @@
 /* Begin PBXFileReference section */
 		357FE2F92A4F74C100806743 /* SimpleUISearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleUISearchViewController.swift; sourceTree = "<group>"; };
 		35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
-		35A482932A37B1E4001035BB /* MapboxTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapboxTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		35A482932A37B1E4001035BB /* BikeStreets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeStreets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A482962A37B1E4001035BB /* MapboxTesterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapboxTesterApp.swift; sourceTree = "<group>"; };
 		35A482982A37B1E4001035BB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		35A4829A2A37B1E6001035BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,7 +66,7 @@
 		35A482942A37B1E4001035BB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				35A482932A37B1E4001035BB /* MapboxTester.app */,
+				35A482932A37B1E4001035BB /* BikeStreets.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,9 +105,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		35A482922A37B1E4001035BB /* MapboxTester */ = {
+		35A482922A37B1E4001035BB /* BikeStreets */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 35A482A12A37B1E6001035BB /* Build configuration list for PBXNativeTarget "MapboxTester" */;
+			buildConfigurationList = 35A482A12A37B1E6001035BB /* Build configuration list for PBXNativeTarget "BikeStreets" */;
 			buildPhases = (
 				35A4828F2A37B1E4001035BB /* Sources */,
 				35A482902A37B1E4001035BB /* Frameworks */,
@@ -117,7 +117,7 @@
 			);
 			dependencies = (
 			);
-			name = MapboxTester;
+			name = BikeStreets;
 			packageProductDependencies = (
 				35A482A52A37B279001035BB /* MapboxMaps */,
 				35A482A82A37BD4C001035BB /* MapboxDirections */,
@@ -128,7 +128,7 @@
 				357FE2FE2A4F754400806743 /* MapboxSearchUI */,
 			);
 			productName = MapboxTester;
-			productReference = 35A482932A37B1E4001035BB /* MapboxTester.app */;
+			productReference = 35A482932A37B1E4001035BB /* BikeStreets.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -166,7 +166,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				35A482922A37B1E4001035BB /* MapboxTester */,
+				35A482922A37B1E4001035BB /* BikeStreets */,
 			);
 		};
 /* End PBXProject section */
@@ -319,24 +319,24 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 100;
 				DEVELOPMENT_ASSET_PATHS = "\"MapboxTester/Preview Content\"";
-				DEVELOPMENT_TEAM = 5CR7G53RES;
+				DEVELOPMENT_TEAM = JPF6V6763Y;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MapboxTester/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Bike Streets";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This will be used to find where you are for navigation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.matt-robinson.MapboxTester";
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bikestreets.bikestreets-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -350,24 +350,24 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 100;
 				DEVELOPMENT_ASSET_PATHS = "\"MapboxTester/Preview Content\"";
-				DEVELOPMENT_TEAM = 5CR7G53RES;
+				DEVELOPMENT_TEAM = JPF6V6763Y;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MapboxTester/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Bike Streets";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This will be used to find where you are for navigation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.matt-robinson.MapboxTester";
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bikestreets.bikestreets-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -387,7 +387,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		35A482A12A37B1E6001035BB /* Build configuration list for PBXNativeTarget "MapboxTester" */ = {
+		35A482A12A37B1E6001035BB /* Build configuration list for PBXNativeTarget "BikeStreets" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				35A482A22A37B1E6001035BB /* Debug */,
