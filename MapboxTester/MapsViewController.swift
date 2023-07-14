@@ -15,25 +15,38 @@ protocol ExampleController: UIViewController {
 class MapsViewController: UIViewController, ExampleController {
     let mapView = MapView(frame: .zero)
     lazy var annotationsManager = mapView.annotations.makePointAnnotationManager()
+    lazy var circleAnnotationsManager = mapView.annotations.makeCircleAnnotationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView.frame = view.bounds
-        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
         view.addSubview(mapView)
+
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+          view.leftAnchor.constraint(equalTo: mapView.leftAnchor),
+          view.rightAnchor.constraint(equalTo: mapView.rightAnchor),
+
+          view.topAnchor.constraint(equalTo: mapView.topAnchor),
+          view.bottomAnchor.constraint(equalTo: mapView.bottomAnchor),
+        ])
 
         // Show user location
         mapView.location.options.puckType = .puck2D()
     }
 
     func showAnnotations(results: [SearchResult], cameraShouldFollow: Bool = true) {
-        annotationsManager.annotations = results.map(PointAnnotation.init)
+      annotationsManager.annotations = results.map(PointAnnotation.init)
 
-        if cameraShouldFollow {
-            cameraToAnnotations(annotationsManager.annotations)
-        }
+      circleAnnotationsManager.annotations = results.map { result in
+        var annotation = CircleAnnotation(centerCoordinate: result.coordinate)
+        annotation.circleColor = .init(.red)
+        return annotation
+      }
+
+      if cameraShouldFollow {
+        cameraToAnnotations(annotationsManager.annotations)
+      }
     }
 
     func cameraToAnnotations(_ annotations: [PointAnnotation]) {

@@ -346,12 +346,12 @@ struct ContentView: View {
           isShowingNavigationView = true
         }
 
-        NavigationLink(destination: MapsSearchViewController(), isActive: $isShowingSearchView) { EmptyView() }
-        Button("[BETA] Search 1") {
-          isShowingSearchView = true
-        }
+//        NavigationLink(destination: MapsSearchViewController(), isActive: $isShowingSearchView) { EmptyView() }
+//        Button("[BETA] Search 1") {
+//          isShowingSearchView = true
+//        }
 
-        NavigationLink(destination: SimpleUISearchViewController(), isActive: $isShowingSearchView) { EmptyView() }
+        NavigationLink(destination: SimpleUISearchViewController().ignoresSafeArea(), isActive: $isShowingSearchView) { EmptyView() }
         Button("[BETA] Search 2") {
           isShowingSearchView = true
         }
