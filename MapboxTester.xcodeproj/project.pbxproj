@@ -327,6 +327,7 @@
 				INFOPLIST_FILE = MapboxTester/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Bike Streets";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your current location will be displayed on the map and used for directions and estimated travel times.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your current location will be displayed on the map and used for directions and estimated travel times.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -358,6 +359,7 @@
 				INFOPLIST_FILE = MapboxTester/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Bike Streets";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your current location will be displayed on the map and used for directions and estimated travel times.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your current location will be displayed on the map and used for directions and estimated travel times.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
