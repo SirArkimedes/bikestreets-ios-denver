@@ -5,19 +5,19 @@
 //  Created by Matt Robinson on 6/30/23.
 //
 
-import UIKit
-import SwiftUI
 import MapboxMaps
 import MapboxSearchUI
+import SwiftUI
+import UIKit
 
 struct SimpleUISearchViewController: UIViewControllerRepresentable {
   typealias UIViewControllerType = SimpleUISearchViewControllerInternal
 
-  func makeUIViewController(context: Context) -> SimpleUISearchViewControllerInternal {
-    return SimpleUISearchViewControllerInternal()
+  func makeUIViewController(context _: Context) -> SimpleUISearchViewControllerInternal {
+    SimpleUISearchViewControllerInternal()
   }
 
-  func updateUIViewController(_ uiViewController: SimpleUISearchViewControllerInternal, context: Context) {
+  func updateUIViewController(_: SimpleUISearchViewControllerInternal, context _: Context) {
     // no-op
   }
 }
@@ -55,8 +55,9 @@ final class SimpleUISearchViewControllerInternal: MapsViewController {
         options: FollowPuckViewportStateOptions(
           padding: UIEdgeInsets(top: 200, left: 0, bottom: 0, right: 0),
           bearing: .heading,
-          pitch: 0))
-      self.mapView.viewport.transition(to: followPuckViewportState) { success in
+          pitch: 0
+        ))
+      self.mapView.viewport.transition(to: followPuckViewportState) { _ in
         // the transition has been completed with a flag indicating whether the transition succeeded
       }
     }
@@ -70,7 +71,7 @@ final class SimpleUISearchViewControllerInternal: MapsViewController {
 }
 
 extension SimpleUISearchViewControllerInternal: SearchControllerDelegate {
-  func categorySearchResultsReceived(category: SearchCategory, results: [SearchResult]) {
+  func categorySearchResultsReceived(category _: SearchCategory, results: [SearchResult]) {
     showAnnotations(results: results)
   }
 
@@ -100,28 +101,28 @@ extension SimpleUISearchViewControllerInternal {
     components.percentEncodedPath = "/route/v1/driving/\(startPoint.longitude),\(startPoint.latitude);\(endPoint.longitude),\(endPoint.latitude)"
 
     print("""
-[MATTROB] OSRM REQUEST:
+    [MATTROB] OSRM REQUEST:
 
-\(components.string ?? "ERROR EMPTY")
+    \(components.string ?? "ERROR EMPTY")
 
-""")
+    """)
 
     components.queryItems = [
       URLQueryItem(name: "overview", value: "full"),
       URLQueryItem(name: "geometries", value: "geojson"),
       URLQueryItem(name: "alternatives", value: "true"),
       URLQueryItem(name: "steps", value: "true"),
-      URLQueryItem(name: "annotations", value: "true")
+      URLQueryItem(name: "annotations", value: "true"),
     ]
 
     let session = URLSession.shared
     let request = URLRequest(url: components.url!)
-    let task = session.dataTask(with: request) { (data, response, error) in
+    let task = session.dataTask(with: request) { data, _, error in
 
-      if let error = error {
+      if let error {
         // Handle HTTP request error
         print(error)
-      } else if let data = data {
+      } else if let data {
         // Handle HTTP request response
         print(data)
         let responseObject = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
@@ -147,15 +148,15 @@ extension SimpleUISearchViewControllerInternal {
             self.cameraToCoordinates(coordinates)
 
             let jsonCoordinatesData = try? JSONSerialization.data(
-              withJSONObject: coordinates.map({ [$0.longitude, $0.latitude] }),
+              withJSONObject: coordinates.map { [$0.longitude, $0.latitude] },
               options: .prettyPrinted
             )
             print("""
-[MATTROB] OSRM RESPONSE:
+            [MATTROB] OSRM RESPONSE:
 
-\(String(decoding: jsonCoordinatesData!, as: UTF8.self))
+            \(String(decoding: jsonCoordinatesData!, as: UTF8.self))
 
-""")
+            """)
           } else {
             self.polylineAnnotationManager.annotations = []
           }

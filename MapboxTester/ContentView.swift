@@ -6,9 +6,9 @@
 //
 
 import MapboxCoreNavigation
-import MapboxNavigation
 import MapboxDirections
 import MapboxMaps
+import MapboxNavigation
 import SimplifySwift
 import SwiftUI
 
@@ -22,7 +22,7 @@ struct Waypoint: Decodable {
 struct Route: Decodable {
   struct Geometry: Decodable {
     private enum CodingKeys: String, CodingKey {
-      case type = "type"
+      case type
       case _coordinates = "coordinates"
     }
 
@@ -39,7 +39,7 @@ struct Route: Decodable {
   let distance: Float
   let duration: Float
   let geometry: Geometry
-//  let legs: [RouteLeg]
+  //  let legs: [RouteLeg]
 }
 
 struct RouteServiceResponse: Decodable {
@@ -55,7 +55,7 @@ final class MapTapGestureRecognizer: UITapGestureRecognizer {
     self.action = action
     super.init(target: nil, action: nil)
     // TODO: THIS CREATES A RETAIN CYCLE
-    self.addTarget(self, action: #selector(execute))
+    addTarget(self, action: #selector(execute))
   }
 
   @objc private func execute(sender: UITapGestureRecognizer) {
@@ -64,9 +64,9 @@ final class MapTapGestureRecognizer: UITapGestureRecognizer {
 }
 
 struct InternalMapView: UIViewRepresentable {
-  func makeUIView(context: Context) -> MapboxMaps.MapView {
+  func makeUIView(context _: Context) -> MapboxMaps.MapView {
     let cameraOptions = CameraOptions(
-      center: CLLocationCoordinate2D( latitude: 39.753580116073685, longitude: -105.04056378182935),
+      center: CLLocationCoordinate2D(latitude: 39.753580116073685, longitude: -105.04056378182935),
       zoom: 15.5
     )
 
@@ -79,7 +79,7 @@ struct InternalMapView: UIViewRepresentable {
     let circleAnnotationManager = mapView.annotations.makeCircleAnnotationManager()
     let polylineAnnotationManager = mapView.annotations.makePolylineAnnotationManager()
 
-    let gestureRecognizer = MapTapGestureRecognizer() { sender in
+    let gestureRecognizer = MapTapGestureRecognizer { sender in
       let locationInMap = sender.location(in: mapView)
       let coordinate = mapView.mapboxMap.coordinate(for: locationInMap)
 
@@ -94,17 +94,18 @@ struct InternalMapView: UIViewRepresentable {
     followLocationButton.backgroundColor = .white
     followLocationButton.layer.cornerRadius = 4
     followLocationButton.clipsToBounds = true
-    let followLocationAction = UIAction { (action: UIAction) in
+    let followLocationAction = UIAction { (_: UIAction) in
       mapView.location.options.puckType = .puck2D()
 //      _ = mapView.viewport.makeFollowPuckViewportState()
 
       let followPuckViewportState = mapView.viewport.makeFollowPuckViewportState(
-          options: FollowPuckViewportStateOptions(
-              padding: UIEdgeInsets(top: 200, left: 0, bottom: 0, right: 0),
-              bearing: .heading,
-              pitch: 0))
-      mapView.viewport.transition(to: followPuckViewportState) { success in
-          // the transition has been completed with a flag indicating whether the transition succeeded
+        options: FollowPuckViewportStateOptions(
+          padding: UIEdgeInsets(top: 200, left: 0, bottom: 0, right: 0),
+          bearing: .heading,
+          pitch: 0
+        ))
+      mapView.viewport.transition(to: followPuckViewportState) { _ in
+        // the transition has been completed with a flag indicating whether the transition succeeded
       }
     }
     followLocationButton.addAction(followLocationAction, for: .touchUpInside)
@@ -115,7 +116,7 @@ struct InternalMapView: UIViewRepresentable {
     routeButton.backgroundColor = .white
     routeButton.layer.cornerRadius = 4
     routeButton.clipsToBounds = true
-    let routeAction = UIAction { (action: UIAction) in
+    let routeAction = UIAction { (_: UIAction) in
       // BIKESTREETS DIRECTIONS
       let coordinates = circleAnnotationManager.annotations.map(\.point.coordinates)
       let startPoint = coordinates[0]
@@ -128,28 +129,28 @@ struct InternalMapView: UIViewRepresentable {
       components.percentEncodedPath = "/route/v1/driving/\(startPoint.longitude),\(startPoint.latitude);\(endPoint.longitude),\(endPoint.latitude)"
 
       print("""
-[MATTROB] OSRM REQUEST:
+      [MATTROB] OSRM REQUEST:
 
-\(components.string ?? "ERROR EMPTY")
+      \(components.string ?? "ERROR EMPTY")
 
-""")
+      """)
 
       components.queryItems = [
         URLQueryItem(name: "overview", value: "full"),
         URLQueryItem(name: "geometries", value: "geojson"),
         URLQueryItem(name: "alternatives", value: "true"),
         URLQueryItem(name: "steps", value: "true"),
-        URLQueryItem(name: "annotations", value: "true")
+        URLQueryItem(name: "annotations", value: "true"),
       ]
 
       let session = URLSession.shared
       let request = URLRequest(url: components.url!)
-      let task = session.dataTask(with: request) { (data, response, error) in
+      let task = session.dataTask(with: request) { data, response, error in
 
-        if let error = error {
+        if let error {
           // Handle HTTP request error
           print(error)
-        } else if let data = data {
+        } else if let data {
           // Handle HTTP request response
           print(data)
           let responseObject = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
@@ -172,15 +173,15 @@ struct InternalMapView: UIViewRepresentable {
               polylineAnnotationManager.annotations = [polylineAnnotationOSM]
 
               let jsonCoordinatesData = try? JSONSerialization.data(
-                withJSONObject: coordinates.map({ [$0.longitude, $0.latitude] }),
+                withJSONObject: coordinates.map { [$0.longitude, $0.latitude] },
                 options: .prettyPrinted
               )
               print("""
-[MATTROB] OSRM RESPONSE:
+              [MATTROB] OSRM RESPONSE:
 
-\(String(decoding: jsonCoordinatesData!, as: UTF8.self))
+              \(String(decoding: jsonCoordinatesData!, as: UTF8.self))
 
-""")
+              """)
 
               // Simplify polyline down to acceptable 25 coordinates.
               // Apply:
@@ -193,22 +194,22 @@ struct InternalMapView: UIViewRepresentable {
                 filteredCoordinates = Simplify.simplify(coordinates, tolerance: 0.001, highQuality: true)
 
                 print("""
-COORDINATE SIMPLIFICATION
-BEFORE: \(coordinates.count)
-AFTER: \(filteredCoordinates?.count ?? 0)
+                COORDINATE SIMPLIFICATION
+                BEFORE: \(coordinates.count)
+                AFTER: \(filteredCoordinates?.count ?? 0)
 
-""")
+                """)
 
                 let jsonCoordinatesData = try? JSONSerialization.data(
-                  withJSONObject: filteredCoordinates!.map({ [$0.longitude, $0.latitude] }),
+                  withJSONObject: filteredCoordinates!.map { [$0.longitude, $0.latitude] },
                   options: .prettyPrinted
                 )
                 print("""
-[MATTROB] OSRM FILTERED RESPONSE:
+                [MATTROB] OSRM FILTERED RESPONSE:
 
-\(String(decoding: jsonCoordinatesData!, as: UTF8.self))
+                \(String(decoding: jsonCoordinatesData!, as: UTF8.self))
 
-""")
+                """)
               }
 
               var polylineAnnotationOSMFiltered: PolylineAnnotation?
@@ -226,26 +227,26 @@ AFTER: \(filteredCoordinates?.count ?? 0)
                 profileIdentifier: .cycling
               )
               routeOptions.routeShapeResolution = .full
-              Directions.shared.calculate(routeOptions) { (_, result) in
+              Directions.shared.calculate(routeOptions) { _, result in
                 switch result {
-                case .failure(let error):
+                case let .failure(error):
                   print(error.localizedDescription)
-                case .success(let response):
+                case let .success(response):
                   print("MAPBOX response: \(response)\n")
 
 //                  print("Coords: \(response.routes![0].shape?.coordinates)")
 
                   if let coordinates = response.routes?.first?.shape?.coordinates {
                     let jsonCoordinatesData = try? JSONSerialization.data(
-                      withJSONObject: coordinates.map({ [$0.longitude, $0.latitude] }),
+                      withJSONObject: coordinates.map { [$0.longitude, $0.latitude] },
                       options: .prettyPrinted
                     )
                     print("""
-[MATTROB] MAPBOX COORDINATES:
+                    [MATTROB] MAPBOX COORDINATES:
 
-\(String(decoding: jsonCoordinatesData!, as: UTF8.self))
+                    \(String(decoding: jsonCoordinatesData!, as: UTF8.self))
 
-""")
+                    """)
 
                     var polylineAnnotationMB = PolylineAnnotation(lineCoordinates: coordinates)
                     polylineAnnotationMB.lineColor = .init(.purple)
@@ -273,18 +274,18 @@ AFTER: \(filteredCoordinates?.count ?? 0)
 
 //
 //          // For demonstration purposes, simulate locations if the Simulate Navigation option is on.
-////          let indexedRouteResponse = IndexedRouteResponse(routeResponse: response, routeIndex: 0)
-////          let navigationService = MapboxNavigationService(indexedRouteResponse: indexedRouteResponse,
-////                                                          customRoutingProvider: NavigationSettings.shared.directions,
-////                                                          credentials: NavigationSettings.shared.directions.credentials,
-////                                                          simulating: .onPoorGPS)
-////          let navigationOptions = NavigationOptions(navigationService: navigationService)
-////          strongSelf.navigationViewController = NavigationViewController(for: indexedRouteResponse,
-////                                                                         navigationOptions: navigationOptions)
-////          strongSelf.navigationViewController?.modalPresentationStyle = .fullScreen
-////          strongSelf.navigationViewController?.delegate = strongSelf
-////
-////          strongSelf.present(strongSelf.navigationViewController!, animated: true, completion: nil)
+      ////          let indexedRouteResponse = IndexedRouteResponse(routeResponse: response, routeIndex: 0)
+      ////          let navigationService = MapboxNavigationService(indexedRouteResponse: indexedRouteResponse,
+      ////                                                          customRoutingProvider: NavigationSettings.shared.directions,
+      ////                                                          credentials: NavigationSettings.shared.directions.credentials,
+      ////                                                          simulating: .onPoorGPS)
+      ////          let navigationOptions = NavigationOptions(navigationService: navigationService)
+      ////          strongSelf.navigationViewController = NavigationViewController(for: indexedRouteResponse,
+      ////                                                                         navigationOptions: navigationOptions)
+      ////          strongSelf.navigationViewController?.modalPresentationStyle = .fullScreen
+      ////          strongSelf.navigationViewController?.delegate = strongSelf
+      ////
+      ////          strongSelf.present(strongSelf.navigationViewController!, animated: true, completion: nil)
 //        }
 //      }
     }
@@ -296,7 +297,7 @@ AFTER: \(filteredCoordinates?.count ?? 0)
     trashButton.backgroundColor = .white
     trashButton.layer.cornerRadius = 4
     trashButton.clipsToBounds = true
-    let trashAction = UIAction { (action: UIAction) in
+    let trashAction = UIAction { (_: UIAction) in
       circleAnnotationManager.annotations = []
       polylineAnnotationManager.annotations = []
     }
@@ -311,13 +312,13 @@ AFTER: \(filteredCoordinates?.count ?? 0)
       stackView.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -15),
       stackView.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 15),
       stackView.widthAnchor.constraint(equalToConstant: 126),
-      stackView.heightAnchor.constraint(equalToConstant: 40)
+      stackView.heightAnchor.constraint(equalToConstant: 40),
     ])
 
     return mapView
   }
 
-  func updateUIView(_ uiView: MapboxMaps.MapView, context: Context) {
+  func updateUIView(_: MapboxMaps.MapView, context _: Context) {
     // no-op
   }
 
@@ -358,7 +359,7 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }

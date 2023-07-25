@@ -37,9 +37,9 @@ public class BikeStreetsCategoryDataProvider: CategoryDataProvider {
     .nightclub,
     .atm,
     .hospital,
-    .emergencyRoom
+    .emergencyRoom,
   ]
 
   /// Make your default categories provider.
-  public init() { }
+  public init() {}
 }

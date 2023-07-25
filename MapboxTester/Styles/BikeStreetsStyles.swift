@@ -34,15 +34,14 @@ extension UIColor {
     self.init(red: (rgb >> 16) & 0xFF,
               green: (rgb >> 8) & 0xFF,
               blue: rgb & 0xFF,
-              alpha: alpha
-    )
+              alpha: alpha)
   }
 }
 
 /**
  * List of available map styles, which are URLs in mapbox. List of available styles here: https://docs.mapbox.com/api/maps/#styles
  */
-struct BikeStreetsMapTypes {
+enum BikeStreetsMapTypes {
   static let bikeStreets = Bundle.main.url(forResource: "bike streets map style", withExtension: "json")
   static let street = URL(string: "mapbox://styles/mapbox/streets-v11")
   static let satellite = URL(string: "mapbox://styles/mapbox/satellite-v9")
@@ -52,12 +51,12 @@ struct BikeStreetsMapTypes {
 /**
  * Style elements for Bike Streets
  */
-struct BikeStreetsStyles {
-  private static let bikeStreetLayer = MapLayerSpec("bikestreets", rgb: 0x345aa8, description: "Bike Street")
-  private static let trailLayer = MapLayerSpec("trails", rgb: 0x7a8a47, description: "Trail")
-  private static let bikeLaneLayer = MapLayerSpec("bikelanes", rgb: 0x58595b, description: "Bike Lane")
-  private static let bikeSidewalkLayer = MapLayerSpec("bikesidewalks", rgb: 0xe82e8b, description: "Bike on Sidewalk")
-  private static let walkBikeLayer = MapLayerSpec("walk", rgb: 0xd8282c, description: "Walk your Bike")
+enum BikeStreetsStyles {
+  private static let bikeStreetLayer = MapLayerSpec("bikestreets", rgb: 0x345AA8, description: "Bike Street")
+  private static let trailLayer = MapLayerSpec("trails", rgb: 0x7A8A47, description: "Trail")
+  private static let bikeLaneLayer = MapLayerSpec("bikelanes", rgb: 0x58595B, description: "Bike Lane")
+  private static let bikeSidewalkLayer = MapLayerSpec("bikesidewalks", rgb: 0xE82E8B, description: "Bike on Sidewalk")
+  private static let walkBikeLayer = MapLayerSpec("walk", rgb: 0xD8282C, description: "Walk your Bike")
 
   static let mapLayerSpecs: [MapLayerSpec] = [
     bikeStreetLayer,
@@ -97,7 +96,7 @@ struct BikeStreetsStyles {
 
   /// From: https://docs.mapbox.com/ios/maps/examples/line-gradient/
   static func style(forLayer layerName: String, source: String) -> LineLayer {
-    var lineLayer = LineLayer(id: layerName /*"line-layer"*/)
+    var lineLayer = LineLayer(id: layerName /* "line-layer" */ )
     lineLayer.filter = Exp(.eq) {
       "$type"
       "LineString"
@@ -129,7 +128,7 @@ struct MapLayerSpec {
 
   init(_ name: String, rgb: Int, description: String) {
     self.name = name
-    self.color = UIColor(rgb: rgb, alpha: MapLayerSpec.bikeStreetAlpha)
+    color = UIColor(rgb: rgb, alpha: MapLayerSpec.bikeStreetAlpha)
     self.description = NSLocalizedString(description, comment: "")
   }
 }

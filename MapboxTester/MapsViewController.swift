@@ -8,9 +8,7 @@
 import MapboxMaps
 import MapboxSearch
 
-protocol ExampleController: UIViewController {
-
-}
+protocol ExampleController: UIViewController {}
 
 class MapsViewController: UIViewController, ExampleController {
   let mapView = MapView(frame: .zero)
@@ -90,6 +88,7 @@ class MapsViewController: UIViewController, ExampleController {
 }
 
 // MARK: - Load Bike Streets Data
+
 extension MapsViewController {
   /**
    * Load the default Bike Streets map from KML resources files bundled into the app
@@ -100,7 +99,7 @@ extension MapsViewController {
     // TODO: Is our cached version of geojson the latest & greatest?
     if let fileURLs = Bundle.main.urls(forResourcesWithExtension: "geojson", subdirectory: nil) {
       for fileURL in fileURLs {
-        self.loadMapLayerFrom(fileURL)
+        loadMapLayerFrom(fileURL)
       }
     }
   }
@@ -122,7 +121,7 @@ extension MapsViewController {
   /// From: https://docs.mapbox.com/ios/maps/examples/line-gradient/
   private func loadMapLayerFrom(_ fileURL: URL) {
     // Attempt to decode GeoJSON from file bundled with application.
-    guard let featureCollection = try? decodeGeoJSON(from: fileURL /*"GradientLine"*/) else { return }
+    guard let featureCollection = try? decodeGeoJSON(from: fileURL /* "GradientLine" */ ) else { return }
 
     //    let geoJSONDataSourceIdentifier = "geoJSON-data-source"
     // Get the layer name from the file name. We'll use it in a couple of places
@@ -145,30 +144,33 @@ extension MapsViewController {
 }
 
 // MARK: -
-fileprivate extension String {
-    func layerName() -> String? {
-        let fileNameComponents = components(separatedBy: "-")
-        if fileNameComponents.count >= 2 {
-            return fileNameComponents[1]
-        }
-        return nil
+
+private extension String {
+  func layerName() -> String? {
+    let fileNameComponents = components(separatedBy: "-")
+    if fileNameComponents.count >= 2 {
+      return fileNameComponents[1]
     }
+    return nil
+  }
 }
 
 // MARK: -
+
 extension PointAnnotation {
-    init(searchResult: SearchResult) {
-        self.init(coordinate: searchResult.coordinate)
-        textField = searchResult.name
-    }
+  init(searchResult: SearchResult) {
+    self.init(coordinate: searchResult.coordinate)
+    textField = searchResult.name
+  }
 
-    init(favoriteRecord: FavoriteRecord) {
-        self.init(coordinate: favoriteRecord.coordinate)
-        textField = favoriteRecord.name
-    }
+  init(favoriteRecord: FavoriteRecord) {
+    self.init(coordinate: favoriteRecord.coordinate)
+    textField = favoriteRecord.name
+  }
 }
 
 // MARK: -
+
 extension CLLocationCoordinate2D {
-    static let sanFrancisco = CLLocationCoordinate2D(latitude: 37.7911551, longitude: -122.3966103)
+  static let sanFrancisco = CLLocationCoordinate2D(latitude: 37.7911551, longitude: -122.3966103)
 }
