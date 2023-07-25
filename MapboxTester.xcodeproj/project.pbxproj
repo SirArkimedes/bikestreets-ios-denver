@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		350BDE3F2A7007FF00D4DE31 /* 2-trails-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3C2A7007F900D4DE31 /* 2-trails-master-v0.3.geojson */; };
+		350BDE402A7007FF00D4DE31 /* 3-bikelanes-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3E2A7007F900D4DE31 /* 3-bikelanes-master-v0.3.geojson */; };
+		350BDE412A7007FF00D4DE31 /* 4-bikesidewalks-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3B2A7007F900D4DE31 /* 4-bikesidewalks-master-v0.3.geojson */; };
+		350BDE422A7007FF00D4DE31 /* 5-walk-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3D2A7007F900D4DE31 /* 5-walk-master-v0.3.geojson */; };
+		350BDE432A7007FF00D4DE31 /* 1-bikestreets-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3A2A7007F900D4DE31 /* 1-bikestreets-master-v0.3.geojson */; };
+		350BDE462A700E0D00D4DE31 /* BikeStreetsStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BDE452A700E0D00D4DE31 /* BikeStreetsStyles.swift */; };
 		355256F12A46295600A15512 /* SimplifySwift in Frameworks */ = {isa = PBXBuildFile; productRef = 355256F02A46295600A15512 /* SimplifySwift */; };
 		357FE2FA2A4F74C100806743 /* SimpleUISearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357FE2F92A4F74C100806743 /* SimpleUISearchViewController.swift */; };
 		357FE2FD2A4F754400806743 /* MapboxSearch in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FC2A4F754400806743 /* MapboxSearch */; };
@@ -24,6 +30,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		350BDE3A2A7007F900D4DE31 /* 1-bikestreets-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "1-bikestreets-master-v0.3.geojson"; sourceTree = "<group>"; };
+		350BDE3B2A7007F900D4DE31 /* 4-bikesidewalks-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "4-bikesidewalks-master-v0.3.geojson"; sourceTree = "<group>"; };
+		350BDE3C2A7007F900D4DE31 /* 2-trails-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2-trails-master-v0.3.geojson"; sourceTree = "<group>"; };
+		350BDE3D2A7007F900D4DE31 /* 5-walk-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "5-walk-master-v0.3.geojson"; sourceTree = "<group>"; };
+		350BDE3E2A7007F900D4DE31 /* 3-bikelanes-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "3-bikelanes-master-v0.3.geojson"; sourceTree = "<group>"; };
+		350BDE452A700E0D00D4DE31 /* BikeStreetsStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStreetsStyles.swift; sourceTree = "<group>"; };
 		357FE2F92A4F74C100806743 /* SimpleUISearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleUISearchViewController.swift; sourceTree = "<group>"; };
 		35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		35A482932A37B1E4001035BB /* BikeStreets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeStreets.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +66,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		350BDE392A7007F900D4DE31 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				350BDE3A2A7007F900D4DE31 /* 1-bikestreets-master-v0.3.geojson */,
+				350BDE3B2A7007F900D4DE31 /* 4-bikesidewalks-master-v0.3.geojson */,
+				350BDE3C2A7007F900D4DE31 /* 2-trails-master-v0.3.geojson */,
+				350BDE3D2A7007F900D4DE31 /* 5-walk-master-v0.3.geojson */,
+				350BDE3E2A7007F900D4DE31 /* 3-bikelanes-master-v0.3.geojson */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		350BDE442A700E0400D4DE31 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				350BDE452A700E0D00D4DE31 /* BikeStreetsStyles.swift */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
 		35A4828A2A37B1E4001035BB = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +106,8 @@
 		35A482952A37B1E4001035BB /* MapboxTester */ = {
 			isa = PBXGroup;
 			children = (
+				350BDE442A700E0400D4DE31 /* Styles */,
+				350BDE392A7007F900D4DE31 /* Resources */,
 				35A482AF2A37C02E001035BB /* Info.plist */,
 				35A482962A37B1E4001035BB /* MapboxTesterApp.swift */,
 				35A482982A37B1E4001035BB /* ContentView.swift */,
@@ -176,7 +210,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				350BDE3F2A7007FF00D4DE31 /* 2-trails-master-v0.3.geojson in Resources */,
+				350BDE422A7007FF00D4DE31 /* 5-walk-master-v0.3.geojson in Resources */,
+				350BDE412A7007FF00D4DE31 /* 4-bikesidewalks-master-v0.3.geojson in Resources */,
+				350BDE402A7007FF00D4DE31 /* 3-bikelanes-master-v0.3.geojson in Resources */,
 				35A4829E2A37B1E6001035BB /* Preview Assets.xcassets in Resources */,
+				350BDE432A7007FF00D4DE31 /* 1-bikestreets-master-v0.3.geojson in Resources */,
 				35A4829B2A37B1E6001035BB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,6 +230,7 @@
 				35A2F0BF2A4F7957002BF520 /* MapsViewController.swift in Sources */,
 				357FE2FA2A4F74C100806743 /* SimpleUISearchViewController.swift in Sources */,
 				35A482992A37B1E4001035BB /* ContentView.swift in Sources */,
+				350BDE462A700E0D00D4DE31 /* BikeStreetsStyles.swift in Sources */,
 				35A482972A37B1E4001035BB /* MapboxTesterApp.swift in Sources */,
 				35F04BCF2A61CAE6008083A1 /* BikeStreetsCategoryDataProvider.swift in Sources */,
 			);
