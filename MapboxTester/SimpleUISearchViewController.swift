@@ -41,22 +41,20 @@ final class SimpleUISearchViewControllerInternal: MapsViewController {
     super.viewDidLoad()
 
     DispatchQueue.main.async {
-//      //    let cameraOptions = CameraOptions(center: .sanFrancisco, zoom: 15)
-//      // CUSTOM FOR DENVER
+//      // CUSTOM FOR DENVER, potentially use when no GPS is found.
 //      let cameraOptions = CameraOptions(
 //        center: CLLocationCoordinate2D( latitude: 39.753580116073685, longitude: -105.04056378182935),
 //        zoom: 15.5
 //      )
-//
-//      self.mapView.camera.fly(to: cameraOptions, duration: 1, completion: nil)
 
-//      self.mapView.location.options.puckType = .puck2D()
       let followPuckViewportState = self.mapView.viewport.makeFollowPuckViewportState(
         options: FollowPuckViewportStateOptions(
           padding: UIEdgeInsets(top: 200, left: 0, bottom: 0, right: 0),
-          bearing: .heading,
+          // Intentionally avoid bearing sync in search mode.
+          bearing: .none,
           pitch: 0
-        ))
+        )
+      )
       self.mapView.viewport.transition(to: followPuckViewportState) { _ in
         // the transition has been completed with a flag indicating whether the transition succeeded
       }
