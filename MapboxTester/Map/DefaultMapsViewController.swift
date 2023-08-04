@@ -121,7 +121,7 @@ extension DefaultMapsViewController: SizeTrackingListener {
 
 extension DefaultMapsViewController: LocationSearchDelegate {
   func didSelect(mapItem: MKMapItem) {
-    showAnnotation(.init(item: mapItem))
+    showAnnotation(.init(item: mapItem), cameraShouldFollow: false)
 
     if let currentLocation = mapView.location.latestLocation {
       sheetNavigationController.sheetPresentationController?.selectedDetentIdentifier = UISheetPresentationController.Detent.small().identifier

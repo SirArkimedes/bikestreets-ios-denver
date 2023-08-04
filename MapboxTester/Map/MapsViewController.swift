@@ -62,8 +62,8 @@ class MapsViewController: UIViewController, ExampleController {
     }
   }
 
-  func showAnnotation(_ item: SearchAnnotation) {
-    showAnnotations([item])
+  func showAnnotation(_ item: SearchAnnotation, cameraShouldFollow: Bool = true) {
+    showAnnotations([item], cameraShouldFollow: cameraShouldFollow)
   }
 
   func showAnnotations(_ items: [SearchAnnotation], cameraShouldFollow: Bool = true) {
