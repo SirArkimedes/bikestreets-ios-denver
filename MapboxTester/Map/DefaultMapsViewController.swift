@@ -24,11 +24,12 @@ extension UISheetPresentationController.Detent {
 final class DefaultMapsViewController: MapsViewController {
   private let searchViewController: SearchViewController
   private let sheetNavigationController: UINavigationController
-
   private let sheetHeightInspectionView = SizeTrackingView()
 
+  private let stateManager = StateManager()
+
   init() {
-    let viewController = SearchViewController()
+    let viewController = SearchViewController(stateManager: stateManager)
     searchViewController = viewController
 
     sheetNavigationController = {
@@ -64,6 +65,7 @@ final class DefaultMapsViewController: MapsViewController {
 
     searchViewController.delegate = self
     sheetHeightInspectionView.delegate = self
+    stateManager.add(listener: self)
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -94,9 +96,11 @@ final class DefaultMapsViewController: MapsViewController {
     }
   }
 
+  // MARK: - Map Movement
+
   // TODO: Update location to Denver if no location is accessible.
   private func updatePuckViewportState(bottomInset: CGFloat) {
-    let followPuckViewportState = self.mapView.viewport.makeFollowPuckViewportState(
+    let followPuckViewportState = mapView.viewport.makeFollowPuckViewportState(
       options: FollowPuckViewportStateOptions(
         padding: UIEdgeInsets(top: 200, left: 0, bottom: bottomInset, right: 0),
         // Intentionally avoid bearing sync in search mode.
@@ -108,12 +112,96 @@ final class DefaultMapsViewController: MapsViewController {
       // the transition has been completed with a flag indicating whether the transition succeeded
     }
   }
+
+  private func updateMapViewForRoutes(preview: StateManager.DirectionsPreview) {
+    if preview.response.routes.count > 0 {
+      polylineAnnotationManager.annotations = preview.response.routes.map { route in
+        if route == preview.selectedRoute {
+          return .activeRouteAnnotation(coordinates: route.geometry.coordinates)
+        } else {
+          return .potentialRouteAnnotation(coordinates: route.geometry.coordinates)
+        }
+      }
+
+      // Zoom to show a single route or all routes.
+      let cameraTopInset: CGFloat = self.view.safeAreaInsets.top
+      let cameraBottomInset: CGFloat = (self.sheetHeightInspectionView.lastFrameBroadcast?.height ?? 0) + 24
+      let coordinates: [CLLocationCoordinate2D] = {
+        if let route = preview.selectedRoute {
+          return route.geometry.coordinates
+        } else {
+          return preview.response.routes.map(\.geometry.coordinates).flatMap { $0 }
+        }
+      }()
+
+      let overviewViewportState = mapView.viewport.makeOverviewViewportState(
+        options: .init(
+          geometry: LineString(coordinates),
+          padding: .init(top: cameraTopInset, left: 24, bottom: cameraBottomInset, right: 24)
+        )
+      )
+
+      mapView.viewport.transition(to: overviewViewportState) { _ in
+        // the transition has been completed with a flag indicating whether the transition succeeded
+      }
+
+    } else {
+      polylineAnnotationManager.annotations = []
+    }
+  }
+
+  // MARK: - State Handling
+
+  private func requestDirections(request: StateManager.RouteRequest) {
+    RouteRequester.getOSRMDirections(
+      startPoint: request.start,
+      endPoint: request.end
+    ) { result in
+      switch result {
+      case .success(let result):
+        DispatchQueue.main.async {
+          self.stateManager.state = .previewDirections(preview: .init(request: request, response: result, selectedRoute: nil))
+        }
+      case .failure(let error):
+        // TODO: Handle route request errors.
+        print(error)
+      }
+    }
+  }
 }
+
+// MARK: - State Management
+
+extension DefaultMapsViewController: StateListener {
+  func didUpdate(from oldState: StateManager.State, to newState: StateManager.State) {
+    switch newState {
+    case .initial: break
+    case .requestingRoutes(let request):
+      // Potentially show destination on map
+      // showAnnotation(.init(item: mapItem), cameraShouldFollow: false)
+      // Potentially shift to smaller sheet presentation
+      // sheetNavigationController.sheetPresentationController?.selectedDetentIdentifier = UISheetPresentationController.Detent.small().identifier
+      requestDirections(request: request)
+    case .previewDirections(let preview):
+      updateMapViewForRoutes(preview: preview)
+    case .routing: break
+    }
+  }
+}
+
+// MARK: - SizeTrackingListener
 
 extension DefaultMapsViewController: SizeTrackingListener {
   func didChangeFrame(_ view: UIView, frame: CGRect) {
     // TODO: Make this smarter. For example, don't resize in the case where the sheet detent is large.
-    self.updatePuckViewportState(bottomInset: frame.height)
+    switch stateManager.state {
+    case .initial, .routing:
+      updatePuckViewportState(bottomInset: frame.height)
+    case .previewDirections(let preview):
+      updateMapViewForRoutes(preview: preview)
+    default:
+      break
+    }
   }
 }
 
@@ -121,107 +209,12 @@ extension DefaultMapsViewController: SizeTrackingListener {
 
 extension DefaultMapsViewController: LocationSearchDelegate {
   func didSelect(mapItem: MKMapItem) {
-    showAnnotation(.init(item: mapItem), cameraShouldFollow: false)
-
     if let currentLocation = mapView.location.latestLocation {
-      sheetNavigationController.sheetPresentationController?.selectedDetentIdentifier = UISheetPresentationController.Detent.small().identifier
-
-      getOSRMDirections(startPoint: currentLocation.coordinate, endPoint: mapItem.placemark.coordinate)
+      stateManager.state = .requestingRoutes(
+        request: .init(start: currentLocation.coordinate, end: mapItem.placemark.coordinate)
+      )
     } else {
       print("ERROR: No user location found")
     }
-  }
-}
-
-// MARK: - OSRM Direction
-
-extension DefaultMapsViewController {
-  func getOSRMDirections(startPoint: CLLocationCoordinate2D, endPoint: CLLocationCoordinate2D) {
-    // BIKESTREETS DIRECTIONS
-
-    //  206.189.205.9/route/v1/driving/-105.03667831420898,39.745358641453315;-105.04232168197632,39.74052436233521?overview=false&alternatives=true&steps=true&annotations=true
-    var components = URLComponents()
-    components.scheme = "http"
-    components.host = "206.189.205.9"
-    components.percentEncodedPath = "/route/v1/driving/\(startPoint.longitude),\(startPoint.latitude);\(endPoint.longitude),\(endPoint.latitude)"
-
-    print("""
-    [MATTROB] OSRM REQUEST:
-
-    \(components.string ?? "ERROR EMPTY")
-
-    """)
-
-    components.queryItems = [
-      URLQueryItem(name: "overview", value: "full"),
-      URLQueryItem(name: "geometries", value: "geojson"),
-      URLQueryItem(name: "alternatives", value: "true"),
-      URLQueryItem(name: "steps", value: "true"),
-      URLQueryItem(name: "annotations", value: "true"),
-    ]
-
-    let session = URLSession.shared
-    let request = URLRequest(url: components.url!)
-    let task = session.dataTask(with: request) { data, _, error in
-
-      if let error {
-        // Handle HTTP request error
-        print(error)
-      } else if let data {
-        // Handle HTTP request response
-        print(data)
-        let responseObject = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
-
-        let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-        let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-
-        //          print(String(decoding: jsonData!, as: UTF8.self))
-
-        //          print(responseObject)
-
-        do {
-          let result = try JSONDecoder().decode(RouteServiceResponse.self, from: jsonData!)
-          print(result)
-
-          if let coordinates = result.routes.first?.geometry.coordinates {
-            DispatchQueue.main.async {
-              var polylineAnnotationOSM = PolylineAnnotation(lineCoordinates: coordinates)
-              polylineAnnotationOSM.lineColor = .init(.red)
-              polylineAnnotationOSM.lineWidth = 4
-              self.polylineAnnotationManager.annotations = [polylineAnnotationOSM]
-
-              // Zoom map to show entire route
-              let cameraTopInset: CGFloat = self.view.safeAreaInsets.top
-              let cameraBottomInset: CGFloat
-              if let sheetHeight = self.sheetHeightInspectionView.lastFrameBroadcast?.height {
-                cameraBottomInset = sheetHeight + 20
-              } else {
-                cameraBottomInset = 24
-              }
-              self.cameraToCoordinates(coordinates, topInset: cameraTopInset, bottomInset: cameraBottomInset)
-            }
-
-            let jsonCoordinatesData = try? JSONSerialization.data(
-              withJSONObject: coordinates.map { [$0.longitude, $0.latitude] },
-              options: .prettyPrinted
-            )
-            print("""
-            [MATTROB] OSRM RESPONSE:
-
-            \(String(decoding: jsonCoordinatesData!, as: UTF8.self))
-
-            """)
-          } else {
-            self.polylineAnnotationManager.annotations = []
-          }
-        } catch {
-          print(error)
-        }
-      } else {
-        // Handle unexpected error
-        print("ELSE CASE")
-      }
-    }
-    task.resume()
   }
 }

@@ -12,42 +12,6 @@ import MapboxNavigation
 import SimplifySwift
 import SwiftUI
 
-struct Waypoint: Decodable {
-  let name: String
-  let location: [Float]
-  let distance: Float
-  let hint: String
-}
-
-struct Route: Decodable {
-  struct Geometry: Decodable {
-    private enum CodingKeys: String, CodingKey {
-      case type
-      case _coordinates = "coordinates"
-    }
-
-    let type: String
-    let _coordinates: [[Double]]
-
-    var coordinates: [CLLocationCoordinate2D] {
-      _coordinates.map { coordinates in
-        CLLocationCoordinate2D(latitude: coordinates[1], longitude: coordinates[0])
-      }
-    }
-  }
-
-  let distance: Float
-  let duration: Float
-  let geometry: Geometry
-  //  let legs: [RouteLeg]
-}
-
-struct RouteServiceResponse: Decodable {
-  let code: String
-  let waypoints: [Waypoint]
-  let routes: [Route]
-}
-
 final class MapTapGestureRecognizer: UITapGestureRecognizer {
   private let action: (UITapGestureRecognizer) -> Void
 

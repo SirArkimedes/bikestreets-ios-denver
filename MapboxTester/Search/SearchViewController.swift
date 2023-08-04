@@ -10,10 +10,12 @@ import MapKit
 import UIKit
 
 final class SearchViewController: UIViewController {
+  private let stateManager: StateManager
   private let searchViewController = LocationSearchTableViewController()
   var delegate: LocationSearchDelegate?
 
-  init() {
+  init(stateManager: StateManager) {
+    self.stateManager = stateManager
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -84,8 +86,7 @@ extension SearchViewController: LocationSearchDelegate {
     searchViewController.searchController.searchBar.endEditing(true)
     searchViewController.searchController.isActive = false
 
-//    let routingViewController = UIViewController()
-//    routingViewController.view.backgroundColor = .red
-//    navigationController?.pushViewController(routingViewController, animated: true)
+    let directionPreviewViewController = DirectionPreviewViewController(stateManager: stateManager)
+    navigationController?.pushViewController(directionPreviewViewController, animated: true)
   }
 }
