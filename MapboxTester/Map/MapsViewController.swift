@@ -7,6 +7,7 @@
 
 import MapboxMaps
 import MapboxSearch
+import MapKit
 
 protocol ExampleController: UIViewController {}
 
@@ -39,10 +40,36 @@ class MapsViewController: UIViewController, ExampleController {
     }
   }
 
-  func showAnnotations(results: [SearchResult], cameraShouldFollow: Bool = true) {
-    annotationsManager.annotations = results.map(PointAnnotation.init)
+  // MARK: -- Annotations
 
-    circleAnnotationsManager.annotations = results.map { result in
+  struct SearchAnnotation {
+    let name: String
+    let coordinate: CLLocationCoordinate2D
+
+    init(searchResult: SearchResult) {
+      name = searchResult.name
+      coordinate = searchResult.coordinate
+    }
+
+    init(favoriteRecord: FavoriteRecord) {
+      name = favoriteRecord.name
+      coordinate = favoriteRecord.coordinate
+    }
+
+    init(item: MKMapItem) {
+      name = item.name ?? "NO NAME"
+      coordinate = item.placemark.coordinate
+    }
+  }
+
+  func showAnnotation(_ item: SearchAnnotation) {
+    showAnnotations([item])
+  }
+
+  func showAnnotations(_ items: [SearchAnnotation], cameraShouldFollow: Bool = true) {
+    annotationsManager.annotations = items.map(PointAnnotation.init)
+
+    circleAnnotationsManager.annotations = items.map { result in
       var annotation = CircleAnnotation(centerCoordinate: result.coordinate)
       annotation.circleColor = .init(.red)
       return annotation
@@ -53,31 +80,35 @@ class MapsViewController: UIViewController, ExampleController {
     }
   }
 
+  // MARK: -- Camera
+
   func cameraToAnnotations(_ annotations: [PointAnnotation]) {
     cameraToCoordinates(annotations.map(\.point.coordinates))
   }
 
-  func cameraToCoordinates(_ coordinates: [CLLocationCoordinate2D]) {
+  func cameraToCoordinates(_ coordinates: [CLLocationCoordinate2D], topInset: CGFloat = 24, bottomInset: CGFloat = 24) {
     if coordinates.count == 1, let coordinate = coordinates.first {
       mapView.camera.fly(to: .init(center: coordinate, zoom: 15), duration: 0.25, completion: nil)
     } else {
       let coordinatesCamera = mapView.mapboxMap.camera(for: coordinates,
-                                                       padding: UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24),
+                                                       padding: UIEdgeInsets(top: topInset, left: 24, bottom: bottomInset, right: 24),
                                                        bearing: nil,
                                                        pitch: nil)
       mapView.camera.fly(to: coordinatesCamera, duration: 0.25, completion: nil)
     }
   }
 
-  func showAnnotation(_ result: SearchResult) {
-    showAnnotations(results: [result])
-  }
+//  func showAnnotation(_ result: SearchResult) {
+//    showAnnotations(results: [result])
+//  }
+//
+//  func showAnnotation(_ favorite: FavoriteRecord) {
+//    annotationsManager.annotations = [PointAnnotation(favoriteRecord: favorite)]
+//
+//    cameraToAnnotations(annotationsManager.annotations)
+//  }
 
-  func showAnnotation(_ favorite: FavoriteRecord) {
-    annotationsManager.annotations = [PointAnnotation(favoriteRecord: favorite)]
-
-    cameraToAnnotations(annotationsManager.annotations)
-  }
+  // MARK: -- Error Handling
 
   func showError(_ error: Error) {
     let alertController = UIAlertController(title: nil, message: error.localizedDescription, preferredStyle: .alert)
@@ -158,14 +189,9 @@ private extension String {
 // MARK: -
 
 extension PointAnnotation {
-  init(searchResult: SearchResult) {
-    self.init(coordinate: searchResult.coordinate)
-    textField = searchResult.name
-  }
-
-  init(favoriteRecord: FavoriteRecord) {
-    self.init(coordinate: favoriteRecord.coordinate)
-    textField = favoriteRecord.name
+  init(item: MapsViewController.SearchAnnotation) {
+    self.init(coordinate: item.coordinate)
+    textField = item.name
   }
 }
 
@@ -173,4 +199,5 @@ extension PointAnnotation {
 
 extension CLLocationCoordinate2D {
   static let sanFrancisco = CLLocationCoordinate2D(latitude: 37.7911551, longitude: -122.3966103)
+  static let denver = CLLocationCoordinate2D(latitude: 39.753580116073685, longitude: -105.04056378182935)
 }

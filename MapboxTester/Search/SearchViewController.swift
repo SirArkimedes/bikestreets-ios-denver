@@ -11,6 +11,7 @@ import UIKit
 
 final class SearchViewController: UIViewController {
   private let searchViewController = LocationSearchTableViewController()
+  var delegate: LocationSearchDelegate?
 
   init() {
     super.init(nibName: nil, bundle: nil)
@@ -22,6 +23,8 @@ final class SearchViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    searchViewController.delegate = self
 
     view.backgroundColor = .white
 
@@ -61,5 +64,13 @@ final class SearchViewController: UIViewController {
     stackView.addArrangedSubview(searchViewController.view)
 
     searchViewController.didMove(toParent: self)
+  }
+}
+
+// MARK: - LocationSearchDelegate
+
+extension SearchViewController: LocationSearchDelegate {
+  func didSelect(mapItem: MKMapItem) {
+    delegate?.didSelect(mapItem: mapItem)
   }
 }

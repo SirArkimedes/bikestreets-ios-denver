@@ -9,8 +9,14 @@ import Foundation
 import MapKit
 import UIKit
 
+protocol LocationSearchDelegate {
+  func didSelect(mapItem: MKMapItem)
+}
+
 final class LocationSearchTableViewController: UITableViewController {
   var matchingItems: [MKMapItem] = []
+
+  var delegate: LocationSearchDelegate?
 
   let searchController = UISearchController(searchResultsController: nil)
 
@@ -22,7 +28,11 @@ final class LocationSearchTableViewController: UITableViewController {
     searchController.searchResultsUpdater = self
     searchController.hidesNavigationBarDuringPresentation = false
   }
+}
 
+// MARK: - UITableView
+
+extension LocationSearchTableViewController {
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return matchingItems.count
   }
@@ -33,6 +43,10 @@ final class LocationSearchTableViewController: UITableViewController {
     cell.textLabel?.text = selectedItem.name
     cell.detailTextLabel?.text = selectedItem.prettyAddress
     return cell
+  }
+
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    delegate?.didSelect(mapItem: matchingItems[indexPath.row])
   }
 }
 

@@ -7,6 +7,7 @@
 
 import MapboxMaps
 import MapboxSearchUI
+import MapKit
 import SwiftUI
 import UIKit
 
@@ -49,15 +50,11 @@ final class DefaultMapsViewController: MapsViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    searchViewController.delegate = self
     sheetHeightInspectionView.delegate = self
 
     DispatchQueue.main.async {
-//      // CUSTOM FOR DENVER, potentially use when no GPS is found.
-//      let cameraOptions = CameraOptions(
-//        center: CLLocationCoordinate2D( latitude: 39.753580116073685, longitude: -105.04056378182935),
-//        zoom: 15.5
-//      )
-
+      // TODO: Update location to Denver if no location is accessible.
       self.updatePuckViewportState(bottomInset: 0)
     }
   }
@@ -101,25 +98,21 @@ extension DefaultMapsViewController: SizeTrackingListener {
   }
 }
 
-//extension DefaultMapsViewController: SearchControllerDelegate {
-//  func categorySearchResultsReceived(category _: SearchCategory, results: [SearchResult]) {
-//    showAnnotations(results: results)
-//  }
-//
-//  func searchResultSelected(_ searchResult: SearchResult) {
-//    showAnnotation(searchResult)
-//
-//    if let currentLocation = mapboxControllers.searchController.configuration.locationProvider?.currentLocation() {
-//      getOSRMDirections(startPoint: currentLocation, endPoint: searchResult.coordinate)
-//    } else {
-//      print("ERROR: No user location found")
-//    }
-//  }
-//
-//  func userFavoriteSelected(_ userFavorite: FavoriteRecord) {
-//    showAnnotation(userFavorite)
-//  }
-//}
+// MARK: - LocationSearchDelegate
+
+extension DefaultMapsViewController: LocationSearchDelegate {
+  func didSelect(mapItem: MKMapItem) {
+    showAnnotation(.init(item: mapItem))
+
+    if let currentLocation = mapView.location.latestLocation {
+      getOSRMDirections(startPoint: currentLocation.coordinate, endPoint: mapItem.placemark.coordinate)
+    } else {
+      print("ERROR: No user location found")
+    }
+  }
+}
+
+// MARK: - OSRM Direction
 
 extension DefaultMapsViewController {
   func getOSRMDirections(startPoint: CLLocationCoordinate2D, endPoint: CLLocationCoordinate2D) {
@@ -170,13 +163,22 @@ extension DefaultMapsViewController {
           print(result)
 
           if let coordinates = result.routes.first?.geometry.coordinates {
-            var polylineAnnotationOSM = PolylineAnnotation(lineCoordinates: coordinates)
-            polylineAnnotationOSM.lineColor = .init(.red)
-            polylineAnnotationOSM.lineWidth = 4
-            self.polylineAnnotationManager.annotations = [polylineAnnotationOSM]
+            DispatchQueue.main.async {
+              var polylineAnnotationOSM = PolylineAnnotation(lineCoordinates: coordinates)
+              polylineAnnotationOSM.lineColor = .init(.red)
+              polylineAnnotationOSM.lineWidth = 4
+              self.polylineAnnotationManager.annotations = [polylineAnnotationOSM]
 
-            // Zoom map to show entire route
-            self.cameraToCoordinates(coordinates)
+              // Zoom map to show entire route
+              let cameraTopInset: CGFloat = self.view.safeAreaInsets.top
+              let cameraBottomInset: CGFloat
+              if let sheetHeight = self.sheetHeightInspectionView.lastFrameBroadcast?.height {
+                cameraBottomInset = sheetHeight + 20
+              } else {
+                cameraBottomInset = 24
+              }
+              self.cameraToCoordinates(coordinates, topInset: cameraTopInset, bottomInset: cameraBottomInset)
+            }
 
             let jsonCoordinatesData = try? JSONSerialization.data(
               withJSONObject: coordinates.map { [$0.longitude, $0.latitude] },

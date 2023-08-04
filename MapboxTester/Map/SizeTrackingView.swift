@@ -15,7 +15,7 @@ protocol SizeTrackingListener {
 final class SizeTrackingView: UIView {
   var delegate: SizeTrackingListener?
 
-  private var lastFrameBroadcast: CGRect?
+  private(set) var lastFrameBroadcast: CGRect?
 
   init() {
     super.init(frame: .zero)

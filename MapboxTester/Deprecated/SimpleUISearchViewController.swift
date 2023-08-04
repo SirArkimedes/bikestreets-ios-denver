@@ -70,11 +70,11 @@ final class SimpleUISearchViewControllerInternal: MapsViewController {
 
 extension SimpleUISearchViewControllerInternal: SearchControllerDelegate {
   func categorySearchResultsReceived(category _: SearchCategory, results: [SearchResult]) {
-    showAnnotations(results: results)
+    showAnnotations(results.map(SearchAnnotation.init))
   }
 
   func searchResultSelected(_ searchResult: SearchResult) {
-    showAnnotation(searchResult)
+    showAnnotation(SearchAnnotation(searchResult: searchResult))
 
     if let currentLocation = mapboxControllers.searchController.configuration.locationProvider?.currentLocation() {
       getOSRMDirections(startPoint: currentLocation, endPoint: searchResult.coordinate)
@@ -84,7 +84,7 @@ extension SimpleUISearchViewControllerInternal: SearchControllerDelegate {
   }
 
   func userFavoriteSelected(_ userFavorite: FavoriteRecord) {
-    showAnnotation(userFavorite)
+    showAnnotation(SearchAnnotation(favoriteRecord: userFavorite))
   }
 }
 
