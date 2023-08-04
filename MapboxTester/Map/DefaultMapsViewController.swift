@@ -71,7 +71,7 @@ final class DefaultMapsViewController: MapsViewController {
         self.sheetHeightInspectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         self.sheetHeightInspectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
         // Ensure it tracks the height of the sheet.
-        self.sheetHeightInspectionView.topAnchor.constraint(equalTo: self.searchViewController.view.topAnchor)
+        self.sheetHeightInspectionView.topAnchor.constraint(equalTo: self.sheetNavigationController.view.topAnchor)
       ])
     }
   }
