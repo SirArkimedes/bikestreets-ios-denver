@@ -14,7 +14,9 @@ protocol LocationSearchDelegate {
 }
 
 final class LocationSearchTableViewController: UITableViewController {
-  var matchingItems: [MKMapItem] = []
+  /// Exists to debounce many search requests while typing. This helps avoid API overuse errors from Apple.
+  private var searchTask: DispatchWorkItem?
+  private var matchingItems: [MKMapItem] = []
 
   var delegate: LocationSearchDelegate?
 
@@ -55,17 +57,34 @@ extension LocationSearchTableViewController {
 extension LocationSearchTableViewController: UISearchResultsUpdating {
   func updateSearchResults(for searchController: UISearchController) {
     guard let searchBarText = searchController.searchBar.text else { return }
-    let request = MKLocalSearch.Request()
-    request.naturalLanguageQuery = searchBarText
-    // TODO: Add back region search based on viewing map region.
-    // request.region = mapView.region
-    let search = MKLocalSearch(request: request)
-    search.start { response, _ in
-      guard let response = response else {
-        return
+
+    // Invalidate and reinitiate
+    self.searchTask?.cancel()
+
+    let task = DispatchWorkItem { [weak self] in
+      DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+        guard let self = self else { return }
+
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = searchBarText
+        // TODO: Add back region search based on viewing map region.
+        // request.region = mapView.region
+        let search = MKLocalSearch(request: request)
+        search.start { response, _ in
+          guard let response = response else {
+            return
+          }
+          DispatchQueue.main.async {
+            self.matchingItems = response.mapItems
+            self.tableView.reloadData()
+          }
+        }
       }
-      self.matchingItems = response.mapItems
-      self.tableView.reloadData()
     }
+
+    self.searchTask = task
+
+    // 0.5 is the wait or idle time for execution of the function applyFilter
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: task)
   }
 }
