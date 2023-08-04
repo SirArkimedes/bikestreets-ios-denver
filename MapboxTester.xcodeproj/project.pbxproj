@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35065C9C2A7C69E600C7CCAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065C9B2A7C69E600C7CCAF /* AppDelegate.swift */; };
+		35065CA12A7D24AD00C7CCAF /* DefaultMapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CA02A7D24AD00C7CCAF /* DefaultMapsViewController.swift */; };
+		35065CA32A7D2EB400C7CCAF /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CA22A7D2EB400C7CCAF /* SearchViewController.swift */; };
+		35065CA62A7D44C700C7CCAF /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CA52A7D44C700C7CCAF /* LocationSearchTableViewController.swift */; };
+		35065CA82A7D451B00C7CCAF /* MKPlacemark+PrettyAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CA72A7D451B00C7CCAF /* MKPlacemark+PrettyAddress.swift */; };
+		35065CAB2A7D45E400C7CCAF /* SizeTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CAA2A7D45E400C7CCAF /* SizeTrackingView.swift */; };
 		350BDE3F2A7007FF00D4DE31 /* 2-trails-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3C2A7007F900D4DE31 /* 2-trails-master-v0.3.geojson */; };
 		350BDE402A7007FF00D4DE31 /* 3-bikelanes-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3E2A7007F900D4DE31 /* 3-bikelanes-master-v0.3.geojson */; };
 		350BDE412A7007FF00D4DE31 /* 4-bikesidewalks-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3B2A7007F900D4DE31 /* 4-bikesidewalks-master-v0.3.geojson */; };
@@ -30,6 +36,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35065C9B2A7C69E600C7CCAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		35065CA02A7D24AD00C7CCAF /* DefaultMapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMapsViewController.swift; sourceTree = "<group>"; };
+		35065CA22A7D2EB400C7CCAF /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		35065CA52A7D44C700C7CCAF /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
+		35065CA72A7D451B00C7CCAF /* MKPlacemark+PrettyAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPlacemark+PrettyAddress.swift"; sourceTree = "<group>"; };
+		35065CAA2A7D45E400C7CCAF /* SizeTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeTrackingView.swift; sourceTree = "<group>"; };
 		350BDE3A2A7007F900D4DE31 /* 1-bikestreets-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "1-bikestreets-master-v0.3.geojson"; sourceTree = "<group>"; };
 		350BDE3B2A7007F900D4DE31 /* 4-bikesidewalks-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "4-bikesidewalks-master-v0.3.geojson"; sourceTree = "<group>"; };
 		350BDE3C2A7007F900D4DE31 /* 2-trails-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2-trails-master-v0.3.geojson"; sourceTree = "<group>"; };
@@ -66,6 +78,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		35065C9F2A7D249500C7CCAF /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				35A482962A37B1E4001035BB /* MapboxTesterApp.swift */,
+				35A482982A37B1E4001035BB /* ContentView.swift */,
+				357FE2F92A4F74C100806743 /* SimpleUISearchViewController.swift */,
+				35F04BCE2A61CAE6008083A1 /* BikeStreetsCategoryDataProvider.swift */,
+			);
+			path = Deprecated;
+			sourceTree = "<group>";
+		};
+		35065CA42A7D44B900C7CCAF /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				35065CA22A7D2EB400C7CCAF /* SearchViewController.swift */,
+				35065CA52A7D44C700C7CCAF /* LocationSearchTableViewController.swift */,
+				35065CA72A7D451B00C7CCAF /* MKPlacemark+PrettyAddress.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		35065CA92A7D45D000C7CCAF /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */,
+				35065CA02A7D24AD00C7CCAF /* DefaultMapsViewController.swift */,
+				35065CAA2A7D45E400C7CCAF /* SizeTrackingView.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		350BDE392A7007F900D4DE31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,13 +152,12 @@
 				350BDE442A700E0400D4DE31 /* Styles */,
 				350BDE392A7007F900D4DE31 /* Resources */,
 				35A482AF2A37C02E001035BB /* Info.plist */,
-				35A482962A37B1E4001035BB /* MapboxTesterApp.swift */,
-				35A482982A37B1E4001035BB /* ContentView.swift */,
+				35065C9F2A7D249500C7CCAF /* Deprecated */,
 				35A4829A2A37B1E6001035BB /* Assets.xcassets */,
 				35A4829C2A37B1E6001035BB /* Preview Content */,
-				357FE2F92A4F74C100806743 /* SimpleUISearchViewController.swift */,
-				35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */,
-				35F04BCE2A61CAE6008083A1 /* BikeStreetsCategoryDataProvider.swift */,
+				35065C9B2A7C69E600C7CCAF /* AppDelegate.swift */,
+				35065CA92A7D45D000C7CCAF /* Map */,
+				35065CA42A7D44B900C7CCAF /* Search */,
 			);
 			path = MapboxTester;
 			sourceTree = "<group>";
@@ -227,11 +269,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35065CA32A7D2EB400C7CCAF /* SearchViewController.swift in Sources */,
+				35065C9C2A7C69E600C7CCAF /* AppDelegate.swift in Sources */,
 				35A2F0BF2A4F7957002BF520 /* MapsViewController.swift in Sources */,
+				35065CA82A7D451B00C7CCAF /* MKPlacemark+PrettyAddress.swift in Sources */,
 				357FE2FA2A4F74C100806743 /* SimpleUISearchViewController.swift in Sources */,
 				35A482992A37B1E4001035BB /* ContentView.swift in Sources */,
+				35065CA12A7D24AD00C7CCAF /* DefaultMapsViewController.swift in Sources */,
 				350BDE462A700E0D00D4DE31 /* BikeStreetsStyles.swift in Sources */,
 				35A482972A37B1E4001035BB /* MapboxTesterApp.swift in Sources */,
+				35065CAB2A7D45E400C7CCAF /* SizeTrackingView.swift in Sources */,
+				35065CA62A7D44C700C7CCAF /* LocationSearchTableViewController.swift in Sources */,
 				35F04BCF2A61CAE6008083A1 /* BikeStreetsCategoryDataProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -368,7 +416,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Bike Streets";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your current location will be displayed on the map and used for directions and estimated travel times.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your current location will be displayed on the map and used for directions and estimated travel times.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -400,7 +447,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Bike Streets";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your current location will be displayed on the map and used for directions and estimated travel times.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your current location will be displayed on the map and used for directions and estimated travel times.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
