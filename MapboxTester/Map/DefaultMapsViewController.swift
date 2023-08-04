@@ -11,6 +11,16 @@ import MapKit
 import SwiftUI
 import UIKit
 
+extension UISheetPresentationController.Detent {
+  private static let _small: UISheetPresentationController.Detent = custom(resolver: { context in
+    175
+  })
+
+  static func small() -> UISheetPresentationController.Detent {
+    return _small
+  }
+}
+
 final class DefaultMapsViewController: MapsViewController {
   private let searchViewController: SearchViewController
   private let sheetNavigationController: UINavigationController
@@ -29,7 +39,9 @@ final class DefaultMapsViewController: MapsViewController {
       navigationController.isModalInPresentation = true
 
       if let sheet = navigationController.sheetPresentationController {
-        sheet.detents = [.medium(), .large()]
+        sheet.detents = [.small(), .medium(), .large()]
+        // Start with smallest detent selected.
+        sheet.selectedDetentIdentifier = UISheetPresentationController.Detent.small().identifier
         // Don't let the sheet dim the background content.
         sheet.largestUndimmedDetentIdentifier = .medium
         // Sheet needs rounded corners.
@@ -112,6 +124,8 @@ extension DefaultMapsViewController: LocationSearchDelegate {
     showAnnotation(.init(item: mapItem))
 
     if let currentLocation = mapView.location.latestLocation {
+      sheetNavigationController.sheetPresentationController?.selectedDetentIdentifier = UISheetPresentationController.Detent.small().identifier
+
       getOSRMDirections(startPoint: currentLocation.coordinate, endPoint: mapItem.placemark.coordinate)
     } else {
       print("ERROR: No user location found")

@@ -28,6 +28,18 @@ final class SearchViewController: UIViewController {
 
     view.backgroundColor = .white
 
+    let vamosLabel = UILabel()
+    vamosLabel.translatesAutoresizingMaskIntoConstraints = false
+    vamosLabel.text = "Find a route with VAMOS"
+    view.addSubview(vamosLabel)
+
+    NSLayoutConstraint.activate([
+      vamosLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      vamosLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
+      vamosLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
+      vamosLabel.heightAnchor.constraint(equalToConstant: 40),
+    ])
+
     let stackView = UIStackView()
     stackView.translatesAutoresizingMaskIntoConstraints = false
     stackView.axis = .vertical
@@ -36,16 +48,11 @@ final class SearchViewController: UIViewController {
     stackView.isLayoutMarginsRelativeArrangement = true
     view.addSubview(stackView)
     NSLayoutConstraint.activate([
-      view.topAnchor.constraint(equalTo: stackView.topAnchor),
+      vamosLabel.bottomAnchor.constraint(equalTo: stackView.topAnchor),
       view.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
       view.leftAnchor.constraint(equalTo: stackView.leftAnchor),
       view.rightAnchor.constraint(equalTo: stackView.rightAnchor),
     ])
-
-    let vamosLabel = UILabel()
-    vamosLabel.text = "Find a route with VAMOS"
-
-    stackView.addArrangedSubview(vamosLabel)
 
     searchViewController.willMove(toParent: self)
     addChild(searchViewController)
@@ -72,5 +79,13 @@ final class SearchViewController: UIViewController {
 extension SearchViewController: LocationSearchDelegate {
   func didSelect(mapItem: MKMapItem) {
     delegate?.didSelect(mapItem: mapItem)
+
+    // Consider searching to be done.
+    searchViewController.searchController.searchBar.endEditing(true)
+    searchViewController.searchController.isActive = false
+
+//    let routingViewController = UIViewController()
+//    routingViewController.view.backgroundColor = .red
+//    navigationController?.pushViewController(routingViewController, animated: true)
   }
 }
