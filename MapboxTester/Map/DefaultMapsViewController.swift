@@ -52,11 +52,17 @@ final class DefaultMapsViewController: MapsViewController {
 
     searchViewController.delegate = self
     sheetHeightInspectionView.delegate = self
+  }
 
-    DispatchQueue.main.async {
-      // TODO: Update location to Denver if no location is accessible.
-      self.updatePuckViewportState(bottomInset: 0)
-    }
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+
+    // Start with map in Denver.
+    let cameraOptions = CameraOptions(
+      center: .denver,
+      zoom: 15.5
+    )
+    mapView.mapboxMap.setCamera(to: cameraOptions)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -76,6 +82,7 @@ final class DefaultMapsViewController: MapsViewController {
     }
   }
 
+  // TODO: Update location to Denver if no location is accessible.
   private func updatePuckViewportState(bottomInset: CGFloat) {
     let followPuckViewportState = self.mapView.viewport.makeFollowPuckViewportState(
       options: FollowPuckViewportStateOptions(
