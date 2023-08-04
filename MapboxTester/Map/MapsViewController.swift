@@ -98,16 +98,6 @@ class MapsViewController: UIViewController, ExampleController {
     }
   }
 
-//  func showAnnotation(_ result: SearchResult) {
-//    showAnnotations(results: [result])
-//  }
-//
-//  func showAnnotation(_ favorite: FavoriteRecord) {
-//    annotationsManager.annotations = [PointAnnotation(favoriteRecord: favorite)]
-//
-//    cameraToAnnotations(annotationsManager.annotations)
-//  }
-
   // MARK: -- Error Handling
 
   func showError(_ error: Error) {
