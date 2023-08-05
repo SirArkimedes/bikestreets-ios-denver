@@ -56,8 +56,6 @@ final class RouteRequester {
       }
 
       // Handle HTTP request response
-      let responseObject = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
-
       let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
       let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 
