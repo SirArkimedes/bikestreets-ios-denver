@@ -11,6 +11,7 @@ import Foundation
 final class RouteRequester {
   enum RequestError: Error {
     case emptyData
+    case unableToParse
   }
 
   static func getOSRMDirections(
@@ -56,11 +57,10 @@ final class RouteRequester {
       }
 
       // Handle HTTP request response
-      let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-      let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-
       do {
-        let result = try JSONDecoder().decode(RouteServiceResponse.self, from: jsonData!)
+        let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+        let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+        let result = try JSONDecoder().decode(RouteServiceResponse.self, from: jsonData)
         completion(.success(result))
       } catch {
         completion(.failure(error))
