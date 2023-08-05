@@ -29,7 +29,6 @@
 		357FE2FF2A4F754400806743 /* MapboxSearchUI in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FE2A4F754400806743 /* MapboxSearchUI */; };
 		35A2F0BF2A4F7957002BF520 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */; };
 		35A4829B2A37B1E6001035BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35A4829A2A37B1E6001035BB /* Assets.xcassets */; };
-		35A4829E2A37B1E6001035BB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35A4829D2A37B1E6001035BB /* Preview Assets.xcassets */; };
 		35A482A62A37B279001035BB /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 35A482A52A37B279001035BB /* MapboxMaps */; };
 		35A482A92A37BD4C001035BB /* MapboxDirections in Frameworks */ = {isa = PBXBuildFile; productRef = 35A482A82A37BD4C001035BB /* MapboxDirections */; };
 		35A482AC2A37BEA9001035BB /* MapboxCoreNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 35A482AB2A37BEA9001035BB /* MapboxCoreNavigation */; };
@@ -57,7 +56,6 @@
 		35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		35A482932A37B1E4001035BB /* BikeStreets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeStreets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A4829A2A37B1E6001035BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		35A4829D2A37B1E6001035BB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		35A482AF2A37C02E001035BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		35F04BCD2A61C5D1008083A1 /* Denver, CO.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Denver, CO.gpx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,7 +161,6 @@
 				350BDE392A7007F900D4DE31 /* Resources */,
 				35A482AF2A37C02E001035BB /* Info.plist */,
 				35A4829A2A37B1E6001035BB /* Assets.xcassets */,
-				35A4829C2A37B1E6001035BB /* Preview Content */,
 				35065C9B2A7C69E600C7CCAF /* AppDelegate.swift */,
 				35065CA92A7D45D000C7CCAF /* Map */,
 				35065CA42A7D44B900C7CCAF /* Search */,
@@ -171,14 +168,6 @@
 				35065CAE2A7D9B8300C7CCAF /* RouteRequester.swift */,
 			);
 			path = MapboxTester;
-			sourceTree = "<group>";
-		};
-		35A4829C2A37B1E6001035BB /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				35A4829D2A37B1E6001035BB /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		35F04BCC2A61C5C1008083A1 /* GPX */ = {
@@ -267,7 +256,6 @@
 				350BDE422A7007FF00D4DE31 /* 5-walk-master-v0.3.geojson in Resources */,
 				350BDE412A7007FF00D4DE31 /* 4-bikesidewalks-master-v0.3.geojson in Resources */,
 				350BDE402A7007FF00D4DE31 /* 3-bikelanes-master-v0.3.geojson in Resources */,
-				35A4829E2A37B1E6001035BB /* Preview Assets.xcassets in Resources */,
 				350BDE432A7007FF00D4DE31 /* 1-bikestreets-master-v0.3.geojson in Resources */,
 				35A4829B2A37B1E6001035BB /* Assets.xcassets in Resources */,
 			);
@@ -420,7 +408,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 105;
-				DEVELOPMENT_ASSET_PATHS = "\"MapboxTester/Preview Content\"";
 				DEVELOPMENT_TEAM = JPF6V6763Y;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -451,7 +438,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 105;
-				DEVELOPMENT_ASSET_PATHS = "\"MapboxTester/Preview Content\"";
 				DEVELOPMENT_TEAM = JPF6V6763Y;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
