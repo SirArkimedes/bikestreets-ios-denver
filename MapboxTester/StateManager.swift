@@ -22,14 +22,20 @@ final class StateManager {
   struct DirectionsPreview {
     let request: RouteRequest
     let response: RouteServiceResponse
-    let selectedRoute: Route?
+    let selectedRoute: Route
+  }
+
+  struct Routing {
+    let request: RouteRequest
+    let response: RouteServiceResponse
+    let selectedRoute: Route
   }
 
   enum State {
     case initial
     case requestingRoutes(request: RouteRequest)
     case previewDirections(preview: DirectionsPreview)
-    case routing
+    case routing(routing: Routing)
   }
 
   var state: State = .initial {

@@ -11,47 +11,34 @@ import MapKit
 import SwiftUI
 import UIKit
 
-extension UISheetPresentationController.Detent {
-  private static let _small: UISheetPresentationController.Detent = custom(resolver: { context in
-    175
-  })
-
-  static func small() -> UISheetPresentationController.Detent {
-    return _small
-  }
-}
-
 final class DefaultMapsViewController: MapsViewController {
   private let searchViewController: SearchViewController
-  private let sheetNavigationController: UINavigationController
+  private let selectionSheetNavigationController: UINavigationController
+  private let routingSheetNavigationController: UINavigationController
   private let sheetHeightInspectionView = SizeTrackingView()
 
   private let stateManager = StateManager()
+
+  /// Camera bottom inset based on the presented sheet height.
+  private var cameraBottomInset: CGFloat {
+    (sheetHeightInspectionView.lastFrameBroadcast?.height ?? 0) + 24
+  }
 
   init() {
     let viewController = SearchViewController(stateManager: stateManager)
     searchViewController = viewController
 
-    sheetNavigationController = {
-      let navigationController = UINavigationController(rootViewController: viewController)
-      navigationController.modalPresentationStyle = .pageSheet
+    selectionSheetNavigationController = UINavigationController(
+      sheetNavigationControllerWithRootViewController: viewController
+    ) {
+      $0.configure()
+    }
 
-      // Avoid drag gesture dismissal of the sheet.
-      navigationController.isModalInPresentation = true
-
-      if let sheet = navigationController.sheetPresentationController {
-        sheet.detents = [.small(), .medium(), .large()]
-        // Start with smallest detent selected.
-        sheet.selectedDetentIdentifier = UISheetPresentationController.Detent.small().identifier
-        // Don't let the sheet dim the background content.
-        sheet.largestUndimmedDetentIdentifier = .medium
-        // Sheet needs rounded corners.
-        sheet.preferredCornerRadius = 16
-        // Sheet needs to show the top grabber.
-        sheet.prefersGrabberVisible = true
-      }
-      return navigationController
-    }()
+    routingSheetNavigationController = UINavigationController(
+      sheetNavigationControllerWithRootViewController: RoutingViewController()
+    ) {
+      $0.configure(detents: [.small()], largestUndimmedDetentIdentifier: .small)
+    }
 
     super.init(nibName: nil, bundle: nil)
   }
@@ -83,7 +70,7 @@ final class DefaultMapsViewController: MapsViewController {
     super.viewDidAppear(animated)
 
     // Show sheet.
-    present(sheetNavigationController, animated: true) {
+    present(selectionSheetNavigationController, animated: true) {
       // Set up sheet height tracker.
       self.view.superview!.addSubview(self.sheetHeightInspectionView)
       NSLayoutConstraint.activate([
@@ -91,7 +78,7 @@ final class DefaultMapsViewController: MapsViewController {
         self.sheetHeightInspectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         self.sheetHeightInspectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
         // Ensure it tracks the height of the sheet.
-        self.sheetHeightInspectionView.topAnchor.constraint(equalTo: self.sheetNavigationController.view.topAnchor)
+        self.sheetHeightInspectionView.topAnchor.constraint(equalTo: self.selectionSheetNavigationController.view.topAnchor)
       ])
     }
   }
@@ -99,7 +86,7 @@ final class DefaultMapsViewController: MapsViewController {
   // MARK: - Map Movement
 
   // TODO: Update location to Denver if no location is accessible.
-  private func updatePuckViewportState(bottomInset: CGFloat) {
+  private func updateMapCameraForInitialState(bottomInset: CGFloat) {
     let followPuckViewportState = mapView.viewport.makeFollowPuckViewportState(
       options: FollowPuckViewportStateOptions(
         padding: UIEdgeInsets(top: 200, left: 0, bottom: bottomInset, right: 0),
@@ -113,40 +100,44 @@ final class DefaultMapsViewController: MapsViewController {
     }
   }
 
-  private func updateMapViewForRoutes(preview: StateManager.DirectionsPreview) {
-    if preview.response.routes.count > 0 {
-      polylineAnnotationManager.annotations = preview.response.routes.map { route in
-        if route == preview.selectedRoute {
-          return .activeRouteAnnotation(coordinates: route.geometry.coordinates)
-        } else {
-          return .potentialRouteAnnotation(coordinates: route.geometry.coordinates)
-        }
-      }
+  private func updateMapCameraForRoutePreview(preview: StateManager.DirectionsPreview) {
+    // Zoom to show a single route or all routes.
+    let cameraTopInset: CGFloat = self.view.safeAreaInsets.top
 
-      // Zoom to show a single route or all routes.
-      let cameraTopInset: CGFloat = self.view.safeAreaInsets.top
-      let cameraBottomInset: CGFloat = (self.sheetHeightInspectionView.lastFrameBroadcast?.height ?? 0) + 24
-      let coordinates: [CLLocationCoordinate2D] = {
-        if let route = preview.selectedRoute {
-          return route.geometry.coordinates
-        } else {
-          return preview.response.routes.map(\.geometry.coordinates).flatMap { $0 }
-        }
-      }()
+    // TODO: Add handling for "possible routes" vs. just the selected route.
+    // preview.response.routes.map(\.geometry.coordinates).flatMap { $0 }
+    let coordinates: [CLLocationCoordinate2D] = preview.selectedRoute.geometry.coordinates
 
-      let overviewViewportState = mapView.viewport.makeOverviewViewportState(
-        options: .init(
-          geometry: LineString(coordinates),
-          padding: .init(top: cameraTopInset, left: 24, bottom: cameraBottomInset, right: 24)
-        )
+    let overviewViewportState = mapView.viewport.makeOverviewViewportState(
+      options: .init(
+        geometry: LineString(coordinates),
+        padding: .init(top: cameraTopInset, left: 24, bottom: cameraBottomInset, right: 24)
       )
+    )
 
-      mapView.viewport.transition(to: overviewViewportState) { _ in
-        // the transition has been completed with a flag indicating whether the transition succeeded
-      }
+    mapView.viewport.transition(to: overviewViewportState) { _ in
+      // the transition has been completed with a flag indicating whether the transition succeeded
+    }
+  }
 
-    } else {
-      polylineAnnotationManager.annotations = []
+  private func updateMapCameraForRouting(bottomInset: CGFloat) {
+    let followPuckViewportState = mapView.viewport.makeFollowPuckViewportState(
+      options: FollowPuckViewportStateOptions(
+        padding: UIEdgeInsets(top: 200, left: 0, bottom: bottomInset, right: 0),
+        bearing: .heading,
+        pitch: 0
+      )
+    )
+    mapView.viewport.transition(to: followPuckViewportState) { _ in
+      // the transition has been completed with a flag indicating whether the transition succeeded
+    }
+  }
+
+  private func updateMapAnnotations(selectedRoute: Route, potentialRoutes: [Route]) {
+    polylineAnnotationManager.annotations = [
+      .activeRouteAnnotation(coordinates: selectedRoute.geometry.coordinates)
+    ] + potentialRoutes.map {
+      .potentialRouteAnnotation(coordinates: $0.geometry.coordinates)
     }
   }
 
@@ -160,10 +151,15 @@ final class DefaultMapsViewController: MapsViewController {
       switch result {
       case .success(let result):
         DispatchQueue.main.async {
-          // On initial state update, assume first route is selected.
-          self.stateManager.state = .previewDirections(
-            preview: .init(request: request, response: result, selectedRoute: result.routes.first)
-          )
+          if let firstRoute = result.routes.first {
+            // On initial state update, assume first route is selected.
+            self.stateManager.state = .previewDirections(
+              preview: .init(request: request, response: result, selectedRoute: firstRoute)
+            )
+          } else {
+            // TODO: Improve the state when a route is requested but returns no options.
+            self.stateManager.state = .initial
+          }
         }
       case .failure(let error):
         // TODO: Handle route request errors.
@@ -186,8 +182,19 @@ extension DefaultMapsViewController: StateListener {
       // sheetNavigationController.sheetPresentationController?.selectedDetentIdentifier = UISheetPresentationController.Detent.small().identifier
       requestDirections(request: request)
     case .previewDirections(let preview):
-      updateMapViewForRoutes(preview: preview)
-    case .routing: break
+      updateMapCameraForRoutePreview(preview: preview)
+      updateMapAnnotations(selectedRoute: preview.selectedRoute, potentialRoutes: preview.response.routes)
+    case .routing(let routing):
+      // Dismiss initial sheet, show routing sheet.
+      dismiss(animated: true) {
+        self.present(self.routingSheetNavigationController, animated: true) {
+          // Switch sheet height tracker.
+          // self.sheetHeightInspectionView.topAnchor.constraint(equalTo: self.routingSheetNavigationController.view.topAnchor)
+        }
+      }
+      // Update route polyline display.
+      updateMapCameraForRouting(bottomInset: cameraBottomInset)
+      updateMapAnnotations(selectedRoute: routing.selectedRoute, potentialRoutes: [])
     }
   }
 }
@@ -198,10 +205,12 @@ extension DefaultMapsViewController: SizeTrackingListener {
   func didChangeFrame(_ view: UIView, frame: CGRect) {
     // TODO: Make this smarter. For example, don't resize in the case where the sheet detent is large.
     switch stateManager.state {
-    case .initial, .routing:
-      updatePuckViewportState(bottomInset: frame.height)
+    case .initial:
+      updateMapCameraForInitialState(bottomInset: frame.height)
     case .previewDirections(let preview):
-      updateMapViewForRoutes(preview: preview)
+      updateMapCameraForRoutePreview(preview: preview)
+    case .routing:
+      updateMapCameraForRouting(bottomInset: frame.height)
     default:
       break
     }

@@ -73,6 +73,17 @@ extension DirectionPreviewViewController {
   }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //
+    switch stateManager.state {
+    case .previewDirections(let preview):
+      let route = preview.response.routes[indexPath.row]
+
+      stateManager.state = .routing(routing: .init(
+        request: preview.request,
+        response: preview.response,
+        selectedRoute: route
+      ))
+    default:
+      fatalError("State must be preview directions when route is selected")
+    }
   }
 }
