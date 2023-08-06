@@ -18,6 +18,7 @@ final class DefaultMapsViewController: MapsViewController {
   private let sheetHeightInspectionView = SizeTrackingView()
 
   private let stateManager = StateManager()
+  private let screenManager: ScreenManager
 
   /// Camera bottom inset based on the presented sheet height.
   private var cameraBottomInset: CGFloat {
@@ -25,6 +26,8 @@ final class DefaultMapsViewController: MapsViewController {
   }
 
   init() {
+    screenManager = ScreenManager(stateManager: stateManager)
+
     let viewController = SearchViewController(stateManager: stateManager)
     searchViewController = viewController
 
