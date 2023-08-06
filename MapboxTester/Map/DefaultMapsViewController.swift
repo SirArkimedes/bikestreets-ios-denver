@@ -160,7 +160,10 @@ final class DefaultMapsViewController: MapsViewController {
       switch result {
       case .success(let result):
         DispatchQueue.main.async {
-          self.stateManager.state = .previewDirections(preview: .init(request: request, response: result, selectedRoute: nil))
+          // On initial state update, assume first route is selected.
+          self.stateManager.state = .previewDirections(
+            preview: .init(request: request, response: result, selectedRoute: result.routes.first)
+          )
         }
       case .failure(let error):
         // TODO: Handle route request errors.
