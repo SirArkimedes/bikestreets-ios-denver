@@ -28,6 +28,20 @@ extension UISheetPresentationController {
 // MARK: - Detent Additions
 
 extension UISheetPresentationController.Detent {
+
+  // MARK: -- Tiny
+
+  private static let _tiny: UISheetPresentationController.Detent = custom(identifier: .tiny, resolver: { context in
+    120
+  })
+
+  static func tiny() -> UISheetPresentationController.Detent {
+    return _tiny
+  }
+
+
+  // MARK: -- Small
+
   private static let _small: UISheetPresentationController.Detent = custom(identifier: .small, resolver: { context in
     175
   })
@@ -38,5 +52,6 @@ extension UISheetPresentationController.Detent {
 }
 
 extension UISheetPresentationController.Detent.Identifier {
+  static let tiny: UISheetPresentationController.Detent.Identifier = .init(rawValue: "tiny")
   static let small: UISheetPresentationController.Detent.Identifier = .init(rawValue: "small")
 }
