@@ -30,15 +30,25 @@ final class SearchViewController: UIViewController {
 
     view.backgroundColor = .systemBackground
 
+    let insetView = UIView()
+    insetView.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(insetView)
+    NSLayoutConstraint.activate([
+      insetView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+      insetView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
+      insetView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16),
+      insetView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+    ])
+
     let vamosLabel = UILabel()
     vamosLabel.translatesAutoresizingMaskIntoConstraints = false
     vamosLabel.text = "Find a route with VAMOS"
     view.addSubview(vamosLabel)
 
     NSLayoutConstraint.activate([
-      vamosLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-      vamosLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
-      vamosLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16),
+      vamosLabel.topAnchor.constraint(equalTo: insetView.topAnchor),
+      vamosLabel.leftAnchor.constraint(equalTo: insetView.leftAnchor),
+      vamosLabel.rightAnchor.constraint(equalTo: insetView.rightAnchor),
       vamosLabel.heightAnchor.constraint(equalToConstant: 40),
     ])
 

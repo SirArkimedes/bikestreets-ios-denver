@@ -35,6 +35,8 @@ final class DirectionPreviewViewController: UITableViewController {
     super.viewDidLoad()
 
     stateManager.add(listener: self)
+
+    tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
   }
 }
 
