@@ -28,7 +28,7 @@ final class SearchViewController: UIViewController {
 
     searchViewController.delegate = self
 
-    view.backgroundColor = .white
+    view.backgroundColor = .systemBackground
 
     let vamosLabel = UILabel()
     vamosLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -36,9 +36,9 @@ final class SearchViewController: UIViewController {
     view.addSubview(vamosLabel)
 
     NSLayoutConstraint.activate([
-      vamosLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      vamosLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-      vamosLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
+      vamosLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+      vamosLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
+      vamosLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16),
       vamosLabel.heightAnchor.constraint(equalToConstant: 40),
     ])
 
@@ -87,6 +87,16 @@ extension SearchViewController: LocationSearchDelegate {
     searchViewController.searchController.isActive = false
 
     let directionPreviewViewController = DirectionPreviewViewController(stateManager: stateManager)
-    navigationController?.pushViewController(directionPreviewViewController, animated: true)
+    directionPreviewViewController.sheetPresentationController?.configure()
+    directionPreviewViewController.sheetPresentationController?.delegate = self
+    present(directionPreviewViewController, animated: true)
+  }
+}
+
+// MARK: - UISheetPresentationControllerDelegate
+
+extension SearchViewController: UISheetPresentationControllerDelegate {
+  func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    stateManager.state = .initial
   }
 }

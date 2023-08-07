@@ -13,8 +13,6 @@ import UIKit
 
 final class DefaultMapsViewController: MapsViewController {
   private let searchViewController: SearchViewController
-  private let selectionSheetNavigationController: UINavigationController
-  private let routingSheetNavigationController: UINavigationController
   private let sheetHeightInspectionView = SizeTrackingView()
 
   private let stateManager = StateManager()
@@ -28,20 +26,9 @@ final class DefaultMapsViewController: MapsViewController {
   init() {
     screenManager = ScreenManager(stateManager: stateManager)
 
-    let viewController = SearchViewController(stateManager: stateManager)
-    searchViewController = viewController
-
-    selectionSheetNavigationController = UINavigationController(
-      sheetNavigationControllerWithRootViewController: viewController
-    ) {
-      $0.configure()
-    }
-
-    routingSheetNavigationController = UINavigationController(
-      sheetNavigationControllerWithRootViewController: RoutingViewController()
-    ) {
-      $0.configure(detents: [.small()], largestUndimmedDetentIdentifier: .small)
-    }
+    let searchViewController = SearchViewController(stateManager: stateManager)
+    searchViewController.sheetPresentationController?.configure()
+    self.searchViewController = searchViewController
 
     super.init(nibName: nil, bundle: nil)
   }
@@ -67,21 +54,25 @@ final class DefaultMapsViewController: MapsViewController {
       zoom: 15.5
     )
     mapView.mapboxMap.setCamera(to: cameraOptions)
+
+    // Set up sheet height tracker.
+    view.superview!.addSubview(self.sheetHeightInspectionView)
+    NSLayoutConstraint.activate([
+      sheetHeightInspectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+      sheetHeightInspectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      sheetHeightInspectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+      // Height is tracked on a per-sheet basis.
+    ])
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
-    // Show sheet.
-    present(selectionSheetNavigationController, animated: true) {
-      // Set up sheet height tracker.
-      self.view.superview!.addSubview(self.sheetHeightInspectionView)
+    searchViewController.sheetPresentationController?.delegate = self
+    present(searchViewController, animated: true) {
       NSLayoutConstraint.activate([
-        self.sheetHeightInspectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-        self.sheetHeightInspectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-        self.sheetHeightInspectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
         // Ensure it tracks the height of the sheet.
-        self.sheetHeightInspectionView.topAnchor.constraint(equalTo: self.selectionSheetNavigationController.view.topAnchor)
+        self.sheetHeightInspectionView.topAnchor.constraint(equalTo: self.searchViewController.view.topAnchor)
       ])
     }
   }
@@ -177,7 +168,18 @@ final class DefaultMapsViewController: MapsViewController {
 extension DefaultMapsViewController: StateListener {
   func didUpdate(from oldState: StateManager.State, to newState: StateManager.State) {
     switch newState {
-    case .initial: break
+    case .initial:
+      // Assume routing was canceled. Restart from the initial launch state.
+      if presentedViewController != self.searchViewController {
+        self.searchViewController.sheetPresentationController?.configure()
+        dismiss(animated: true) {
+          self.searchViewController.sheetPresentationController?.delegate = self
+          self.present(self.searchViewController, animated: true)
+        }
+      }
+
+      // Adjust camera.
+      updateMapCameraForInitialState(bottomInset: cameraBottomInset)
     case .requestingRoutes(let request):
       // Potentially show destination on map
       // showAnnotation(.init(item: mapItem), cameraShouldFollow: false)
@@ -190,11 +192,11 @@ extension DefaultMapsViewController: StateListener {
     case .routing(let routing):
       // Dismiss initial sheet, show routing sheet.
       dismiss(animated: true) {
-        self.present(self.routingSheetNavigationController, animated: true) {
-          // Switch sheet height tracker.
-          // self.sheetHeightInspectionView.topAnchor.constraint(equalTo: self.routingSheetNavigationController.view.topAnchor)
-        }
+        let viewController = RoutingViewController(stateManager: self.stateManager)
+        viewController.sheetPresentationController?.configure(detents: [.small()], largestUndimmedDetentIdentifier: .small)
+        self.present(viewController, animated: true)
       }
+
       // Update route polyline display.
       updateMapCameraForRouting(bottomInset: cameraBottomInset)
       updateMapAnnotations(selectedRoute: routing.selectedRoute, potentialRoutes: [])
@@ -231,5 +233,13 @@ extension DefaultMapsViewController: LocationSearchDelegate {
     } else {
       print("ERROR: No user location found")
     }
+  }
+}
+
+// MARK: - UISheetPresentationControllerDelegate
+
+extension DefaultMapsViewController: UISheetPresentationControllerDelegate {
+  func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+    return false
   }
 }
