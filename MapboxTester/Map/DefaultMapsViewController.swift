@@ -194,6 +194,7 @@ extension DefaultMapsViewController: StateListener {
       dismiss(animated: true) {
         let viewController = RoutingViewController(stateManager: self.stateManager)
         viewController.sheetPresentationController?.configure(detents: [.tiny()], largestUndimmedDetentIdentifier: .tiny)
+        viewController.sheetPresentationController?.delegate = self
         self.present(viewController, animated: true)
       }
 
