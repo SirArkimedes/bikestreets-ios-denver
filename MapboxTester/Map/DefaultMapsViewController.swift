@@ -243,3 +243,19 @@ extension DefaultMapsViewController: UISheetPresentationControllerDelegate {
     return false
   }
 }
+
+// MARK: -- Dark Mode
+
+extension DefaultMapsViewController {
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+
+    if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+      if traitCollection.userInterfaceStyle == .dark {
+        mapView.mapboxMap.loadStyleURI(StyleURI.dark)
+      } else {
+        mapView.mapboxMap.loadStyleURI(StyleURI.light)
+      }
+    }
+  }
+}
