@@ -8,7 +8,12 @@
 import Foundation
 import UIKit
 
-final class DirectionPreviewViewController: UITableViewController {
+final class DirectionPreviewViewController: UIViewController {
+  private let tableView: UITableView = {
+    let tableView = UITableView()
+    tableView.translatesAutoresizingMaskIntoConstraints = false
+    return tableView
+  }()
   private let stateManager: StateManager
   private let distanceFormatter: MeasurementFormatter = {
     let formatter = MeasurementFormatter()
@@ -34,6 +39,21 @@ final class DirectionPreviewViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    view.backgroundColor = .systemBackground
+
+    let titleLabel = UILabel()
+    titleLabel.text = "Directions"
+    titleLabel.font = .preferredFont(forTextStyle: .largeTitle)
+
+    let stackView = UIStackView(arrangedSubviews: [titleLabel, tableView])
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.axis = .vertical
+
+    view.addSubview(stackView)
+    view.matchAutolayoutSize(stackView, insets: .init(top: 16, left: 16, bottom: 0, right: -16))
+
+    tableView.dataSource = self
+
     stateManager.add(listener: self)
 
     tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
@@ -52,12 +72,12 @@ extension DirectionPreviewViewController: StateListener {
 
 // MARK: - UITableView
 
-extension DirectionPreviewViewController {
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension DirectionPreviewViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return currentPreview?.response.routes.count ?? 0
   }
 
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let response = currentPreview?.response else {
       fatalError("Unable to find response for directions view")
     }
@@ -74,7 +94,7 @@ extension DirectionPreviewViewController {
     return distanceFormatter.string(from: measurement)
   }
 
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch stateManager.state {
     case .previewDirections(let preview):
       let route = preview.response.routes[indexPath.row]

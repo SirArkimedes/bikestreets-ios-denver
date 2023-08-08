@@ -43,13 +43,13 @@ final class SearchViewController: UIViewController {
     let vamosLabel = UILabel()
     vamosLabel.translatesAutoresizingMaskIntoConstraints = false
     vamosLabel.text = "Find a route with VAMOS"
+    vamosLabel.font = .preferredFont(forTextStyle: .title1)
     view.addSubview(vamosLabel)
 
     NSLayoutConstraint.activate([
       vamosLabel.topAnchor.constraint(equalTo: insetView.topAnchor),
       vamosLabel.leftAnchor.constraint(equalTo: insetView.leftAnchor),
       vamosLabel.rightAnchor.constraint(equalTo: insetView.rightAnchor),
-      vamosLabel.heightAnchor.constraint(equalToConstant: 40),
     ])
 
     let stackView = UIStackView()

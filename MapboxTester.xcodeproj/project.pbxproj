@@ -28,6 +28,7 @@
 		350BDE422A7007FF00D4DE31 /* 5-walk-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3D2A7007F900D4DE31 /* 5-walk-master-v0.3.geojson */; };
 		350BDE432A7007FF00D4DE31 /* 1-bikestreets-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3A2A7007F900D4DE31 /* 1-bikestreets-master-v0.3.geojson */; };
 		350BDE462A700E0D00D4DE31 /* BikeStreetsStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BDE452A700E0D00D4DE31 /* BikeStreetsStyles.swift */; };
+		3516451A2A81CC73001EDC99 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351645192A81CC73001EDC99 /* UIView+Constraints.swift */; };
 		355256F12A46295600A15512 /* SimplifySwift in Frameworks */ = {isa = PBXBuildFile; productRef = 355256F02A46295600A15512 /* SimplifySwift */; };
 		357FE2FD2A4F754400806743 /* MapboxSearch in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FC2A4F754400806743 /* MapboxSearch */; };
 		357FE2FF2A4F754400806743 /* MapboxSearchUI in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FE2A4F754400806743 /* MapboxSearchUI */; };
@@ -61,6 +62,7 @@
 		350BDE3D2A7007F900D4DE31 /* 5-walk-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "5-walk-master-v0.3.geojson"; sourceTree = "<group>"; };
 		350BDE3E2A7007F900D4DE31 /* 3-bikelanes-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "3-bikelanes-master-v0.3.geojson"; sourceTree = "<group>"; };
 		350BDE452A700E0D00D4DE31 /* BikeStreetsStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStreetsStyles.swift; sourceTree = "<group>"; };
+		351645192A81CC73001EDC99 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		35A482932A37B1E4001035BB /* BikeStreets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeStreets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A4829A2A37B1E6001035BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			children = (
 				35065CB92A803A4000C7CCAF /* UISheetPresentationController+Configuration.swift */,
 				35065CBE2A803C1900C7CCAF /* UINavigationController+Sheet.swift */,
+				351645192A81CC73001EDC99 /* UIView+Constraints.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				35065CA32A7D2EB400C7CCAF /* SearchViewController.swift in Sources */,
 				35065CB72A7DA62800C7CCAF /* Models.swift in Sources */,
 				35065CB42A7DA3AB00C7CCAF /* DirectionPreviewViewController.swift in Sources */,
+				3516451A2A81CC73001EDC99 /* UIView+Constraints.swift in Sources */,
 				35065CBD2A803BFC00C7CCAF /* RoutingViewController.swift in Sources */,
 				35065C9C2A7C69E600C7CCAF /* AppDelegate.swift in Sources */,
 				35065CBA2A803A4000C7CCAF /* UISheetPresentationController+Configuration.swift in Sources */,
