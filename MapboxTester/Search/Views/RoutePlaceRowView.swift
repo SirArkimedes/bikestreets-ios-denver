@@ -8,35 +8,37 @@
 import Foundation
 import UIKit
 
-private extension UIView {
-  convenience init(insetView child: UIView, insets: UIEdgeInsets) {
-    self.init(frame: .zero)
-
-    translatesAutoresizingMaskIntoConstraints = false
-    addSubview(child)
-    matchAutolayoutSize(child, insets: insets)
-  }
-}
-
 final class RoutePlaceRowView: UIStackView {
   init(destinationName: String) {
-    let fromView = UILabel()
-    fromView.translatesAutoresizingMaskIntoConstraints = false
-    fromView.text = "From\nCurrent Location"
-    fromView.numberOfLines = 0
+    let fromTitle = UILabel()
+    fromTitle.translatesAutoresizingMaskIntoConstraints = false
+    fromTitle.text = "From"
+    fromTitle.font = .preferredFont(forTextStyle: .body, weight: .bold)
 
-    let toView = UILabel()
-    toView.translatesAutoresizingMaskIntoConstraints = false
-    toView.text = "To\n\(destinationName)"
-    toView.numberOfLines = 0
+    let fromName = UILabel()
+    fromName.translatesAutoresizingMaskIntoConstraints = false
+    fromName.text = "Current Location"
+    fromName.font = .preferredFont(forTextStyle: .body)
+
+    let toTitle = UILabel()
+    toTitle.translatesAutoresizingMaskIntoConstraints = false
+    toTitle.text = "To"
+    toTitle.font = .preferredFont(forTextStyle: .body, weight: .bold)
+
+    let toName = UILabel()
+    toName.translatesAutoresizingMaskIntoConstraints = false
+    toName.text = destinationName
+    toName.font = .preferredFont(forTextStyle: .body)
 
     super.init(frame: .zero)
 
-    addArrangedSubview(.init(insetView: fromView, insets: .init(top: 0, left: 16, bottom: 0, right: 16)))
-    addArrangedSubview(.init(insetView: toView, insets: .init(top: 0, left: 16, bottom: 0, right: 16)))
+    addArrangedSubview(.init(insetView: fromTitle, insets: .init(top: 0, left: 16, bottom: 0, right: 16)))
+    addArrangedSubview(.init(insetView: fromName, insets: .init(top: 0, left: 16, bottom: 0, right: 16)))
+    addArrangedSubview(.init(insetView: toTitle, insets: .init(top: 0, left: 16, bottom: 0, right: 16)))
+    addArrangedSubview(.init(insetView: toName, insets: .init(top: 0, left: 16, bottom: 0, right: 16)))
 
     axis = .vertical
-    spacing = 16
+    spacing = 8
 
     layoutMargins = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
     isLayoutMarginsRelativeArrangement = true

@@ -9,26 +9,12 @@ import Foundation
 import UIKit
 
 final class DirectionPreviewViewController: UIViewController {
-  private let tableView: UITableView = {
-    let tableView = UITableView()
-    tableView.translatesAutoresizingMaskIntoConstraints = false
-    tableView.backgroundColor = .tertiarySystemBackground
-    tableView.layer.cornerRadius = 16
-    tableView.clipsToBounds = true
-    return tableView
+  private let scrollView: UIScrollView = {
+    let scrollView = UIScrollView()
+    scrollView.translatesAutoresizingMaskIntoConstraints = false
+    return scrollView
   }()
   private let stateManager: StateManager
-  private let distanceFormatter: MeasurementFormatter = {
-    let formatter = MeasurementFormatter()
-    formatter.unitOptions = .naturalScale
-    return formatter
-  }()
-
-  private var currentPreview: StateManager.DirectionsPreview? {
-    didSet {
-      tableView.reloadData()
-    }
-  }
 
   init(stateManager: StateManager) {
     self.stateManager = stateManager
@@ -49,7 +35,7 @@ final class DirectionPreviewViewController: UIViewController {
     let titleLabel = UILabel()
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
     titleLabel.text = "Directions"
-    titleLabel.font = .preferredFont(forTextStyle: .largeTitle)
+    titleLabel.font = .preferredFont(forTextStyle: .largeTitle, weight: .bold)
 
     let titleContainer = UIView()
     titleContainer.addSubview(titleLabel)
@@ -63,32 +49,40 @@ final class DirectionPreviewViewController: UIViewController {
     let routesLabel = UILabel()
     routesLabel.translatesAutoresizingMaskIntoConstraints = false
     routesLabel.text = "Routes"
-    routesLabel.font = .preferredFont(forTextStyle: .title2)
+    routesLabel.font = .preferredFont(forTextStyle: .title2, weight: .bold)
 
-    let tableViewContainer = UIView()
-    tableViewContainer.addSubview(tableView)
-    tableViewContainer.matchAutolayoutSize(tableView)
+    let possibleRoutesView = PossibleRoutesView(stateManager: stateManager)
+    possibleRoutesView.delegate = self
+    possibleRoutesView.layer.cornerRadius = 16
+    possibleRoutesView.clipsToBounds = true
+    possibleRoutesView.backgroundColor = .tertiarySystemBackground
+
+    let spacerView = UIView()
+    spacerView.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      spacerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 16)
+    ])
 
     let stackView = UIStackView(arrangedSubviews: [
       titleContainer,
       placesStackView,
       routesLabel,
-      tableViewContainer
+      possibleRoutesView,
+      spacerView
     ])
     stackView.translatesAutoresizingMaskIntoConstraints = false
     stackView.axis = .vertical
     stackView.spacing = 16
 
-    let stackViewContainer = UIView()
-    stackViewContainer.translatesAutoresizingMaskIntoConstraints = false
-    stackViewContainer.addSubview(stackView)
-    stackViewContainer.matchAutolayoutSize(stackView)
+    scrollView.addSubview(stackView)
 
-    view.addSubview(stackViewContainer)
-    view.matchAutolayoutSize(stackViewContainer, insets: .init(top: 16, left: 16, bottom: 0, right: -16))
-
-    tableView.dataSource = self
-    tableView.delegate = self
+    view.addSubview(scrollView)
+    NSLayoutConstraint.activate([
+      stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+      stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
+      stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+    ])
+    view.matchAutolayoutSize(scrollView)
 
     stateManager.add(listener: self)
   }
@@ -111,42 +105,22 @@ final class DirectionPreviewViewController: UIViewController {
 
 extension DirectionPreviewViewController: StateListener {
   func didUpdate(from oldState: StateManager.State, to newState: StateManager.State) {
-    if case .requestingRoutes = oldState, case .previewDirections(let preview) = newState {
-      currentPreview = preview
-    }
+//    if case .requestingRoutes = oldState, case .previewDirections(let preview) = newState {
+//      currentPreview = preview
+//    }
   }
 }
 
-// MARK: - UITableView
+// MARK: - RouteSelectable
 
-extension DirectionPreviewViewController: UITableViewDataSource, UITableViewDelegate {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return currentPreview?.response.routes.count ?? 0
+extension DirectionPreviewViewController: RouteSelectable {
+  func didSelect(route: Route) {
+    // TODO: Add route selection support.
   }
 
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let response = currentPreview?.response else {
-      fatalError("Unable to find response for directions view")
-    }
-
-    let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-    let route = response.routes[indexPath.row]
-    cell.textLabel?.text = "Option \(indexPath.row + 1)"
-    cell.detailTextLabel?.text = distanceString(for: route.distance)
-    cell.backgroundColor = .tertiarySystemBackground
-    return cell
-  }
-
-  private func distanceString(for distance: Double) -> String {
-    let measurement = Measurement(value: distance, unit: UnitLength.meters)
-    return distanceFormatter.string(from: measurement)
-  }
-
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+  func didStart(route: Route) {
     switch stateManager.state {
     case .previewDirections(let preview):
-      let route = preview.response.routes[indexPath.row]
-
       stateManager.state = .routing(routing: .init(
         request: preview.request,
         response: preview.response,

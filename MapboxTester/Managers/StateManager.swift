@@ -10,7 +10,7 @@ import CoreLocation
 import MapKit
 
 // TODO: Convert to Combine if you're smarter than I am.
-protocol StateListener {
+protocol StateListener: AnyObject {
   func didUpdate(from oldState: StateManager.State, to newState: StateManager.State)
 }
 
@@ -43,16 +43,34 @@ final class StateManager {
   var state: State = .initial {
     didSet {
       listeners.forEach {
-        $0.didUpdate(from: oldValue, to: state)
+        $0.value?.didUpdate(from: oldValue, to: state)
       }
+
+      // Clean up listeners
+      listeners.reap()
     }
   }
 
   // MARK: -- Listeners
 
-  private var listeners: [StateListener] = []
+  private var listeners: [Weak] = []
 
   func add(listener: StateListener) {
-    listeners.append(listener)
+    listeners.append(Weak(value: listener))
+  }
+}
+
+// MARK: -- Weak Handling
+
+private class Weak {
+  weak var value : StateListener?
+  init (value: StateListener) {
+    self.value = value
+  }
+}
+
+private extension Array where Element: Weak {
+  mutating func reap () {
+    self = self.filter { nil != $0.value }
   }
 }

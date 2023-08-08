@@ -30,6 +30,9 @@
 		350BDE462A700E0D00D4DE31 /* BikeStreetsStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BDE452A700E0D00D4DE31 /* BikeStreetsStyles.swift */; };
 		3516451A2A81CC73001EDC99 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351645192A81CC73001EDC99 /* UIView+Constraints.swift */; };
 		3516451E2A81D826001EDC99 /* RoutePlaceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3516451D2A81D826001EDC99 /* RoutePlaceRowView.swift */; };
+		351645202A827F08001EDC99 /* PossibleRoutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3516451F2A827F08001EDC99 /* PossibleRoutesView.swift */; };
+		351645222A827FD9001EDC99 /* UIView+InsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351645212A827FD9001EDC99 /* UIView+InsetView.swift */; };
+		351645242A8288D6001EDC99 /* UIFont+Preferred.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351645232A8288D6001EDC99 /* UIFont+Preferred.swift */; };
 		355256F12A46295600A15512 /* SimplifySwift in Frameworks */ = {isa = PBXBuildFile; productRef = 355256F02A46295600A15512 /* SimplifySwift */; };
 		357FE2FD2A4F754400806743 /* MapboxSearch in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FC2A4F754400806743 /* MapboxSearch */; };
 		357FE2FF2A4F754400806743 /* MapboxSearchUI in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FE2A4F754400806743 /* MapboxSearchUI */; };
@@ -65,6 +68,9 @@
 		350BDE452A700E0D00D4DE31 /* BikeStreetsStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStreetsStyles.swift; sourceTree = "<group>"; };
 		351645192A81CC73001EDC99 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		3516451D2A81D826001EDC99 /* RoutePlaceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePlaceRowView.swift; sourceTree = "<group>"; };
+		3516451F2A827F08001EDC99 /* PossibleRoutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PossibleRoutesView.swift; sourceTree = "<group>"; };
+		351645212A827FD9001EDC99 /* UIView+InsetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+InsetView.swift"; sourceTree = "<group>"; };
+		351645232A8288D6001EDC99 /* UIFont+Preferred.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Preferred.swift"; sourceTree = "<group>"; };
 		35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		35A482932A37B1E4001035BB /* BikeStreets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeStreets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A4829A2A37B1E6001035BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -135,6 +141,8 @@
 				35065CB92A803A4000C7CCAF /* UISheetPresentationController+Configuration.swift */,
 				35065CBE2A803C1900C7CCAF /* UINavigationController+Sheet.swift */,
 				351645192A81CC73001EDC99 /* UIView+Constraints.swift */,
+				351645212A827FD9001EDC99 /* UIView+InsetView.swift */,
+				351645232A8288D6001EDC99 /* UIFont+Preferred.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -181,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				3516451D2A81D826001EDC99 /* RoutePlaceRowView.swift */,
+				3516451F2A827F08001EDC99 /* PossibleRoutesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -326,7 +335,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				351645242A8288D6001EDC99 /* UIFont+Preferred.swift in Sources */,
 				35065CA32A7D2EB400C7CCAF /* SearchViewController.swift in Sources */,
+				351645202A827F08001EDC99 /* PossibleRoutesView.swift in Sources */,
 				35065CB72A7DA62800C7CCAF /* Models.swift in Sources */,
 				35065CB42A7DA3AB00C7CCAF /* DirectionPreviewViewController.swift in Sources */,
 				3516451A2A81CC73001EDC99 /* UIView+Constraints.swift in Sources */,
@@ -339,6 +350,7 @@
 				35065CAD2A7D9A8F00C7CCAF /* StateManager.swift in Sources */,
 				35065CAF2A7D9B8300C7CCAF /* RouteRequester.swift in Sources */,
 				3516451E2A81D826001EDC99 /* RoutePlaceRowView.swift in Sources */,
+				351645222A827FD9001EDC99 /* UIView+InsetView.swift in Sources */,
 				35065CA12A7D24AD00C7CCAF /* DefaultMapsViewController.swift in Sources */,
 				350BDE462A700E0D00D4DE31 /* BikeStreetsStyles.swift in Sources */,
 				35065CAB2A7D45E400C7CCAF /* SizeTrackingView.swift in Sources */,
