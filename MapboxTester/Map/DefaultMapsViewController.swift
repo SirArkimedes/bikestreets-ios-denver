@@ -73,11 +73,16 @@ final class DefaultMapsViewController: MapsViewController {
 
     searchViewController.sheetPresentationController?.delegate = self
     present(searchViewController, animated: true) {
-      NSLayoutConstraint.activate([
-        // Ensure it tracks the height of the sheet.
-        self.sheetHeightInspectionView.topAnchor.constraint(equalTo: self.searchViewController.view.topAnchor)
-      ])
+      self.inspectHeight(of: self.searchViewController)
     }
+  }
+
+  private var heightInspectionConstraint: NSLayoutConstraint?
+  private func inspectHeight(of viewController: UIViewController) {
+    heightInspectionConstraint?.isActive = false
+
+    heightInspectionConstraint = sheetHeightInspectionView.topAnchor.constraint(equalTo: viewController.view.topAnchor)
+    heightInspectionConstraint?.isActive = true
   }
 
   // MARK: - Map Movement
@@ -204,6 +209,22 @@ extension DefaultMapsViewController: StateListener {
       // Update route polyline display.
       updateMapCameraForRouting(bottomInset: cameraBottomInset)
       updateMapAnnotations(selectedRoute: routing.selectedRoute, potentialRoutes: [])
+    }
+
+    // Adjust sheet sizing constraint to top-most presented VC. This is a less
+    // than ideal way to ensure we get the top-most presented VC _after_ it has
+    // been presented based on a state change. This could be refactored into
+    // a more centralized approach to unify the handling of push/pop while
+    // keeping internal catalog of the top-most VC.
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+      var topController = self.presentedViewController
+      while let newTopController = topController?.presentedViewController {
+        topController = newTopController
+      }
+
+      if let topController {
+        self.inspectHeight(of: topController)
+      }
     }
   }
 }

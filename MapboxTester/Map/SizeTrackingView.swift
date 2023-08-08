@@ -30,11 +30,12 @@ final class SizeTrackingView: UIView {
   override func layoutSubviews() {
     super.layoutSubviews()
 
+    lastFrameBroadcast = frame
+
     if let lastFrameBroadcast, lastFrameBroadcast != frame {
       delegate?.didChangeFrame(self, frame: frame)
     } else {
       delegate?.didChangeFrame(self, frame: frame)
     }
-    lastFrameBroadcast = frame
   }
 }
