@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
 // TODO: Convert to Combine if you're smarter than I am.
 protocol StateListener {
@@ -17,6 +18,7 @@ final class StateManager {
   struct RouteRequest {
     let start: CLLocationCoordinate2D
     let end: CLLocationCoordinate2D
+    let destinationItem: MKMapItem
   }
 
   struct DirectionsPreview {

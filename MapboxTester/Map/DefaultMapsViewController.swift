@@ -229,7 +229,11 @@ extension DefaultMapsViewController: LocationSearchDelegate {
   func didSelect(mapItem: MKMapItem) {
     if let currentLocation = mapView.location.latestLocation {
       stateManager.state = .requestingRoutes(
-        request: .init(start: currentLocation.coordinate, end: mapItem.placemark.coordinate)
+        request: .init(
+          start: currentLocation.coordinate,
+          end: mapItem.placemark.coordinate,
+          destinationItem: mapItem
+        )
       )
     } else {
       print("ERROR: No user location found")

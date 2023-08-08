@@ -97,7 +97,9 @@ extension SearchViewController: LocationSearchDelegate {
     searchViewController.searchController.isActive = false
 
     let directionPreviewViewController = DirectionPreviewViewController(stateManager: stateManager)
-    directionPreviewViewController.sheetPresentationController?.configure()
+    directionPreviewViewController.sheetPresentationController?.configure(
+      selectedDetentIdentifier: .medium
+    )
     directionPreviewViewController.sheetPresentationController?.delegate = self
     present(directionPreviewViewController, animated: true)
   }
