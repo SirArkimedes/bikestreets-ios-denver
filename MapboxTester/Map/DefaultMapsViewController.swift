@@ -236,7 +236,7 @@ extension DefaultMapsViewController: LocationSearchDelegate {
         )
       )
     } else {
-      print("ERROR: No user location found")
+      fatalError("No user location found")
     }
   }
 }
