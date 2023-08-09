@@ -35,7 +35,9 @@ class MapsViewController: UIViewController, ExampleController {
     mapView.location.options.puckType = .puck2D()
 
     // Show Mapbox styles
+    updateMapStyle()
     DispatchQueue.main.async {
+      // Initially, always load the BikeStreets map layers.
       self.loadMapFromShippedResources()
     }
   }
@@ -108,6 +110,37 @@ class MapsViewController: UIViewController, ExampleController {
   }
 }
 
+// MARK: -- Dark Mode
+
+extension MapsViewController {
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+
+    if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+      updateMapStyle()
+    }
+  }
+
+  private func updateMapStyle() {
+    let style: StyleURI
+    if traitCollection.userInterfaceStyle == .dark {
+      style = .dark
+    } else {
+      style = .streets
+    }
+
+    // Only update anything if style is different.
+    guard mapView.mapboxMap.style.uri != style else {
+      return
+    }
+
+    mapView.mapboxMap.loadStyleURI(style) { _ in
+      // Resetting the style URI will unload the BikeStreets layers.
+      self.loadMapFromShippedResources()
+    }
+  }
+}
+
 // MARK: - Load Bike Streets Data
 
 extension MapsViewController {
@@ -150,17 +183,20 @@ extension MapsViewController {
       fatalError("Unable to locate layer name in file name \(fileURL.lastPathComponent)")
     }
 
-    // Create a GeoJSON data source.
-    var geoJSONSource = GeoJSONSource()
-    geoJSONSource.data = .featureCollection(featureCollection)
-    geoJSONSource.lineMetrics = true // MUST be `true` in order to use `lineGradient` expression
-
-    // Create a line layer
-    let lineLayer = BikeStreetsStyles.style(forLayer: geoJSONDataSourceIdentifier, source: geoJSONDataSourceIdentifier)
-
-    // Add the source and style layer to the map style.
-    try! mapView.mapboxMap.style.addSource(geoJSONSource, id: geoJSONDataSourceIdentifier)
-    try! mapView.mapboxMap.style.addLayer(lineLayer, layerPosition: nil)
+    // Only reload if not currently present since these layers don't change.
+    if !mapView.mapboxMap.style.layerExists(withId: geoJSONDataSourceIdentifier) {
+      // Create a GeoJSON data source.
+      var geoJSONSource = GeoJSONSource()
+      geoJSONSource.data = .featureCollection(featureCollection)
+      geoJSONSource.lineMetrics = true // MUST be `true` in order to use `lineGradient` expression
+      
+      // Create a line layer
+      let lineLayer = BikeStreetsStyles.style(forLayer: geoJSONDataSourceIdentifier, source: geoJSONDataSourceIdentifier)
+      
+      // Add the source and style layer to the map style.
+      try! mapView.mapboxMap.style.addSource(geoJSONSource, id: geoJSONDataSourceIdentifier)
+      try! mapView.mapboxMap.style.addLayer(lineLayer, layerPosition: nil)
+    }
   }
 }
 

@@ -43,9 +43,6 @@ final class DefaultMapsViewController: MapsViewController {
     searchViewController.delegate = self
     sheetHeightInspectionView.delegate = self
     stateManager.add(listener: self)
-
-    // Set initial map style.
-    updateMapStyle()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -270,25 +267,5 @@ extension DefaultMapsViewController: LocationSearchDelegate {
 extension DefaultMapsViewController: UISheetPresentationControllerDelegate {
   func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
     return false
-  }
-}
-
-// MARK: -- Dark Mode
-
-extension DefaultMapsViewController {
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-
-    if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-      updateMapStyle()
-    }
-  }
-
-  private func updateMapStyle() {
-    if traitCollection.userInterfaceStyle == .dark {
-      mapView.mapboxMap.loadStyleURI(StyleURI.dark)
-    } else {
-      mapView.mapboxMap.loadStyleURI(StyleURI.streets)
-    }
   }
 }
