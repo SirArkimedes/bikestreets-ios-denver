@@ -89,7 +89,7 @@ extension LocationSearchTableViewController: UISearchResultsUpdating {
 
     self.searchTask = task
 
-    // 0.5 is the wait or idle time for execution of the function applyFilter
-    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: task)
+    // Wait 0.25 seconds before executing search to debounce typing
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25, execute: task)
   }
 }
