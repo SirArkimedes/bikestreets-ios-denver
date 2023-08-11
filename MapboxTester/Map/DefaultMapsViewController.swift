@@ -230,16 +230,31 @@ extension DefaultMapsViewController: StateListener {
 
 extension DefaultMapsViewController: SizeTrackingListener {
   func didChangeFrame(_ view: UIView, frame: CGRect) {
-    // TODO: Make this smarter. For example, don't resize in the case where the sheet detent is large.
-    switch stateManager.state {
-    case .initial:
-      updateMapCameraForInitialState(bottomInset: frame.height)
-    case .previewDirections(let preview):
-      updateMapCameraForRoutePreview(preview: preview)
-    case .routing:
-      updateMapCameraForRouting(bottomInset: frame.height)
-    default:
-      break
+    // Find the likely selected sheet detent identifier.
+    let selectedSheetDetentIdentifier: UISheetPresentationController.Detent.Identifier = {
+      var lastPresentedSheetController: UISheetPresentationController? = self.presentedViewController?.sheetPresentationController
+      var lastPresentedViewController: UIViewController? = self.presentedViewController
+      while let newPresentedViewController = lastPresentedViewController?.presentedViewController {
+        if let sheetPresentationController = newPresentedViewController.sheetPresentationController {
+          lastPresentedSheetController = sheetPresentationController
+        }
+        lastPresentedViewController = newPresentedViewController
+      }
+      return lastPresentedSheetController?.selectedDetentIdentifier ?? .medium
+    }()
+
+    // Adjust the map if we're not in the large selected detent.
+    if selectedSheetDetentIdentifier != .large {
+      switch stateManager.state {
+      case .initial:
+        updateMapCameraForInitialState(bottomInset: frame.height)
+      case .previewDirections(let preview):
+        updateMapCameraForRoutePreview(preview: preview)
+      case .routing:
+        updateMapCameraForRouting(bottomInset: frame.height)
+      default:
+        break
+      }
     }
   }
 }
