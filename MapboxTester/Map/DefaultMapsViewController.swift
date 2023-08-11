@@ -198,7 +198,11 @@ extension DefaultMapsViewController: StateListener {
       // Dismiss initial sheet, show routing sheet.
       dismiss(animated: true) {
         let viewController = RoutingViewController(stateManager: self.stateManager)
-        viewController.sheetPresentationController?.configure(detents: [.tiny()], largestUndimmedDetentIdentifier: .tiny)
+        viewController.sheetPresentationController?.configure(
+          detents: [.tiny()],
+          largestUndimmedDetentIdentifier: .tiny,
+          prefersGrabberVisible: false
+        )
         viewController.sheetPresentationController?.delegate = self
         self.present(viewController, animated: true)
       }

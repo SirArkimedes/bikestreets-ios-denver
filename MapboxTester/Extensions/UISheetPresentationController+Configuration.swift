@@ -12,7 +12,8 @@ extension UISheetPresentationController {
   func configure(
     detents: [UISheetPresentationController.Detent] = [.small(), .medium(), .large()],
     selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .small,
-    largestUndimmedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .medium
+    largestUndimmedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .medium,
+    prefersGrabberVisible: Bool = true
   ) {
     self.detents = detents
     self.selectedDetentIdentifier = selectedDetentIdentifier
@@ -21,7 +22,7 @@ extension UISheetPresentationController {
     // Sheet needs rounded corners.
     preferredCornerRadius = 16
     // Sheet needs to show the top grabber.
-    prefersGrabberVisible = true
+    self.prefersGrabberVisible = prefersGrabberVisible
   }
 }
 
