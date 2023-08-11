@@ -19,6 +19,7 @@ final class PossibleRoutesView: UIStackView {
   private let distanceFormatter: MeasurementFormatter = {
     let formatter = MeasurementFormatter()
     formatter.unitOptions = .naturalScale
+    formatter.numberFormatter.maximumFractionDigits = 2
     return formatter
   }()
 
