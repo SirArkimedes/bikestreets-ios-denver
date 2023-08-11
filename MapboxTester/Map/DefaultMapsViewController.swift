@@ -266,6 +266,20 @@ extension DefaultMapsViewController: SizeTrackingListener {
 // MARK: - LocationSearchDelegate
 
 extension DefaultMapsViewController: LocationSearchDelegate {
+  func mapSearchRegion() -> MKCoordinateRegion? {
+    var coordinates: [CLLocationCoordinate2D] = mapView.mapboxMap.coordinates(for: [
+      CGPoint(x: mapView.frame.minX, y: mapView.frame.minY),
+      CGPoint(x: mapView.frame.minX, y: mapView.frame.maxY),
+      CGPoint(x: mapView.frame.maxX, y: mapView.frame.maxY),
+      CGPoint(x: mapView.frame.maxX, y: mapView.frame.minY),
+    ])
+
+
+    let polygon = MKPolygon(coordinates: &coordinates, count: coordinates.count)
+    let rect = polygon.boundingMapRect
+    return MKCoordinateRegion(rect)
+  }
+
   func didSelect(mapItem: MKMapItem) {
     if let currentLocation = mapView.location.latestLocation {
       stateManager.state = .requestingRoutes(

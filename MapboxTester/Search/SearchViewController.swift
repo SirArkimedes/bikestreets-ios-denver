@@ -12,6 +12,7 @@ import UIKit
 final class SearchViewController: UIViewController {
   private let stateManager: StateManager
   private let searchViewController = LocationSearchTableViewController()
+
   var delegate: LocationSearchDelegate?
 
   init(stateManager: StateManager) {
@@ -87,6 +88,10 @@ final class SearchViewController: UIViewController {
 // MARK: - LocationSearchDelegate
 
 extension SearchViewController: LocationSearchDelegate {
+  func mapSearchRegion() -> MKCoordinateRegion? {
+    return delegate?.mapSearchRegion()
+  }
+
   func didSelect(mapItem: MKMapItem) {
     delegate?.didSelect(mapItem: mapItem)
 

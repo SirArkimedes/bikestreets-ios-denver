@@ -10,6 +10,7 @@ import MapKit
 import UIKit
 
 protocol LocationSearchDelegate {
+  func mapSearchRegion() -> MKCoordinateRegion?
   func didSelect(mapItem: MKMapItem)
 }
 
@@ -61,19 +62,20 @@ extension LocationSearchTableViewController {
 
 extension LocationSearchTableViewController: UISearchResultsUpdating {
   func updateSearchResults(for searchController: UISearchController) {
-    guard let searchBarText = searchController.searchBar.text else { return }
+    guard let searchBarText = searchController.searchBar.text, !searchBarText.isEmpty else { return }
 
     // Invalidate and reinitiate
     self.searchTask?.cancel()
 
     let task = DispatchWorkItem { [weak self] in
-      DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+      DispatchQueue.main.async { [weak self] in
         guard let self = self else { return }
 
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchBarText
-        // TODO: Add back region search based on viewing map region.
-        // request.region = mapView.region
+        if let searchRegion = delegate?.mapSearchRegion() {
+          request.region = searchRegion
+        }
         let search = MKLocalSearch(request: request)
         search.start { response, _ in
           guard let response = response else {
