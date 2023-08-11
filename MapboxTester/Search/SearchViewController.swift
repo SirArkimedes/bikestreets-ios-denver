@@ -56,8 +56,6 @@ final class SearchViewController: UIViewController {
     stackView.translatesAutoresizingMaskIntoConstraints = false
     stackView.axis = .vertical
     stackView.spacing = 8
-    // This makes it inset below the navigation bar on the sheet for now.
-    stackView.isLayoutMarginsRelativeArrangement = true
     view.addSubview(stackView)
     NSLayoutConstraint.activate([
       vamosLabel.bottomAnchor.constraint(equalTo: stackView.topAnchor),
