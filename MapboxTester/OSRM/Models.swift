@@ -51,6 +51,11 @@ struct RouteLeg: Decodable, Equatable {
 
 /// http://project-osrm.org/docs/v5.5.1/api/#routestep-object
 struct RouteStep: Decodable, Equatable {
+  enum Mode: String, Decodable, Equatable {
+    case cycling
+    case pushingBike = "pushing bike"
+  }
+
   let distance: Double
   let duration: Double
   let geometry: Geometry
@@ -61,7 +66,7 @@ struct RouteStep: Decodable, Equatable {
 
   // cycling
   // pushing bike
-  let mode: String
+  let mode: Mode
 
   // let maneuver: StepManeuver
 

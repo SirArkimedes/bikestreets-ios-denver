@@ -133,9 +133,16 @@ final class DefaultMapsViewController: MapsViewController {
   }
 
   private func updateMapAnnotations(selectedRoute: Route, potentialRoutes: [Route]) {
-    polylineAnnotationManager.annotations = [
-      .activeRouteAnnotation(coordinates: selectedRoute.geometry.coordinates)
-    ] + potentialRoutes.map {
+    let selectedRouteAnnotations: [PolylineAnnotation] = selectedRoute.legs.flatMap { leg -> [RouteStep] in
+      leg.steps
+    }.map { step -> PolylineAnnotation in
+      return .activeRouteAnnotation(
+        coordinates: step.geometry.coordinates,
+        isHikeABike: step.mode == .pushingBike
+      )
+    }
+
+    polylineAnnotationManager.annotations = selectedRouteAnnotations + potentialRoutes.map {
       .potentialRouteAnnotation(coordinates: $0.geometry.coordinates)
     }
   }

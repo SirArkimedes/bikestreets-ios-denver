@@ -16,9 +16,19 @@ private extension UIColor {
 }
 
 extension PolylineAnnotation {
-  static func activeRouteAnnotation(coordinates: [CLLocationCoordinate2D]) -> PolylineAnnotation {
+  static func activeRouteAnnotation(coordinates: [CLLocationCoordinate2D], isHikeABike: Bool) -> PolylineAnnotation {
     var polylineAnnotationOSM = PolylineAnnotation(lineCoordinates: coordinates)
-    polylineAnnotationOSM.lineColor = .init(.activeRouteColor)
+
+    // For now, apply a 65% alpha to enable the BikeStreets network to be shown beneath it.
+    let color: UIColor = { () -> UIColor in
+      if isHikeABike {
+        return .vamosPurple
+      } else {
+        return .vamosBlue
+      }
+    }().withAlphaComponent(0.65)
+
+    polylineAnnotationOSM.lineColor = .init(color)
     polylineAnnotationOSM.lineWidth = 6
     return polylineAnnotationOSM
   }
