@@ -9,24 +9,29 @@ import Foundation
 import MapboxMaps
 
 private extension UIColor {
-  // Before: .init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.8)
-  static let activeRouteColor: UIColor = .init(red: 68/255.0, green: 119/255, blue: 242/255, alpha: 0.65)
   // Before: .init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
   static let inactiveRouteColor: UIColor = .init(red: 68/255.0, green: 119/255, blue: 242/255, alpha: 0.4)
 }
 
 extension PolylineAnnotation {
-  static func activeRouteAnnotation(coordinates: [CLLocationCoordinate2D], isHikeABike: Bool) -> PolylineAnnotation {
+  static func activeRouteAnnotation(
+    coordinates: [CLLocationCoordinate2D],
+    isRouting: Bool,
+    isHikeABike: Bool
+  ) -> PolylineAnnotation {
     var polylineAnnotationOSM = PolylineAnnotation(lineCoordinates: coordinates)
 
     // For now, apply a 65% alpha to enable the BikeStreets network to be shown beneath it.
     let color: UIColor = { () -> UIColor in
+      let startingColor: UIColor
       if isHikeABike {
-        return .vamosPurple
+        startingColor = .vamosPurple
       } else {
-        return .vamosBlue
+        startingColor = .vamosBlue
       }
-    }().withAlphaComponent(0.65)
+
+      return isRouting ? startingColor : startingColor.withAlphaComponent(0.65)
+    }()
 
     polylineAnnotationOSM.lineColor = .init(color)
     polylineAnnotationOSM.lineWidth = 6

@@ -132,12 +132,13 @@ final class DefaultMapsViewController: MapsViewController {
     }
   }
 
-  private func updateMapAnnotations(selectedRoute: Route, potentialRoutes: [Route]) {
+  private func updateMapAnnotations(isRouting: Bool, selectedRoute: Route, potentialRoutes: [Route]) {
     let selectedRouteAnnotations: [PolylineAnnotation] = selectedRoute.legs.flatMap { leg -> [RouteStep] in
       leg.steps
     }.map { step -> PolylineAnnotation in
       return .activeRouteAnnotation(
         coordinates: step.geometry.coordinates,
+        isRouting: isRouting,
         isHikeABike: step.mode == .pushingBike
       )
     }
@@ -192,6 +193,9 @@ extension DefaultMapsViewController: StateListener {
 
       // Adjust camera.
       updateMapCameraForInitialState(bottomInset: cameraBottomInset)
+
+      // Clean any annotations.
+      polylineAnnotationManager.annotations = []
     case .requestingRoutes(let request):
       // Potentially show destination on map
       // showAnnotation(.init(item: mapItem), cameraShouldFollow: false)
@@ -200,7 +204,7 @@ extension DefaultMapsViewController: StateListener {
       requestDirections(request: request)
     case .previewDirections(let preview):
       updateMapCameraForRoutePreview(preview: preview)
-      updateMapAnnotations(selectedRoute: preview.selectedRoute, potentialRoutes: preview.response.routes)
+      updateMapAnnotations(isRouting: false, selectedRoute: preview.selectedRoute, potentialRoutes: preview.response.routes)
     case .routing(let routing):
       // Dismiss initial sheet, show routing sheet.
       dismiss(animated: true) {
@@ -216,7 +220,16 @@ extension DefaultMapsViewController: StateListener {
 
       // Update route polyline display.
       updateMapCameraForRouting(bottomInset: cameraBottomInset)
-      updateMapAnnotations(selectedRoute: routing.selectedRoute, potentialRoutes: [])
+      updateMapAnnotations(isRouting: true, selectedRoute: routing.selectedRoute, potentialRoutes: [])
+    }
+
+    // Disable BikeStreets network when routing.
+    // TODO: Figure out if this is desired
+    switch newState {
+    case .routing:
+      isBikeStreetsNetworkEnabled = false
+    default:
+      isBikeStreetsNetworkEnabled = true
     }
 
     // Adjust sheet sizing constraint to top-most presented VC. This is a less

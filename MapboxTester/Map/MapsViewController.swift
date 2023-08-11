@@ -17,6 +17,12 @@ class MapsViewController: UIViewController, ExampleController {
   lazy var annotationsManager = mapView.annotations.makePointAnnotationManager()
   lazy var circleAnnotationsManager = mapView.annotations.makeCircleAnnotationManager()
 
+  var isBikeStreetsNetworkEnabled: Bool = true {
+    didSet {
+      loadMapFromShippedResources()
+    }
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -184,7 +190,12 @@ extension MapsViewController {
     }
 
     // Only reload if not currently present since these layers don't change.
-    if !mapView.mapboxMap.style.layerExists(withId: geoJSONDataSourceIdentifier) {
+    if mapView.mapboxMap.style.layerExists(withId: geoJSONDataSourceIdentifier) {
+      if !isBikeStreetsNetworkEnabled {
+        try! mapView.mapboxMap.style.removeLayer(withId: geoJSONDataSourceIdentifier)
+        try! mapView.mapboxMap.style.removeSource(withId: geoJSONDataSourceIdentifier)
+      }
+    } else {
       // Create a GeoJSON data source.
       var geoJSONSource = GeoJSONSource()
       geoJSONSource.data = .featureCollection(featureCollection)
