@@ -53,6 +53,7 @@ extension LocationSearchTableViewController {
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     delegate?.didSelect(mapItem: matchingItems[indexPath.row])
+    tableView.deselectRow(at: indexPath, animated: true)
   }
 }
 
