@@ -29,6 +29,10 @@ final class LocationSearchTableViewController: UITableViewController {
 
     searchController.searchResultsUpdater = self
     searchController.hidesNavigationBarDuringPresentation = false
+
+    // Configure search bar visual appearance
+    searchController.searchBar.barStyle = .default
+    searchController.searchBar.searchBarStyle = .minimal
   }
 }
 
