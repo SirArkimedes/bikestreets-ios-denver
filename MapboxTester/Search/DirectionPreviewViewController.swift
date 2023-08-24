@@ -92,9 +92,9 @@ final class DirectionPreviewViewController: UIViewController {
   private var destinationName: String {
     switch stateManager.state {
     case .previewDirections(let preview):
-      return preview.request.destinationItem.name ?? "No Name"
+      return preview.request.destination.name
     case .requestingRoutes(let request):
-      return request.destinationItem.name ?? "No Name"
+      return request.destination.name
     default:
       fatalError("Unsupported state")
     }

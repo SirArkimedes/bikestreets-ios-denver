@@ -16,9 +16,33 @@ protocol StateListener: AnyObject {
 
 final class StateManager {
   struct RouteRequest {
-    let start: CLLocationCoordinate2D
-    let end: CLLocationCoordinate2D
-    let destinationItem: MKMapItem
+    enum Location {
+      case currentLocation(coordinate: CLLocationCoordinate2D)
+      case mapLocation(item: MKMapItem)
+
+      // MARK: -- Helpers
+
+      var name: String {
+        switch self {
+        case .currentLocation:
+          return "Current Location"
+        case .mapLocation(let item):
+          return item.name ?? "No Name"
+        }
+      }
+
+      var coordinate: CLLocationCoordinate2D {
+        switch self {
+        case .currentLocation(let coordinate):
+          return coordinate
+        case .mapLocation(let item):
+          return item.placemark.coordinate
+        }
+      }
+    }
+
+    let origin: Location
+    let destination: Location
   }
 
   struct DirectionsPreview {

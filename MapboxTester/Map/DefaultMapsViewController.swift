@@ -152,8 +152,8 @@ final class DefaultMapsViewController: MapsViewController {
 
   private func requestDirections(request: StateManager.RouteRequest) {
     RouteRequester.getOSRMDirections(
-      startPoint: request.start,
-      endPoint: request.end
+      startPoint: request.origin.coordinate,
+      endPoint: request.destination.coordinate
     ) { result in
       switch result {
       case .success(let result):
@@ -304,9 +304,8 @@ extension DefaultMapsViewController: LocationSearchDelegate {
     if let currentLocation = mapView.location.latestLocation {
       stateManager.state = .requestingRoutes(
         request: .init(
-          start: currentLocation.coordinate,
-          end: mapItem.placemark.coordinate,
-          destinationItem: mapItem
+          origin: .currentLocation(coordinate: currentLocation.coordinate),
+          destination: .mapLocation(item: mapItem)
         )
       )
     } else {
