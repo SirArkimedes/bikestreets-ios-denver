@@ -26,7 +26,7 @@ final class DefaultMapsViewController: MapsViewController {
   init() {
     screenManager = ScreenManager(stateManager: stateManager)
 
-    let searchViewController = SearchViewController(stateManager: stateManager)
+    let searchViewController = SearchViewController(configuration: .initialDestination, stateManager: stateManager)
     searchViewController.sheetPresentationController?.configure()
     self.searchViewController = searchViewController
 
@@ -300,17 +300,60 @@ extension DefaultMapsViewController: LocationSearchDelegate {
     return MKCoordinateRegion(rect)
   }
 
-  func didSelect(mapItem: MKMapItem) {
-    if let currentLocation = mapView.location.latestLocation {
-      stateManager.state = .requestingRoutes(
-        request: .init(
-          origin: .currentLocation(coordinate: currentLocation.coordinate),
-          destination: .mapLocation(item: mapItem)
-        )
+  func didSelect(configuration: SearchConfiguration, location: SelectedLocation) {
+    let origin: StateManager.RouteRequest.Location = {
+      switch configuration {
+      case .newOrigin:
+        switch location {
+        case .currentLocation:
+          guard let coordinate = mapView.location.latestLocation?.coordinate else {
+            fatalError("No user location found")
+          }
+          return .currentLocation(coordinate: coordinate)
+        case .mapItem(let mapItem): return .mapLocation(item: mapItem)
+        }
+      case .initialDestination, .newDestination:
+        // Either pull the user's current location from the live location or the past request.
+        if let coordinate = mapView.location.latestLocation?.coordinate {
+          return .currentLocation(coordinate: coordinate)
+        } else {
+          switch stateManager.state {
+          case .requestingRoutes(let request):
+            return request.origin
+          default:
+            fatalError("No origin location found (likely no user location received)")
+          }
+        }
+      }
+    }()
+
+    let destination: StateManager.RouteRequest.Location = {
+      switch configuration {
+      case .initialDestination, .newDestination:
+        switch location {
+        case .currentLocation:
+          guard let coordinate = mapView.location.latestLocation?.coordinate else {
+            fatalError("No user location found")
+          }
+          return .currentLocation(coordinate: coordinate)
+        case .mapItem(let mapItem): return .mapLocation(item: mapItem)
+        }
+      case .newOrigin:
+        switch stateManager.state {
+        case .requestingRoutes(let request):
+          return request.destination
+        default:
+          fatalError("Unable to select origin without a previous destination selected")
+        }
+      }
+    }()
+
+    stateManager.state = .requestingRoutes(
+      request: .init(
+        origin: origin,
+        destination: destination
       )
-    } else {
-      fatalError("No user location found")
-    }
+    )
   }
 }
 

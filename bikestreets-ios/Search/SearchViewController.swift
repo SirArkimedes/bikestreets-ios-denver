@@ -10,13 +10,16 @@ import MapKit
 import UIKit
 
 final class SearchViewController: UIViewController {
+  private let configuration: SearchConfiguration
   private let stateManager: StateManager
-  private let searchViewController = LocationSearchTableViewController()
+  private let searchViewController: LocationSearchTableViewController
 
   var delegate: LocationSearchDelegate?
 
-  init(stateManager: StateManager) {
+  init(configuration: SearchConfiguration, stateManager: StateManager) {
+    self.configuration = configuration
     self.stateManager = stateManager
+    self.searchViewController = LocationSearchTableViewController(configuration: configuration)
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -92,8 +95,8 @@ extension SearchViewController: LocationSearchDelegate {
     return delegate?.mapSearchRegion()
   }
 
-  func didSelect(mapItem: MKMapItem) {
-    delegate?.didSelect(mapItem: mapItem)
+  func didSelect(configuration: SearchConfiguration, location: SelectedLocation) {
+    delegate?.didSelect(configuration: configuration, location: location)
 
     // Consider searching to be done.
     searchViewController.searchController.searchBar.endEditing(true)

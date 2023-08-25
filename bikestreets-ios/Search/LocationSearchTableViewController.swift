@@ -9,24 +9,74 @@ import Foundation
 import MapKit
 import UIKit
 
+enum SelectedLocation {
+  case currentLocation
+  case mapItem(MKMapItem)
+}
+
 protocol LocationSearchDelegate {
+  // MARK: -- Searching
+
   func mapSearchRegion() -> MKCoordinateRegion?
-  func didSelect(mapItem: MKMapItem)
+
+  // MARK: -- Selection
+
+  func didSelect(configuration: SearchConfiguration, location: SelectedLocation)
 }
 
 final class LocationSearchTableViewController: UITableViewController {
+  private enum TableItem {
+    case currentLocation
+    case mapItem(MKMapItem)
+
+    // MARK: -- Helpers
+
+    var textLabel: String {
+      switch self {
+      case .currentLocation: return "Current Location"
+      case .mapItem(let mapItem): return mapItem.name ?? "No Name"
+      }
+    }
+
+    var detailLabel: String? {
+      switch self {
+      case .currentLocation: return nil
+      case .mapItem(let mapItem): return mapItem.placemark.prettyAddress
+      }
+    }
+  }
+
+  private let configuration: SearchConfiguration
+
   /// Exists to debounce many search requests while typing. This helps avoid API overuse errors from Apple.
   private var searchTask: DispatchWorkItem?
-  private var matchingItems: [MKMapItem] = []
+  private var matchingItems: [TableItem]
 
   var delegate: LocationSearchDelegate?
 
   let searchController = UISearchController(searchResultsController: nil)
 
+  init(configuration: SearchConfiguration) {
+    self.configuration = configuration
+
+    self.matchingItems = {
+      switch configuration {
+      case .initialDestination: return []
+      case .newDestination, .newOrigin: return [.currentLocation]
+      }
+    }()
+
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    searchController.searchBar.placeholder = "Set Destination"
+    searchController.searchBar.placeholder = configuration.searchBarPlaceholder
 
     searchController.searchResultsUpdater = self
     searchController.hidesNavigationBarDuringPresentation = false
@@ -35,25 +85,47 @@ final class LocationSearchTableViewController: UITableViewController {
     searchController.searchBar.barStyle = .default
     searchController.searchBar.searchBarStyle = .minimal
   }
+
+  // MARK: -- Helpers
+
+  private var isCurrentLocationIncluded: Bool {
+    switch configuration {
+    case .initialDestination:
+      return false
+    case .newDestination, .newOrigin:
+      return true
+    }
+  }
 }
 
 // MARK: - UITableView
 
 extension LocationSearchTableViewController {
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return matchingItems.count
+    matchingItems.count
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-    let selectedItem = matchingItems[indexPath.row].placemark
-    cell.textLabel?.text = selectedItem.name
-    cell.detailTextLabel?.text = selectedItem.prettyAddress
+
+    let item = matchingItems[indexPath.row]
+    cell.textLabel?.text = item.textLabel
+    cell.detailTextLabel?.text = item.detailLabel
+
     return cell
   }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    delegate?.didSelect(mapItem: matchingItems[indexPath.row])
+    let item = matchingItems[indexPath.row]
+
+    let selectedLocation: SelectedLocation = {
+      switch item {
+      case .currentLocation: return .currentLocation
+      case .mapItem(let mapItem): return .mapItem(mapItem)
+      }
+    }()
+
+    delegate?.didSelect(configuration: configuration, location: selectedLocation)
     tableView.deselectRow(at: indexPath, animated: true)
   }
 }
@@ -82,7 +154,16 @@ extension LocationSearchTableViewController: UISearchResultsUpdating {
             return
           }
           DispatchQueue.main.async {
-            self.matchingItems = response.mapItems
+            let initialLocations: [TableItem] = {
+              switch self.configuration {
+              case .initialDestination: return []
+              case .newDestination, .newOrigin: return [.currentLocation]
+              }
+            }()
+
+            self.matchingItems = initialLocations + response.mapItems.map {
+              .mapItem($0)
+            }
             self.tableView.reloadData()
           }
         }
