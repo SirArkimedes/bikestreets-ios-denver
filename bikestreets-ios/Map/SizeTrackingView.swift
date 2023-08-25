@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-protocol SizeTrackingListener {
+protocol SizeTrackingListener: AnyObject {
   func didChangeFrame(_ view: UIView, frame: CGRect)
 }
 
 final class SizeTrackingView: UIView {
-  var delegate: SizeTrackingListener?
+  weak var delegate: SizeTrackingListener?
 
   private(set) var lastFrameBroadcast: CGRect?
 

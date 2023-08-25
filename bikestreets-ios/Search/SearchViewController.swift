@@ -14,7 +14,7 @@ final class SearchViewController: UIViewController {
   private let stateManager: StateManager
   private let searchViewController: LocationSearchTableViewController
 
-  var delegate: LocationSearchDelegate?
+  weak var delegate: LocationSearchDelegate?
 
   init(configuration: SearchConfiguration, stateManager: StateManager) {
     self.configuration = configuration

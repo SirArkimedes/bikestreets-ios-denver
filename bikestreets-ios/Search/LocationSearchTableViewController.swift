@@ -14,7 +14,7 @@ enum SelectedLocation {
   case mapItem(MKMapItem)
 }
 
-protocol LocationSearchDelegate {
+protocol LocationSearchDelegate: AnyObject {
   // MARK: -- Searching
 
   func mapSearchRegion() -> MKCoordinateRegion?
@@ -52,7 +52,7 @@ final class LocationSearchTableViewController: UITableViewController {
   private var searchTask: DispatchWorkItem?
   private var matchingItems: [TableItem]
 
-  var delegate: LocationSearchDelegate?
+  weak var delegate: LocationSearchDelegate?
 
   let searchController = UISearchController(searchResultsController: nil)
 
