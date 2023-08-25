@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class RoutePlaceRowView: UIStackView {
-  init(destinationName: String) {
+  init(originName: String, destinationName: String) {
     let fromTitle = UILabel()
     fromTitle.translatesAutoresizingMaskIntoConstraints = false
     fromTitle.text = "From"
@@ -17,7 +17,7 @@ final class RoutePlaceRowView: UIStackView {
 
     let fromName = UILabel()
     fromName.translatesAutoresizingMaskIntoConstraints = false
-    fromName.text = "Current Location"
+    fromName.text = originName
     fromName.font = .preferredFont(forTextStyle: .body)
 
     let toTitle = UILabel()

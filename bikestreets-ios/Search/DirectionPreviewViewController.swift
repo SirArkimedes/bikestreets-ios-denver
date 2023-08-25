@@ -41,7 +41,7 @@ final class DirectionPreviewViewController: UIViewController {
     titleContainer.addSubview(titleLabel)
     titleContainer.matchAutolayoutSize(titleLabel)
 
-    let placesStackView = RoutePlaceRowView(destinationName: destinationName)
+    let placesStackView = RoutePlaceRowView(originName: originName, destinationName: destinationName)
     placesStackView.layer.cornerRadius = 16
     placesStackView.clipsToBounds = true
     placesStackView.backgroundColor = .tertiarySystemBackground
@@ -88,6 +88,17 @@ final class DirectionPreviewViewController: UIViewController {
   }
 
   // MARK: - Helpers
+
+  private var originName: String {
+    switch stateManager.state {
+    case .previewDirections(let preview):
+      return preview.request.origin.name
+    case .requestingRoutes(let request):
+      return request.origin.name
+    default:
+      fatalError("Unsupported state")
+    }
+  }
 
   private var destinationName: String {
     switch stateManager.state {
