@@ -9,12 +9,14 @@ import Foundation
 import UIKit
 
 final class DirectionPreviewViewController: UIViewController {
+  private let stateManager: StateManager
+
+  private let stackView = UIStackView()
   private let scrollView: UIScrollView = {
     let scrollView = UIScrollView()
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     return scrollView
   }()
-  private let stateManager: StateManager
 
   init(stateManager: StateManager) {
     self.stateManager = stateManager
@@ -32,6 +34,21 @@ final class DirectionPreviewViewController: UIViewController {
 
     view.backgroundColor = .secondarySystemBackground
 
+    view.addSubview(scrollView)
+    view.matchAutolayoutSize(scrollView)
+
+    stateManager.add(listener: self)
+
+    configureViews()
+  }
+
+  /// Remove any past views and then re-add all the views based on the current state.
+  private func configureViews() {
+    // Clean up past state.
+    scrollView.subviews.forEach {
+      $0.removeFromSuperview()
+    }
+
     let titleLabel = UILabel()
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
     titleLabel.text = "Directions"
@@ -42,6 +59,7 @@ final class DirectionPreviewViewController: UIViewController {
     titleContainer.matchAutolayoutSize(titleLabel)
 
     let placesStackView = RoutePlaceRowView(originName: originName, destinationName: destinationName)
+    placesStackView.delegate = self
     placesStackView.layer.cornerRadius = 16
     placesStackView.clipsToBounds = true
     placesStackView.backgroundColor = .tertiarySystemBackground
@@ -51,7 +69,7 @@ final class DirectionPreviewViewController: UIViewController {
     routesLabel.text = "Routes"
     routesLabel.font = .preferredFont(forTextStyle: .title2, weight: .bold)
 
-    let possibleRoutesView = PossibleRoutesView(stateManager: stateManager)
+    let possibleRoutesView = PossibleRoutesView(routes: routes)
     possibleRoutesView.delegate = self
     possibleRoutesView.layer.cornerRadius = 16
     possibleRoutesView.clipsToBounds = true
@@ -76,18 +94,25 @@ final class DirectionPreviewViewController: UIViewController {
 
     scrollView.addSubview(stackView)
 
-    view.addSubview(scrollView)
     NSLayoutConstraint.activate([
       stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
       stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
       stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
     ])
-    view.matchAutolayoutSize(scrollView)
-
-    stateManager.add(listener: self)
   }
 
-  // MARK: - Helpers
+  // MARK: -- Helpers
+
+  private var routes: [Route] {
+    switch stateManager.state {
+    case .previewDirections(let preview):
+      return preview.response.routes
+    case .requestingRoutes:
+      return []
+    default:
+      fatalError("Unsupported state")
+    }
+  }
 
   private var originName: String {
     switch stateManager.state {
@@ -116,9 +141,38 @@ final class DirectionPreviewViewController: UIViewController {
 
 extension DirectionPreviewViewController: StateListener {
   func didUpdate(from oldState: StateManager.State, to newState: StateManager.State) {
-//    if case .requestingRoutes = oldState, case .previewDirections(let preview) = newState {
-//      currentPreview = preview
-//    }
+    switch newState {
+    case .requestingRoutes, .previewDirections:
+      configureViews()
+    default:
+      break
+    }
+  }
+}
+
+// MARK: - RoutePlaceRowViewDelegate
+
+extension DirectionPreviewViewController: RoutePlaceRowViewDelegate {
+  func requestOriginUpdate() {
+    switch stateManager.state {
+    case .previewDirections(let preview):
+      stateManager.state = .updateOrigin(preview: preview)
+    case .updateOrigin:
+      break
+    default:
+      fatalError("Ununexpected state")
+    }
+  }
+
+  func requestDestinationUpdate() {
+    switch stateManager.state {
+    case .previewDirections(let preview):
+      stateManager.state = .updateDestination(preview: preview)
+    case .updateDestination:
+      break
+    default:
+      fatalError("Ununexpected state")
+    }
   }
 }
 

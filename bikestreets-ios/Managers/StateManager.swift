@@ -61,6 +61,8 @@ final class StateManager {
     case initial
     case requestingRoutes(request: RouteRequest)
     case previewDirections(preview: DirectionsPreview)
+    case updateOrigin(preview: DirectionsPreview)
+    case updateDestination(preview: DirectionsPreview)
     case routing(routing: Routing)
   }
 

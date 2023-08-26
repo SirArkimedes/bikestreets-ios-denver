@@ -179,6 +179,15 @@ final class DefaultMapsViewController: MapsViewController {
 // MARK: - State Management
 
 extension DefaultMapsViewController: StateListener {
+  /// Find the top-most presented view controller in the presented VC chain.
+  private var topPresentedViewController: UIViewController? {
+    var topController = self.presentedViewController
+    while let newTopController = topController?.presentedViewController, !newTopController.isBeingDismissed {
+      topController = newTopController
+    }
+    return topController
+  }
+
   func didUpdate(from oldState: StateManager.State, to newState: StateManager.State) {
     switch newState {
     case .initial:
@@ -205,6 +214,16 @@ extension DefaultMapsViewController: StateListener {
     case .previewDirections(let preview):
       updateMapCameraForRoutePreview(preview: preview)
       updateMapAnnotations(isRouting: false, selectedRoute: preview.selectedRoute, potentialRoutes: preview.response.routes)
+    case .updateDestination:
+      let searchViewController = SearchViewController(configuration: .newDestination, stateManager: stateManager)
+      searchViewController.sheetPresentationController?.configure()
+      topPresentedViewController?.present(searchViewController, animated: true)
+      searchViewController.delegate = self
+    case .updateOrigin:
+      let searchViewController = SearchViewController(configuration: .newOrigin, stateManager: stateManager)
+      searchViewController.sheetPresentationController?.configure()
+      topPresentedViewController?.present(searchViewController, animated: true)
+      searchViewController.delegate = self
     case .routing(let routing):
       // Dismiss initial sheet, show routing sheet.
       dismiss(animated: true) {
@@ -237,13 +256,9 @@ extension DefaultMapsViewController: StateListener {
     // been presented based on a state change. This could be refactored into
     // a more centralized approach to unify the handling of push/pop while
     // keeping internal catalog of the top-most VC.
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-      var topController = self.presentedViewController
-      while let newTopController = topController?.presentedViewController {
-        topController = newTopController
-      }
-
-      if let topController {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
+      guard let self = self else { return }
+      if let topController = self.topPresentedViewController {
         self.inspectHeight(of: topController)
       }
     }
@@ -272,7 +287,7 @@ extension DefaultMapsViewController: SizeTrackingListener {
       switch stateManager.state {
       case .initial:
         updateMapCameraForInitialState(bottomInset: frame.height)
-      case .previewDirections(let preview):
+      case .previewDirections(let preview), .updateOrigin(let preview), .updateDestination(let preview):
         updateMapCameraForRoutePreview(preview: preview)
       case .routing:
         updateMapCameraForRouting(bottomInset: frame.height)
@@ -300,6 +315,14 @@ extension DefaultMapsViewController: LocationSearchDelegate {
     return MKCoordinateRegion(rect)
   }
 
+  /// Return latest user location or fail if it cannot be found.
+  private var userCurrentLocationOrFail: StateManager.RouteRequest.Location {
+    guard let coordinate = mapView.location.latestLocation?.coordinate else {
+      fatalError("No user location found")
+    }
+    return .currentLocation(coordinate: coordinate)
+  }
+
   func didSelect(configuration: SearchConfiguration, location: SelectedLocation) {
     let origin: StateManager.RouteRequest.Location = {
       switch configuration {
@@ -312,17 +335,30 @@ extension DefaultMapsViewController: LocationSearchDelegate {
           return .currentLocation(coordinate: coordinate)
         case .mapItem(let mapItem): return .mapLocation(item: mapItem)
         }
-      case .initialDestination, .newDestination:
+      case .initialDestination:
+        guard let coordinate = mapView.location.latestLocation?.coordinate else {
+          fatalError("No user location found")
+        }
+        return .currentLocation(coordinate: coordinate)
+      case .newDestination:
         // Either pull the user's current location from the live location or the past request.
-        if let coordinate = mapView.location.latestLocation?.coordinate {
-          return .currentLocation(coordinate: coordinate)
-        } else {
-          switch stateManager.state {
-          case .requestingRoutes(let request):
+        switch stateManager.state {
+        case .requestingRoutes(let request):
+          switch request.origin {
+          case .currentLocation:
+            return userCurrentLocationOrFail
+          case .mapLocation:
             return request.origin
-          default:
-            fatalError("No origin location found (likely no user location received)")
           }
+        case .previewDirections(let preview), .updateDestination(let preview):
+          switch preview.request.origin {
+          case .currentLocation:
+            return userCurrentLocationOrFail
+          case .mapLocation:
+            return preview.request.origin
+          }
+        default:
+          fatalError("No origin location found (likely no user location received)")
         }
       }
     }()
@@ -332,16 +368,15 @@ extension DefaultMapsViewController: LocationSearchDelegate {
       case .initialDestination, .newDestination:
         switch location {
         case .currentLocation:
-          guard let coordinate = mapView.location.latestLocation?.coordinate else {
-            fatalError("No user location found")
-          }
-          return .currentLocation(coordinate: coordinate)
+          return userCurrentLocationOrFail
         case .mapItem(let mapItem): return .mapLocation(item: mapItem)
         }
       case .newOrigin:
         switch stateManager.state {
         case .requestingRoutes(let request):
           return request.destination
+        case .previewDirections(let preview), .updateOrigin(let preview):
+          return preview.request.destination
         default:
           fatalError("Unable to select origin without a previous destination selected")
         }

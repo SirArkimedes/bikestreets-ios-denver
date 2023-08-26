@@ -102,12 +102,19 @@ extension SearchViewController: LocationSearchDelegate {
     searchViewController.searchController.searchBar.endEditing(true)
     searchViewController.searchController.isActive = false
 
-    let directionPreviewViewController = DirectionPreviewViewController(stateManager: stateManager)
-    directionPreviewViewController.sheetPresentationController?.configure(
-      selectedDetentIdentifier: .medium
-    )
-    directionPreviewViewController.sheetPresentationController?.delegate = self
-    present(directionPreviewViewController, animated: true)
+    // Dismiss on selection when not in initial state.
+    switch configuration {
+    case .newDestination, .newOrigin:
+      dismiss(animated: true)
+    case .initialDestination:
+      // Only push direction preview from initial destination selection.
+      let directionPreviewViewController = DirectionPreviewViewController(stateManager: stateManager)
+      directionPreviewViewController.sheetPresentationController?.configure(
+        selectedDetentIdentifier: .medium
+      )
+      directionPreviewViewController.sheetPresentationController?.delegate = self
+      present(directionPreviewViewController, animated: true)
+    }
   }
 }
 

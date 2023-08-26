@@ -15,7 +15,9 @@ protocol RouteSelectable: AnyObject {
 
 final class PossibleRoutesView: UIStackView {
   weak var delegate: RouteSelectable?
-  private let stateManager: StateManager
+
+  private let routes: [Route]
+
   private let distanceFormatter: MeasurementFormatter = {
     let formatter = MeasurementFormatter()
     formatter.unitOptions = .naturalScale
@@ -23,11 +25,10 @@ final class PossibleRoutesView: UIStackView {
     return formatter
   }()
 
-  init(stateManager: StateManager) {
-    self.stateManager = stateManager
-    super.init(frame: .zero)
+  init(routes: [Route]) {
+    self.routes = routes
 
-    stateManager.add(listener: self)
+    super.init(frame: .zero)
 
     configureSubviews()
 
@@ -43,17 +44,6 @@ final class PossibleRoutesView: UIStackView {
   }
 
   // MARK: - Helpers
-
-  private var routes: [Route] {
-    switch stateManager.state {
-    case .previewDirections(let preview):
-      return preview.response.routes
-    case .requestingRoutes:
-      return []
-    default:
-      fatalError("Unsupported state")
-    }
-  }
 
   private func configureSubviews() {
     // Clean up past arranged subviews
@@ -151,15 +141,5 @@ final class PossibleRoutesView: UIStackView {
   private func didTapRouteGo(sender: UIButton) {
     let routeIndex = sender.tag
     delegate?.didStart(route: routes[routeIndex])
-  }
-}
-
-extension PossibleRoutesView: StateListener {
-  func didUpdate(from oldState: StateManager.State, to newState: StateManager.State) {
-    switch newState {
-    case .requestingRoutes, .previewDirections:
-      configureSubviews()
-    default: break
-    }
   }
 }
