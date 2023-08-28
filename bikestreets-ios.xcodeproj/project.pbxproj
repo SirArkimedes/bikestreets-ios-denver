@@ -37,6 +37,7 @@
 		3550D9682A98ECC200C70EE5 /* SearchConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D9672A98ECC200C70EE5 /* SearchConfiguration.swift */; };
 		3550D96B2A9CFBAC00C70EE5 /* MapControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D96A2A9CFBAC00C70EE5 /* MapControlView.swift */; };
 		3550D96E2A9D002E00C70EE5 /* SheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D96D2A9D002E00C70EE5 /* SheetManager.swift */; };
+		3550D9702A9D351300C70EE5 /* CompassManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D96F2A9D351300C70EE5 /* CompassManager.swift */; };
 		355256F12A46295600A15512 /* SimplifySwift in Frameworks */ = {isa = PBXBuildFile; productRef = 355256F02A46295600A15512 /* SimplifySwift */; };
 		357FE2FD2A4F754400806743 /* MapboxSearch in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FC2A4F754400806743 /* MapboxSearch */; };
 		357FE2FF2A4F754400806743 /* MapboxSearchUI in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FE2A4F754400806743 /* MapboxSearchUI */; };
@@ -79,6 +80,7 @@
 		3550D9672A98ECC200C70EE5 /* SearchConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConfiguration.swift; sourceTree = "<group>"; };
 		3550D96A2A9CFBAC00C70EE5 /* MapControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapControlView.swift; sourceTree = "<group>"; };
 		3550D96D2A9D002E00C70EE5 /* SheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetManager.swift; sourceTree = "<group>"; };
+		3550D96F2A9D351300C70EE5 /* CompassManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassManager.swift; sourceTree = "<group>"; };
 		35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		35A482932A37B1E4001035BB /* BikeStreets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeStreets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A4829A2A37B1E6001035BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -168,9 +170,10 @@
 		35065CC02A8043D100C7CCAF /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				35065CAC2A7D9A8F00C7CCAF /* StateManager.swift */,
+				3550D96F2A9D351300C70EE5 /* CompassManager.swift */,
 				35065CAE2A7D9B8300C7CCAF /* RouteRequester.swift */,
 				35065CC12A8043E900C7CCAF /* ScreenManager.swift */,
+				35065CAC2A7D9A8F00C7CCAF /* StateManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				350BDE462A700E0D00D4DE31 /* BikeStreetsStyles.swift in Sources */,
 				35065CAB2A7D45E400C7CCAF /* SizeTrackingView.swift in Sources */,
 				35065CB22A7D9E5700C7CCAF /* PolylineAnnotation+ActiveRoute.swift in Sources */,
+				3550D9702A9D351300C70EE5 /* CompassManager.swift in Sources */,
 				35065CA62A7D44C700C7CCAF /* LocationSearchTableViewController.swift in Sources */,
 				35065CBF2A803C1900C7CCAF /* UINavigationController+Sheet.swift in Sources */,
 			);

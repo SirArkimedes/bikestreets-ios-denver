@@ -12,6 +12,9 @@ import SwiftUI
 import UIKit
 
 final class DefaultMapsViewController: MapsViewController {
+  private lazy var mapControlView: MapControlView = {
+    return MapControlView(mapCameraManager: mapCameraManager)
+  }()
   private let sheetHeightInspectionView = SizeTrackingView()
 
   private lazy var sheetManager: SheetManager = {
@@ -19,6 +22,7 @@ final class DefaultMapsViewController: MapsViewController {
   }()
 
   private let stateManager = StateManager()
+  private let mapCameraManager = MapCameraManager()
   private let screenManager: ScreenManager
 
   /// Camera bottom inset based on the presented sheet height.
@@ -28,7 +32,6 @@ final class DefaultMapsViewController: MapsViewController {
 
   init() {
     screenManager = ScreenManager(stateManager: stateManager)
-
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -39,9 +42,18 @@ final class DefaultMapsViewController: MapsViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    view.addSubview(mapControlView)
+    NSLayoutConstraint.activate([
+      mapControlView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+      mapControlView.bottomAnchor.constraint(equalTo: mapView.ornaments.logoView.topAnchor, constant: -16)
+    ])
+
+    mapView.viewport.addStatusObserver(self)
+
     sheetManager.delegate = self
     sheetHeightInspectionView.delegate = self
     stateManager.add(listener: self)
+    mapCameraManager.add(listener: self)
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -99,50 +111,7 @@ final class DefaultMapsViewController: MapsViewController {
 
   // TODO: Update location to Denver if no location is accessible.
   private func updateMapCameraForInitialState(bottomInset: CGFloat) {
-    let followPuckViewportState = mapView.viewport.makeFollowPuckViewportState(
-      options: FollowPuckViewportStateOptions(
-        padding: UIEdgeInsets(top: 200, left: 0, bottom: bottomInset, right: 0),
-        // Intentionally avoid bearing sync in search mode.
-        bearing: .none,
-        pitch: 0
-      )
-    )
-    mapView.viewport.transition(to: followPuckViewportState) { _ in
-      // the transition has been completed with a flag indicating whether the transition succeeded
-    }
-  }
 
-  private func updateMapCameraForRoutePreview(preview: StateManager.DirectionsPreview) {
-    // Zoom to show a single route or all routes.
-    let cameraTopInset: CGFloat = self.view.safeAreaInsets.top
-
-    // TODO: Add handling for "possible routes" vs. just the selected route.
-    // preview.response.routes.map(\.geometry.coordinates).flatMap { $0 }
-    let coordinates: [CLLocationCoordinate2D] = preview.selectedRoute.geometry.coordinates
-
-    let overviewViewportState = mapView.viewport.makeOverviewViewportState(
-      options: .init(
-        geometry: LineString(coordinates),
-        padding: .init(top: cameraTopInset, left: 24, bottom: cameraBottomInset, right: 24)
-      )
-    )
-
-    mapView.viewport.transition(to: overviewViewportState) { _ in
-      // the transition has been completed with a flag indicating whether the transition succeeded
-    }
-  }
-
-  private func updateMapCameraForRouting(bottomInset: CGFloat) {
-    let followPuckViewportState = mapView.viewport.makeFollowPuckViewportState(
-      options: FollowPuckViewportStateOptions(
-        padding: UIEdgeInsets(top: 200, left: 0, bottom: bottomInset, right: 0),
-        bearing: .heading,
-        pitch: 0
-      )
-    )
-    mapView.viewport.transition(to: followPuckViewportState) { _ in
-      // the transition has been completed with a flag indicating whether the transition succeeded
-    }
   }
 
   private func updateMapAnnotations(isRouting: Bool, selectedRoute: Route, potentialRoutes: [Route]) {
@@ -211,9 +180,6 @@ extension DefaultMapsViewController: StateListener {
         }
       }
 
-      // Adjust camera.
-      updateMapCameraForInitialState(bottomInset: cameraBottomInset)
-
       // Clean any annotations.
       polylineAnnotationManager.annotations = []
     case .requestingRoutes(let request):
@@ -223,7 +189,6 @@ extension DefaultMapsViewController: StateListener {
       // sheetNavigationController.sheetPresentationController?.selectedDetentIdentifier = UISheetPresentationController.Detent.small().identifier
       requestDirections(request: request)
     case .previewDirections(let preview):
-      updateMapCameraForRoutePreview(preview: preview)
       updateMapAnnotations(isRouting: false, selectedRoute: preview.selectedRoute, potentialRoutes: preview.response.routes)
     case .updateDestination(let preview):
       let searchViewController = SearchViewController(
@@ -271,9 +236,20 @@ extension DefaultMapsViewController: StateListener {
       }
 
       // Update route polyline display.
-      updateMapCameraForRouting(bottomInset: cameraBottomInset)
       updateMapAnnotations(isRouting: true, selectedRoute: routing.selectedRoute, potentialRoutes: [])
     }
+
+    // Sync up camera position/focus.
+    mapCameraManager.state = {
+      switch newState {
+      case .initial, .requestingRoutes: return .followUserPosition
+      case .previewDirections(let preview),
+          .updateOrigin(let preview),
+          .updateDestination(let preview):
+        return .showRoute(route: preview.selectedRoute)
+      case .routing: return .followUserHeading
+      }
+    }()
 
     // Disable BikeStreets network when routing.
     // TODO: Figure out if this is desired
@@ -298,16 +274,7 @@ extension DefaultMapsViewController: SizeTrackingListener {
     // Adjust the map if we're not in the large selected detent.
     if selectedSheetDetentIdentifier != .large {
       // Update map camera.
-      switch stateManager.state {
-      case .initial:
-        updateMapCameraForInitialState(bottomInset: frame.height)
-      case .previewDirections(let preview), .updateOrigin(let preview), .updateDestination(let preview):
-        updateMapCameraForRoutePreview(preview: preview)
-      case .routing:
-        updateMapCameraForRouting(bottomInset: frame.height)
-      default:
-        break
-      }
+      syncCameraState(bottomInset: frame.height)
 
       // Update Mapbox attribution.
       let mapboxOrnamentYInset = frame.height - 8
@@ -408,6 +375,82 @@ extension DefaultMapsViewController: LocationSearchDelegate {
         destination: destination
       )
     )
+  }
+}
+
+// MARK: -- CompassStateListener
+
+extension DefaultMapsViewController: MapCameraStateListener {
+  func didUpdate(from oldState: MapCameraManager.State, to newState: MapCameraManager.State) {
+    /// Force correction to normal view style for this mode. This will be expanded in
+    /// the future to support more states of the camera.
+    syncCameraState(bottomInset: cameraBottomInset)
+  }
+
+  func syncCameraState(bottomInset: CGFloat) {
+    let newState: ViewportState?
+
+    switch mapCameraManager.state {
+    case .followUserPosition:
+      newState = mapView.viewport.makeFollowPuckViewportState(
+        options: FollowPuckViewportStateOptions(
+          padding: UIEdgeInsets(top: 200, left: 0, bottom: bottomInset, right: 0),
+          // Intentionally avoid bearing sync in search mode.
+          bearing: .none,
+          pitch: 0
+        )
+      )
+    case .showRoute(let route):
+      // Zoom to show a single route or all routes.
+      let cameraTopInset: CGFloat = self.view.safeAreaInsets.top
+
+      // TODO: Add handling for "possible routes" vs. just the selected route.
+      // preview.response.routes.map(\.geometry.coordinates).flatMap { $0 }
+      let coordinates: [CLLocationCoordinate2D] = route.geometry.coordinates
+
+      newState = mapView.viewport.makeOverviewViewportState(
+        options: .init(
+          geometry: LineString(coordinates),
+          padding: .init(top: cameraTopInset, left: 24, bottom: cameraBottomInset, right: 24)
+        )
+      )
+    case .followUserHeading:
+      newState = mapView.viewport.makeFollowPuckViewportState(
+        options: FollowPuckViewportStateOptions(
+          padding: UIEdgeInsets(top: 200, left: 0, bottom: bottomInset, right: 0),
+          bearing: .heading,
+          pitch: 0
+        )
+      )
+    case .followUserPositionIdle,
+        .followUserHeadingIdle,
+        .showRouteIdle:
+      // Idle, no viewport transition
+      newState = nil
+    }
+
+    if let newState {
+      mapView.viewport.transition(to: newState) { _ in
+        // the transition has been completed with a flag indicating whether the transition succeeded
+      }
+    }
+  }
+}
+
+// MARK: -- ViewportStatusObserver
+
+extension DefaultMapsViewController: ViewportStatusObserver {
+  func viewportStatusDidChange(
+    from fromStatus: MapboxMaps.ViewportStatus,
+    to toStatus: MapboxMaps.ViewportStatus,
+    reason: MapboxMaps.ViewportStatusChangeReason
+  ) {
+    switch toStatus {
+    case .idle:
+      mapCameraManager.toIdle()
+    case .state: break
+    case .transition: break
+    }
   }
 }
 
