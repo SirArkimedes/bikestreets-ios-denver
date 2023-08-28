@@ -75,11 +75,14 @@ final class DefaultMapsViewController: MapsViewController {
   }
 
   private var heightInspectionConstraint: NSLayoutConstraint?
+  private var heightInspectionViewController: UIViewController?
   private func inspectHeight(of viewController: UIViewController) {
     heightInspectionConstraint?.isActive = false
 
     heightInspectionConstraint = sheetHeightInspectionView.topAnchor.constraint(equalTo: viewController.view.topAnchor)
     heightInspectionConstraint?.isActive = true
+
+    heightInspectionViewController = viewController
   }
 
   // MARK: - Map Movement
@@ -269,18 +272,15 @@ extension DefaultMapsViewController: StateListener {
 
 extension DefaultMapsViewController: SizeTrackingListener {
   func didChangeFrame(_ view: UIView, frame: CGRect) {
+    guard topPresentedViewController as? UISearchController == nil else {
+      // Ignore since a `UISearchController` has the main focus.
+      return
+    }
+
     // Find the likely selected sheet detent identifier.
-    let selectedSheetDetentIdentifier: UISheetPresentationController.Detent.Identifier = {
-      var lastPresentedSheetController: UISheetPresentationController? = self.presentedViewController?.sheetPresentationController
-      var lastPresentedViewController: UIViewController? = self.presentedViewController
-      while let newPresentedViewController = lastPresentedViewController?.presentedViewController {
-        if let sheetPresentationController = newPresentedViewController.sheetPresentationController {
-          lastPresentedSheetController = sheetPresentationController
-        }
-        lastPresentedViewController = newPresentedViewController
-      }
-      return lastPresentedSheetController?.selectedDetentIdentifier ?? .medium
-    }()
+    let selectedSheetDetentIdentifier: UISheetPresentationController.Detent.Identifier = (
+      heightInspectionViewController?.sheetPresentationController?.selectedDetentIdentifier ?? .medium
+    )
 
     // Adjust the map if we're not in the large selected detent.
     if selectedSheetDetentIdentifier != .large {
