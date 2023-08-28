@@ -115,8 +115,10 @@ extension SearchViewController: LocationSearchDelegate {
         directionPreviewViewController,
         animated: true,
         sheetOptions: .init(
-          selectedDetentIdentifier: .medium,
-          presentationControllerDidDismiss: { [weak self] in
+          selectedDetentIdentifier: .medium
+        ),
+        options: .init(
+          presentationControllerWillDismiss: { [weak self] in
             guard let self else { return }
             self.stateManager.state = .initial
           }

@@ -85,7 +85,7 @@ final class DefaultMapsViewController: MapsViewController {
   }
 
   private var heightInspectionConstraint: NSLayoutConstraint?
-  private var heightInspectionViewController: UIViewController?
+  private weak var heightInspectionViewController: UIViewController?
   private func inspectHeight(of viewController: UIViewController) {
     heightInspectionConstraint?.isActive = false
 
@@ -205,8 +205,10 @@ extension DefaultMapsViewController: StateListener {
     switch newState {
     case .initial:
       // Assume routing was canceled. Restart from the initial launch state.
-      sheetManager.dismissAllSheets(animated: true) {
-        self.presentInitialSearchViewController()
+      if case .routing = oldState {
+        sheetManager.dismissAllSheets(animated: true) {
+          self.presentInitialSearchViewController()
+        }
       }
 
       // Adjust camera.
@@ -223,22 +225,36 @@ extension DefaultMapsViewController: StateListener {
     case .previewDirections(let preview):
       updateMapCameraForRoutePreview(preview: preview)
       updateMapAnnotations(isRouting: false, selectedRoute: preview.selectedRoute, potentialRoutes: preview.response.routes)
-    case .updateDestination:
+    case .updateDestination(let preview):
       let searchViewController = SearchViewController(
         configuration: .newDestination,
         stateManager: stateManager,
         sheetManager: sheetManager
       )
       searchViewController.delegate = self
-      sheetManager.present(searchViewController, animated: true)
-    case .updateOrigin:
+      sheetManager.present(
+        searchViewController,
+        animated: true,
+        options: .init(presentationControllerWillDismiss: { [weak self] in
+          guard let self else { return }
+          self.stateManager.state = .previewDirections(preview: preview)
+        })
+      )
+    case .updateOrigin(let preview):
       let searchViewController = SearchViewController(
         configuration: .newOrigin,
         stateManager: stateManager,
         sheetManager: sheetManager
       )
       searchViewController.delegate = self
-      sheetManager.present(searchViewController, animated: true)
+      sheetManager.present(
+        searchViewController,
+        animated: true,
+        options: .init(presentationControllerWillDismiss: { [weak self] in
+          guard let self else { return }
+          self.stateManager.state = .previewDirections(preview: preview)
+        })
+      )
     case .routing(let routing):
       // Dismiss initial sheet, show routing sheet.
       sheetManager.dismissAllSheets(animated: true) { [weak self] in
@@ -274,11 +290,6 @@ extension DefaultMapsViewController: StateListener {
 
 extension DefaultMapsViewController: SizeTrackingListener {
   func didChangeFrame(_ view: UIView, frame: CGRect) {
-    guard topPresentedViewController as? UISearchController == nil else {
-      // Ignore since a `UISearchController` has the main focus.
-      return
-    }
-
     // Find the likely selected sheet detent identifier.
     let selectedSheetDetentIdentifier: UISheetPresentationController.Detent.Identifier = (
       heightInspectionViewController?.sheetPresentationController?.selectedDetentIdentifier ?? .medium

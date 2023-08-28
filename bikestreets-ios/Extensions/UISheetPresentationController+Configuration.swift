@@ -14,7 +14,6 @@ extension UISheetPresentationController {
     let selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier?
     let largestUndimmedDetentIdentifier: UISheetPresentationController.Detent.Identifier?
     let prefersGrabberVisible: Bool
-    let presentationControllerDidDismiss: (() -> Void)?
 
     static var `default`: ConfigurationOptions {
       .init()
@@ -24,14 +23,12 @@ extension UISheetPresentationController {
       detents: [UISheetPresentationController.Detent] = [.small(), .medium(), .large()],
       selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .small,
       largestUndimmedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .medium,
-      prefersGrabberVisible: Bool = true,
-      presentationControllerDidDismiss: (() -> Void)? = nil
+      prefersGrabberVisible: Bool = true
     ) {
       self.detents = detents
       self.selectedDetentIdentifier = selectedDetentIdentifier
       self.largestUndimmedDetentIdentifier = largestUndimmedDetentIdentifier
       self.prefersGrabberVisible = prefersGrabberVisible
-      self.presentationControllerDidDismiss = presentationControllerDidDismiss
     }
   }
 

@@ -26,7 +26,7 @@ final class SheetManager: NSObject, UISheetPresentationControllerDelegate {
 
   struct Options {
     let shouldDismiss: Bool
-    let presentationControllerDidDismiss: (() -> Void)?
+    let presentationControllerWillDismiss: (() -> Void)?
 
     static var `default`: Options {
       Options(shouldDismiss: true)
@@ -34,10 +34,10 @@ final class SheetManager: NSObject, UISheetPresentationControllerDelegate {
 
     init(
       shouldDismiss: Bool = true,
-      presentationControllerDidDismiss: (() -> Void)? = nil
+      presentationControllerWillDismiss: (() -> Void)? = nil
     ) {
       self.shouldDismiss = shouldDismiss
-      self.presentationControllerDidDismiss = presentationControllerDidDismiss
+      self.presentationControllerWillDismiss = presentationControllerWillDismiss
     }
   }
 
@@ -59,14 +59,19 @@ final class SheetManager: NSObject, UISheetPresentationControllerDelegate {
 
   // MARK: -- Presentation
 
-  /// The last-presented `UIViewController` or the root view controller if nothing
-  /// is currently presented on it.
-  private var previousViewController: UIViewController {
+  /// The last-presented `UIViewController`, if exists
+  private var previousViewController: UIViewController? {
     cleanUpMemory()
 
     return presentedViewControllers.reversed().first {
       $0.viewController != nil
-    }?.viewController ?? rootViewController
+    }?.viewController
+  }
+
+  /// The last-presented `UIViewController` or the root view controller if nothing
+  /// is currently presented on it.
+  private var previousOrRootViewController: UIViewController {
+    return previousViewController ?? rootViewController
   }
 
   func present(
@@ -76,7 +81,7 @@ final class SheetManager: NSObject, UISheetPresentationControllerDelegate {
     options: Options = .default,
     completion: (() -> Void)? = nil
   ) {
-    let presentingViewController = previousViewController
+    let presentingViewController = previousOrRootViewController
 
     // Configure and store sheet presentation controller
     viewControllerToPresent.sheetPresentationController?.configure(options: sheetOptions)
@@ -108,7 +113,7 @@ final class SheetManager: NSObject, UISheetPresentationControllerDelegate {
         return false
       } else {
         if let presentedViewController = $0.viewController {
-          nowPresentedViewController = $0.viewController
+          nowPresentedViewController = presentedViewController
         }
         return true
       }
@@ -134,7 +139,7 @@ final class SheetManager: NSObject, UISheetPresentationControllerDelegate {
 
   private func findPresentationControllerOptions(_ presentationController: UIPresentationController) -> Options? {
     return presentedViewControllers.first {
-      $0.viewController?.sheetPresentationController === presentationController
+      return $0.viewController?.sheetPresentationController === presentationController
     }?.options
   }
 
@@ -143,12 +148,15 @@ final class SheetManager: NSObject, UISheetPresentationControllerDelegate {
   }
 
   func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+    findPresentationControllerOptions(presentationController)?.presentationControllerWillDismiss?()
     presentedViewControllers = presentedViewControllers.filter {
-      $0.viewController?.sheetPresentationController != presentationController
+      return $0.viewController?.sheetPresentationController !== presentationController
     }
   }
 
   func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-    findPresentationControllerOptions(presentationController)?.presentationControllerDidDismiss?()
+    if let previousViewController {
+      delegate?.didUpdatePresentedViewController(previousViewController)
+    }
   }
 }
