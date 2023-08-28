@@ -35,6 +35,8 @@
 		351645242A8288D6001EDC99 /* UIFont+Preferred.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351645232A8288D6001EDC99 /* UIFont+Preferred.swift */; };
 		351645262A86DAC2001EDC99 /* BikeStreetsColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351645252A86DAC2001EDC99 /* BikeStreetsColors.swift */; };
 		3550D9682A98ECC200C70EE5 /* SearchConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D9672A98ECC200C70EE5 /* SearchConfiguration.swift */; };
+		3550D96B2A9CFBAC00C70EE5 /* MapControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D96A2A9CFBAC00C70EE5 /* MapControlView.swift */; };
+		3550D96E2A9D002E00C70EE5 /* SheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D96D2A9D002E00C70EE5 /* SheetManager.swift */; };
 		355256F12A46295600A15512 /* SimplifySwift in Frameworks */ = {isa = PBXBuildFile; productRef = 355256F02A46295600A15512 /* SimplifySwift */; };
 		357FE2FD2A4F754400806743 /* MapboxSearch in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FC2A4F754400806743 /* MapboxSearch */; };
 		357FE2FF2A4F754400806743 /* MapboxSearchUI in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FE2A4F754400806743 /* MapboxSearchUI */; };
@@ -75,6 +77,8 @@
 		351645232A8288D6001EDC99 /* UIFont+Preferred.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Preferred.swift"; sourceTree = "<group>"; };
 		351645252A86DAC2001EDC99 /* BikeStreetsColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStreetsColors.swift; sourceTree = "<group>"; };
 		3550D9672A98ECC200C70EE5 /* SearchConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConfiguration.swift; sourceTree = "<group>"; };
+		3550D96A2A9CFBAC00C70EE5 /* MapControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapControlView.swift; sourceTree = "<group>"; };
+		3550D96D2A9D002E00C70EE5 /* SheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetManager.swift; sourceTree = "<group>"; };
 		35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		35A482932A37B1E4001035BB /* BikeStreets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeStreets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A4829A2A37B1E6001035BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -116,6 +120,7 @@
 		35065CA92A7D45D000C7CCAF /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				3550D9692A9CFB9E00C70EE5 /* Controls */,
 				35065CB02A7D9E4500C7CCAF /* Annotations */,
 				35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */,
 				35065CA02A7D24AD00C7CCAF /* DefaultMapsViewController.swift */,
@@ -208,6 +213,22 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		3550D9692A9CFB9E00C70EE5 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				3550D96A2A9CFBAC00C70EE5 /* MapControlView.swift */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		3550D96C2A9D001900C70EE5 /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				3550D96D2A9D002E00C70EE5 /* SheetManager.swift */,
+			);
+			path = Sheets;
+			sourceTree = "<group>";
+		};
 		35A4828A2A37B1E4001035BB = {
 			isa = PBXGroup;
 			children = (
@@ -238,6 +259,7 @@
 				350BDE392A7007F900D4DE31 /* Resources */,
 				35065CBB2A803BE800C7CCAF /* Routing */,
 				35065CA42A7D44B900C7CCAF /* Search */,
+				3550D96C2A9D001900C70EE5 /* Sheets */,
 				350BDE442A700E0400D4DE31 /* Styles */,
 			);
 			path = "bikestreets-ios";
@@ -350,6 +372,7 @@
 				3516451A2A81CC73001EDC99 /* UIView+Constraints.swift in Sources */,
 				35065CBD2A803BFC00C7CCAF /* RoutingViewController.swift in Sources */,
 				35065C9C2A7C69E600C7CCAF /* AppDelegate.swift in Sources */,
+				3550D96B2A9CFBAC00C70EE5 /* MapControlView.swift in Sources */,
 				35065CBA2A803A4000C7CCAF /* UISheetPresentationController+Configuration.swift in Sources */,
 				35A2F0BF2A4F7957002BF520 /* MapsViewController.swift in Sources */,
 				35065CC22A8043E900C7CCAF /* ScreenManager.swift in Sources */,
@@ -357,6 +380,7 @@
 				351645262A86DAC2001EDC99 /* BikeStreetsColors.swift in Sources */,
 				35065CAD2A7D9A8F00C7CCAF /* StateManager.swift in Sources */,
 				35065CAF2A7D9B8300C7CCAF /* RouteRequester.swift in Sources */,
+				3550D96E2A9D002E00C70EE5 /* SheetManager.swift in Sources */,
 				3516451E2A81D826001EDC99 /* RoutePlaceRowView.swift in Sources */,
 				351645222A827FD9001EDC99 /* UIView+InsetView.swift in Sources */,
 				35065CA12A7D24AD00C7CCAF /* DefaultMapsViewController.swift in Sources */,

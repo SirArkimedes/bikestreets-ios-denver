@@ -12,13 +12,15 @@ import UIKit
 final class SearchViewController: UIViewController {
   private let configuration: SearchConfiguration
   private let stateManager: StateManager
+  private let sheetManager: SheetManager
   private let searchViewController: LocationSearchTableViewController
 
   weak var delegate: LocationSearchDelegate?
 
-  init(configuration: SearchConfiguration, stateManager: StateManager) {
+  init(configuration: SearchConfiguration, stateManager: StateManager, sheetManager: SheetManager) {
     self.configuration = configuration
     self.stateManager = stateManager
+    self.sheetManager = sheetManager
     self.searchViewController = LocationSearchTableViewController(configuration: configuration)
     super.init(nibName: nil, bundle: nil)
   }
@@ -105,23 +107,21 @@ extension SearchViewController: LocationSearchDelegate {
     // Dismiss on selection when not in initial state.
     switch configuration {
     case .newDestination, .newOrigin:
-      dismiss(animated: true)
+      sheetManager.dismiss(viewController: self, animated: true)
     case .initialDestination:
       // Only push direction preview from initial destination selection.
       let directionPreviewViewController = DirectionPreviewViewController(stateManager: stateManager)
-      directionPreviewViewController.sheetPresentationController?.configure(
-        selectedDetentIdentifier: .medium
+      sheetManager.present(
+        directionPreviewViewController,
+        animated: true,
+        sheetOptions: .init(
+          selectedDetentIdentifier: .medium,
+          presentationControllerDidDismiss: { [weak self] in
+            guard let self else { return }
+            self.stateManager.state = .initial
+          }
+        )
       )
-      directionPreviewViewController.sheetPresentationController?.delegate = self
-      present(directionPreviewViewController, animated: true)
     }
-  }
-}
-
-// MARK: - UISheetPresentationControllerDelegate
-
-extension SearchViewController: UISheetPresentationControllerDelegate {
-  func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-    stateManager.state = .initial
   }
 }

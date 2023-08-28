@@ -9,20 +9,41 @@ import Foundation
 import UIKit
 
 extension UISheetPresentationController {
-  func configure(
-    detents: [UISheetPresentationController.Detent] = [.small(), .medium(), .large()],
-    selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .small,
-    largestUndimmedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .medium,
-    prefersGrabberVisible: Bool = true
-  ) {
-    self.detents = detents
-    self.selectedDetentIdentifier = selectedDetentIdentifier
+  struct ConfigurationOptions {
+    let detents: [UISheetPresentationController.Detent]
+    let selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier?
+    let largestUndimmedDetentIdentifier: UISheetPresentationController.Detent.Identifier?
+    let prefersGrabberVisible: Bool
+    let presentationControllerDidDismiss: (() -> Void)?
+
+    static var `default`: ConfigurationOptions {
+      .init()
+    }
+
+    init(
+      detents: [UISheetPresentationController.Detent] = [.small(), .medium(), .large()],
+      selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .small,
+      largestUndimmedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .medium,
+      prefersGrabberVisible: Bool = true,
+      presentationControllerDidDismiss: (() -> Void)? = nil
+    ) {
+      self.detents = detents
+      self.selectedDetentIdentifier = selectedDetentIdentifier
+      self.largestUndimmedDetentIdentifier = largestUndimmedDetentIdentifier
+      self.prefersGrabberVisible = prefersGrabberVisible
+      self.presentationControllerDidDismiss = presentationControllerDidDismiss
+    }
+  }
+
+  func configure(options: ConfigurationOptions = .default) {
+    detents = options.detents
+    selectedDetentIdentifier = options.selectedDetentIdentifier
     // Don't let the sheet dim the background content.
-    self.largestUndimmedDetentIdentifier = largestUndimmedDetentIdentifier
+    largestUndimmedDetentIdentifier = options.largestUndimmedDetentIdentifier
     // Sheet needs rounded corners.
     preferredCornerRadius = 16
     // Sheet needs to show the top grabber.
-    self.prefersGrabberVisible = prefersGrabberVisible
+    prefersGrabberVisible = options.prefersGrabberVisible
   }
 }
 

@@ -12,8 +12,11 @@ import SwiftUI
 import UIKit
 
 final class DefaultMapsViewController: MapsViewController {
-  private let searchViewController: SearchViewController
   private let sheetHeightInspectionView = SizeTrackingView()
+
+  private lazy var sheetManager: SheetManager = {
+    SheetManager(rootViewController: self)
+  }()
 
   private let stateManager = StateManager()
   private let screenManager: ScreenManager
@@ -26,10 +29,6 @@ final class DefaultMapsViewController: MapsViewController {
   init() {
     screenManager = ScreenManager(stateManager: stateManager)
 
-    let searchViewController = SearchViewController(configuration: .initialDestination, stateManager: stateManager)
-    searchViewController.sheetPresentationController?.configure()
-    self.searchViewController = searchViewController
-
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -40,7 +39,7 @@ final class DefaultMapsViewController: MapsViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    searchViewController.delegate = self
+    sheetManager.delegate = self
     sheetHeightInspectionView.delegate = self
     stateManager.add(listener: self)
   }
@@ -67,11 +66,22 @@ final class DefaultMapsViewController: MapsViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    presentInitialSearchViewController()
+  }
 
-    searchViewController.sheetPresentationController?.delegate = self
-    present(searchViewController, animated: true) {
-      self.inspectHeight(of: self.searchViewController)
-    }
+  private func presentInitialSearchViewController() {
+    let searchViewController = SearchViewController(
+      configuration: .initialDestination,
+      stateManager: stateManager,
+      sheetManager: sheetManager
+    )
+    searchViewController.delegate = self
+
+    sheetManager.present(
+      searchViewController,
+      animated: true,
+      options: .init(shouldDismiss: false)
+    )
   }
 
   private var heightInspectionConstraint: NSLayoutConstraint?
@@ -195,12 +205,8 @@ extension DefaultMapsViewController: StateListener {
     switch newState {
     case .initial:
       // Assume routing was canceled. Restart from the initial launch state.
-      if presentedViewController != self.searchViewController {
-        self.searchViewController.sheetPresentationController?.configure()
-        dismiss(animated: true) {
-          self.searchViewController.sheetPresentationController?.delegate = self
-          self.present(self.searchViewController, animated: true)
-        }
+      sheetManager.dismissAllSheets(animated: true) {
+        self.presentInitialSearchViewController()
       }
 
       // Adjust camera.
@@ -218,26 +224,34 @@ extension DefaultMapsViewController: StateListener {
       updateMapCameraForRoutePreview(preview: preview)
       updateMapAnnotations(isRouting: false, selectedRoute: preview.selectedRoute, potentialRoutes: preview.response.routes)
     case .updateDestination:
-      let searchViewController = SearchViewController(configuration: .newDestination, stateManager: stateManager)
-      searchViewController.sheetPresentationController?.configure()
-      topPresentedViewController?.present(searchViewController, animated: true)
+      let searchViewController = SearchViewController(
+        configuration: .newDestination,
+        stateManager: stateManager,
+        sheetManager: sheetManager
+      )
       searchViewController.delegate = self
+      sheetManager.present(searchViewController, animated: true)
     case .updateOrigin:
-      let searchViewController = SearchViewController(configuration: .newOrigin, stateManager: stateManager)
-      searchViewController.sheetPresentationController?.configure()
-      topPresentedViewController?.present(searchViewController, animated: true)
+      let searchViewController = SearchViewController(
+        configuration: .newOrigin,
+        stateManager: stateManager,
+        sheetManager: sheetManager
+      )
       searchViewController.delegate = self
+      sheetManager.present(searchViewController, animated: true)
     case .routing(let routing):
       // Dismiss initial sheet, show routing sheet.
-      dismiss(animated: true) {
+      sheetManager.dismissAllSheets(animated: true) { [weak self] in
+        guard let self else { return }
         let viewController = RoutingViewController(stateManager: self.stateManager)
-        viewController.sheetPresentationController?.configure(
-          detents: [.tiny()],
-          largestUndimmedDetentIdentifier: .tiny,
-          prefersGrabberVisible: false
-        )
-        viewController.sheetPresentationController?.delegate = self
-        self.present(viewController, animated: true)
+        self.sheetManager.present(
+          viewController,
+          animated: true,
+          sheetOptions: .init(
+            detents: [.tiny()],
+            largestUndimmedDetentIdentifier: .tiny,
+            prefersGrabberVisible: false
+          ))
       }
 
       // Update route polyline display.
@@ -252,18 +266,6 @@ extension DefaultMapsViewController: StateListener {
       isBikeStreetsNetworkEnabled = false
     default:
       isBikeStreetsNetworkEnabled = true
-    }
-
-    // Adjust sheet sizing constraint to top-most presented VC. This is a less
-    // than ideal way to ensure we get the top-most presented VC _after_ it has
-    // been presented based on a state change. This could be refactored into
-    // a more centralized approach to unify the handling of push/pop while
-    // keeping internal catalog of the top-most VC.
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
-      guard let self = self else { return }
-      if let topController = self.topPresentedViewController {
-        self.inspectHeight(of: topController)
-      }
     }
   }
 }
@@ -284,6 +286,7 @@ extension DefaultMapsViewController: SizeTrackingListener {
 
     // Adjust the map if we're not in the large selected detent.
     if selectedSheetDetentIdentifier != .large {
+      // Update map camera.
       switch stateManager.state {
       case .initial:
         updateMapCameraForInitialState(bottomInset: frame.height)
@@ -294,6 +297,11 @@ extension DefaultMapsViewController: SizeTrackingListener {
       default:
         break
       }
+
+      // Update Mapbox attribution.
+      let mapboxOrnamentYInset = frame.height - 8
+      mapView.ornaments.options.attributionButton.margins = .init(x: 8.0, y: mapboxOrnamentYInset)
+      mapView.ornaments.options.logo.margins = .init(x: 8.0, y: mapboxOrnamentYInset)
     }
   }
 }
@@ -392,10 +400,18 @@ extension DefaultMapsViewController: LocationSearchDelegate {
   }
 }
 
-// MARK: - UISheetPresentationControllerDelegate
+// MARK: -- SheetManagerDelegate
 
-extension DefaultMapsViewController: UISheetPresentationControllerDelegate {
-  func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-    return false
+extension DefaultMapsViewController: SheetManagerDelegate {
+  func didUpdatePresentedViewController(_ presentedViewController: UIViewController) {
+    // Adjust sheet sizing constraint to top-most presented VC. This is a less
+    // than ideal way to ensure we get the top-most presented VC _after_ it has
+    // been presented based on a state change. This could be refactored into
+    // a more centralized approach to unify the handling of push/pop while
+    // keeping internal catalog of the top-most VC.
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
+      guard let self = self else { return }
+      self.inspectHeight(of: presentedViewController)
+    }
   }
 }
