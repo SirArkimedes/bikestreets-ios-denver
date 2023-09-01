@@ -109,11 +109,6 @@ final class DefaultMapsViewController: MapsViewController {
 
   // MARK: - Map Movement
 
-  // TODO: Update location to Denver if no location is accessible.
-  private func updateMapCameraForInitialState(bottomInset: CGFloat) {
-
-  }
-
   private func updateMapAnnotations(isRouting: Bool, selectedRoute: Route, potentialRoutes: [Route]) {
     let selectedRouteAnnotations: [PolylineAnnotation] = selectedRoute.legs.flatMap { leg -> [RouteStep] in
       leg.steps
