@@ -59,13 +59,6 @@ final class DefaultMapsViewController: MapsViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
-    // Start with map in Denver.
-    let cameraOptions = CameraOptions(
-      center: .denver,
-      zoom: 15.5
-    )
-    mapView.mapboxMap.setCamera(to: cameraOptions)
-
     // Set up sheet height tracker.
     view.superview!.addSubview(self.sheetHeightInspectionView)
     NSLayoutConstraint.activate([
@@ -261,6 +254,9 @@ extension DefaultMapsViewController: StateListener {
 
 extension DefaultMapsViewController: SizeTrackingListener {
   func didChangeFrame(_ view: UIView, frame: CGRect) {
+    // This is only valuable for the height, if it's 0, ignore.
+    guard frame.height != 0 else { return }
+
     // Find the likely selected sheet detent identifier.
     let selectedSheetDetentIdentifier: UISheetPresentationController.Detent.Identifier = (
       heightInspectionViewController?.sheetPresentationController?.selectedDetentIdentifier ?? .medium

@@ -37,7 +37,25 @@ class MapsViewController: UIViewController, ExampleController {
       view.bottomAnchor.constraint(equalTo: mapView.bottomAnchor),
     ])
 
-    // Show user location
+    // Start with map in Denver.
+    let cameraOptions = CameraOptions(
+      center: .denver,
+      zoom: 15.5
+    )
+    mapView.mapboxMap.setCamera(to: cameraOptions)
+
+    // Start by focusing on user's location, if present.
+    let newState = self.mapView.viewport.makeFollowPuckViewportState(
+      options: FollowPuckViewportStateOptions(
+        padding: UIEdgeInsets(top: 200, left: 0, bottom: 200, right: 0),
+        // Intentionally avoid bearing sync in search mode.
+        bearing: .none,
+        pitch: 0
+      )
+    )
+    mapView.viewport.transition(to: newState, transition: self.mapView.viewport.makeImmediateViewportTransition())
+
+    // Show user location puck
     mapView.location.options.puckType = .puck2D()
 
     // Show Mapbox styles
