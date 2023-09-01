@@ -102,6 +102,7 @@ final class DefaultMapsViewController: MapsViewController {
 
   // MARK: - Map Movement
 
+  // TODO: Make this smarter using approach from https://docs.mapbox.com/ios/maps/examples/line-gradient/
   private func updateMapAnnotations(isRouting: Bool, selectedRoute: Route, potentialRoutes: [Route]) {
     let selectedRouteAnnotations: [PolylineAnnotation] = selectedRoute.legs.flatMap { leg -> [RouteStep] in
       leg.steps
