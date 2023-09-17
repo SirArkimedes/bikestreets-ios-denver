@@ -58,9 +58,10 @@ final class RouteRequester {
 
       // Handle HTTP request response
       do {
-        let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-        let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-        let result = try JSONDecoder().decode(RouteServiceResponse.self, from: jsonData)
+        // For pretty printing in logging:
+        // let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+        // let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+        let result = try JSONDecoder().decode(RouteServiceResponse.self, from: data)
         completion(.success(result))
       } catch {
         completion(.failure(error))
