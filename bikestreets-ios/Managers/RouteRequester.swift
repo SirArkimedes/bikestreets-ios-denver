@@ -15,7 +15,9 @@ final class RouteRequester {
   }
 
   static func getOSRMDirections(
+    originName: String,
     startPoint: CLLocationCoordinate2D,
+    destinationName: String,
     endPoint: CLLocationCoordinate2D,
     completion: @escaping (Result<RouteServiceResponse, Error>) -> Void
   ) {
@@ -28,7 +30,7 @@ final class RouteRequester {
     components.percentEncodedPath = "/route/v1/driving/\(startPoint.longitude),\(startPoint.latitude);\(endPoint.longitude),\(endPoint.latitude)"
 
     print("""
-    [MATTROB] OSRM REQUEST:
+    OSRM REQUEST:
 
     \(components.string ?? "ERROR EMPTY")
 
@@ -61,7 +63,22 @@ final class RouteRequester {
         // For pretty printing in logging:
         // let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
         // let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+
+        // Parse API response
         let result = try JSONDecoder().decode(RouteServiceResponse.self, from: data)
+
+        // Write log file
+        try DebugLogHandler().write(
+          request: .init(
+            originName: originName,
+            originPoint: startPoint,
+            destinationName: destinationName,
+            destinationPoint: endPoint
+          ),
+          response: result
+        )
+
+        // Return parsed response
         completion(.success(result))
       } catch {
         completion(.failure(error))
@@ -70,4 +87,3 @@ final class RouteRequester {
     task.resume()
   }
 }
-

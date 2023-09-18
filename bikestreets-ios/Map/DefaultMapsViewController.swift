@@ -122,8 +122,22 @@ final class DefaultMapsViewController: MapsViewController {
   // MARK: - State Handling
 
   private func requestDirections(request: StateManager.RouteRequest) {
+    let startName: String
+    let endName: String
+
+    switch stateManager.state {
+    case .requestingRoutes(let request):
+      startName = request.origin.name
+      endName = request.destination.name
+    default:
+      startName = "INCORRECT-STATE-FOR-NAME"
+      endName = "INCORRECT-STATE-FOR-NAME"
+    }
+
     RouteRequester.getOSRMDirections(
+      originName: startName,
       startPoint: request.origin.coordinate,
+      destinationName: endName,
       endPoint: request.destination.coordinate
     ) { result in
       switch result {
@@ -458,6 +472,17 @@ extension DefaultMapsViewController: SheetManagerDelegate {
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
       guard let self = self else { return }
       self.inspectHeight(of: presentedViewController)
+    }
+  }
+}
+
+// MARK: -- DEBUG
+
+extension DefaultMapsViewController {
+  override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+    if motion == .motionShake {
+      let files = try! DebugLogHandler().files()
+      sheetManager.present(DebugTableViewController(entries: files), animated: true)
     }
   }
 }

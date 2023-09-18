@@ -8,7 +8,7 @@
 import CoreLocation
 import Foundation
 
-struct RouteServiceResponse: Decodable {
+struct RouteServiceResponse: Codable {
   let code: String
   let waypoints: [Waypoint]
   let routes: [Route]
@@ -16,7 +16,7 @@ struct RouteServiceResponse: Decodable {
 
 // MARK: - OSRM Models
 
-struct Geometry: Decodable, Equatable {
+struct Geometry: Codable, Equatable {
   private enum CodingKeys: String, CodingKey {
     case type
     case _coordinates = "coordinates"
@@ -33,7 +33,7 @@ struct Geometry: Decodable, Equatable {
 }
 
 /// http://project-osrm.org/docs/v5.5.1/api/#route-object
-struct Route: Decodable, Equatable {
+struct Route: Codable, Equatable {
   let distance: Double
   let duration: Double
   let geometry: Geometry
@@ -41,7 +41,7 @@ struct Route: Decodable, Equatable {
 }
 
 /// http://project-osrm.org/docs/v5.5.1/api/#routeleg-object
-struct RouteLeg: Decodable, Equatable {
+struct RouteLeg: Codable, Equatable {
   let distance: Double
   let duration: Double
   let summary: String
@@ -50,8 +50,8 @@ struct RouteLeg: Decodable, Equatable {
 }
 
 /// http://project-osrm.org/docs/v5.5.1/api/#routestep-object
-struct RouteStep: Decodable, Equatable {
-  enum Mode: String, Decodable, Equatable {
+struct RouteStep: Codable, Equatable {
+  enum Mode: String, Codable, Equatable {
     case cycling
     case pushingBike = "pushing bike"
   }
@@ -109,7 +109,7 @@ struct RouteStep: Decodable, Equatable {
 //}
 
 /// http://project-osrm.org/docs/v5.5.1/api/#waypoint-object
-struct Waypoint: Decodable {
+struct Waypoint: Codable {
   let name: String
   let location: [Float]
   let distance: Float
