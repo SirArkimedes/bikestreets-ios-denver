@@ -6,5 +6,16 @@
 	<false/>
 	<key>MBXAccessToken</key>
 	<string>pk.eyJ1IjoibWtiaXRidWNrZXQiLCJhIjoiY2swNWNzNGxqMDAwNDNjbzhrdmxnbTdiNSJ9.F3s1ErkGUpi-xnLp9jOWYw</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>206.189.205.9</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>
