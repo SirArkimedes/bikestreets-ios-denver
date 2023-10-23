@@ -5,6 +5,7 @@
 //  Created by Matt Robinson on 9/17/23.
 //
 
+import MapboxDirections
 import UIKit
 
 struct DebugTableRow {
@@ -28,7 +29,8 @@ final class DebugTableViewController: UITableViewController {
     self.entries = entries.sorted(by: { row1, row2 in
       return row1.entry.date.timeIntervalSince1970 > row2.entry.date.timeIntervalSince1970
     }).flatMap { entry in
-      return entry.entry.response.routes.enumerated().map { (index, route) in
+      let routes = entry.entry.response.routes ?? []
+      return routes.enumerated().map { (index, route) in
         let titleDateString = dateFormatter.string(from: entry.entry.date)
         return DebugTableRow(
           title: "\(titleDateString) - Route \(index + 1)",

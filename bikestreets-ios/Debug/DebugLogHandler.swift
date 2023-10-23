@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import MapboxDirections
 
 struct DebugLogRequest: Codable {
   let originName: String
@@ -31,7 +32,7 @@ struct ResponseLogEntry: Codable {
   let date: Date
 
   let request: DebugLogRequest
-  let response: RouteServiceResponse
+  let response: RouteResponse
 }
 
 final class DebugLogHandler {
@@ -39,6 +40,12 @@ final class DebugLogHandler {
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     let documentsDirectory = paths[0]
     return documentsDirectory
+  }
+
+  /// Migrate the models to the new Mapbox models that aren't serialized in the same was as the custom OSRM models.
+  private var hasMigratedToMapboxModels: Bool {
+    get { UserDefaults.standard.bool(forKey: "bikestreets.migration.debug-models.v0") }
+    set { UserDefaults.standard.setValue(newValue, forKey: "bikestreets.migration.debug-models.v0") }
   }
 
   /// Read all debug files in directory.
@@ -49,6 +56,15 @@ final class DebugLogHandler {
         at: path,
         includingPropertiesForKeys: nil
     )
+
+    /// Complete debug model migration if necessary.
+    guard hasMigratedToMapboxModels else {
+      try directoryContents.forEach { path in
+        try FileManager.default.removeItem(at: path)
+      }
+      hasMigratedToMapboxModels = true
+      return []
+    }
 
     let decoder = JSONDecoder()
 
@@ -67,7 +83,7 @@ final class DebugLogHandler {
   ///     - response: Response object from the server.
   func write(
     request: DebugLogRequest,
-    response: RouteServiceResponse
+    response: RouteResponse
   ) throws {
     let entry = ResponseLogEntry(
       date: Date(),

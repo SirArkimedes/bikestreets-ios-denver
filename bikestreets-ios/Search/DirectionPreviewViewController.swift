@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapboxDirections
 import UIKit
 
 final class DirectionPreviewViewController: UIViewController {
@@ -103,10 +104,10 @@ final class DirectionPreviewViewController: UIViewController {
 
   // MARK: -- Helpers
 
-  private var routes: [Route] {
+  private var routes: [MapboxDirections.Route] {
     switch stateManager.state {
     case .previewDirections(let preview):
-      return preview.response.routes
+      return preview.response.routes ?? []
     case .requestingRoutes:
       return []
     default:
@@ -179,11 +180,11 @@ extension DirectionPreviewViewController: RoutePlaceRowViewDelegate {
 // MARK: - RouteSelectable
 
 extension DirectionPreviewViewController: RouteSelectable {
-  func didSelect(route: Route) {
+  func didSelect(route: MapboxDirections.Route) {
     // TODO: Add route selection support.
   }
 
-  func didStart(route: Route) {
+  func didStart(route: MapboxDirections.Route) {
     switch stateManager.state {
     case .previewDirections(let preview):
       stateManager.state = .routing(routing: .init(

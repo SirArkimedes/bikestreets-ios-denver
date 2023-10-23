@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 import MapKit
+import MapboxDirections
 
 // TODO: Convert to Combine if you're smarter than I am.
 protocol StateListener: AnyObject {
@@ -47,13 +48,13 @@ final class StateManager {
 
   struct DirectionsPreview {
     let request: RouteRequest
-    let response: RouteServiceResponse
+    let response: RouteResponse
     let selectedRoute: Route
   }
 
   struct Routing {
     let request: RouteRequest
-    let response: RouteServiceResponse
+    let response: RouteResponse
     let selectedRoute: Route
   }
 

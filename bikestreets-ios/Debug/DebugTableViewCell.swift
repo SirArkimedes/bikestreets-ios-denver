@@ -5,6 +5,7 @@
 //  Created by Matt Robinson on 9/17/23.
 //
 
+import MapboxDirections
 import MapboxMaps
 import UIKit
 
@@ -61,7 +62,7 @@ final class DebugTableViewCell: UITableViewCell {
   private func zoom(to route: Route) {
     let state = mapView.viewport.makeOverviewViewportState(
       options: .init(
-        geometry: LineString(route.geometry.coordinates),
+        geometry: LineString(route.shape?.coordinates ?? []),
         padding: .init(top: 8, left: 8, bottom: 8, right: 8)
       )
     )
@@ -72,13 +73,13 @@ final class DebugTableViewCell: UITableViewCell {
   }
 
   private func updateMapAnnotation(route: Route) {
-    let selectedRouteAnnotations: [PolylineAnnotation] = route.legs.flatMap { leg -> [RouteStep] in
+    let selectedRouteAnnotations: [PolylineAnnotation] = route.legs.flatMap { leg -> [MapboxDirections.RouteStep] in
       leg.steps
     }.map { step -> PolylineAnnotation in
       return .activeRouteAnnotation(
-        coordinates: step.geometry.coordinates,
+        coordinates: step.shape?.coordinates ?? [],
         isRouting: false,
-        isHikeABike: step.mode == .pushingBike
+        isHikeABike: step.transportType == .walking
       )
     }
 

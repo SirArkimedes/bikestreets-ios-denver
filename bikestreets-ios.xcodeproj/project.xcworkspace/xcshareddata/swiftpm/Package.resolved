@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mapbox/mapbox-common-ios.git",
       "state" : {
-        "revision" : "419bbceb7016eb6f8ca9f575d45508d9d948af30",
-        "version" : "23.8.0"
+        "revision" : "add9e5cb01a0aa23f1081b3c53719593bb80e3cb",
+        "version" : "23.8.3"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mapbox/mapbox-core-maps-ios.git",
       "state" : {
-        "revision" : "d47a6e081b9ae736003033b971bfa641e650e08e",
-        "version" : "10.16.0"
+        "revision" : "d9307e875eea20128b303df6f6d7a2f87934fca2",
+        "version" : "10.16.1"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mapbox/mapbox-directions-swift.git",
       "state" : {
-        "revision" : "edcc5b30009e784f17c1cced1075878eaf781187",
-        "version" : "2.10.0"
+        "revision" : "3aaab4fb516638c51ec8a2e73cd2fabdb4588622",
+        "version" : "2.11.1"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mapbox/mapbox-maps-ios.git",
       "state" : {
-        "revision" : "41c6ed63c77100371a54f5bf74cfffd3fc9f57fa",
-        "version" : "10.16.0"
+        "revision" : "36d57a20f6aec28d5758f4e59ac8d3a25a695fd2",
+        "version" : "10.16.1"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mapbox/mapbox-navigation-ios.git",
       "state" : {
-        "revision" : "63a7d36f241c71799521bd0a6e12838619b38207",
-        "version" : "2.9.0"
+        "revision" : "316a8b934f9cdc7546c29c7a5aee66ce6fc6f9b2",
+        "version" : "2.17.0"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mapbox/mapbox-navigation-native-ios.git",
       "state" : {
-        "revision" : "47d0e9d45d5e57c4eaebb9c3875246286685084c",
-        "version" : "119.0.6"
+        "revision" : "7f3a62751e250166e56120c5854239287ab22b46",
+        "version" : "160.0.0"
       }
     },
     {

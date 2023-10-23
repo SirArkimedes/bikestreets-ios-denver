@@ -6,17 +6,18 @@
 //
 
 import Foundation
+import MapboxDirections
 import UIKit
 
 protocol RouteSelectable: AnyObject {
-  func didSelect(route: Route)
-  func didStart(route: Route)
+  func didSelect(route: MapboxDirections.Route)
+  func didStart(route: MapboxDirections.Route)
 }
 
 final class PossibleRoutesView: UIStackView {
   weak var delegate: RouteSelectable?
 
-  private let routes: [Route]
+  private let routes: [MapboxDirections.Route]
 
   private let distanceFormatter: MeasurementFormatter = {
     let formatter = MeasurementFormatter()
@@ -25,7 +26,7 @@ final class PossibleRoutesView: UIStackView {
     return formatter
   }()
 
-  init(routes: [Route]) {
+  init(routes: [MapboxDirections.Route]) {
     self.routes = routes
 
     super.init(frame: .zero)

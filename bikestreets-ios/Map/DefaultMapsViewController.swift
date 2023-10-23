@@ -5,6 +5,9 @@
 //  Created by Matt Robinson on 8/4/23.
 //
 
+import MapboxCoreNavigation
+import MapboxDirections
+import MapboxNavigation
 import MapboxMaps
 import MapboxSearchUI
 import MapKit
@@ -12,10 +15,19 @@ import SwiftUI
 import UIKit
 
 final class DefaultMapsViewController: MapsViewController {
+  private enum LiveRoutingConfiguration {
+    case mapbox
+    case custom
+  }
+  private let liveRoutingConfiguration: LiveRoutingConfiguration = .mapbox
+
   private lazy var mapControlView: MapControlView = {
     return MapControlView(mapCameraManager: mapCameraManager)
   }()
   private let sheetHeightInspectionView = SizeTrackingView()
+
+  /// Retain the navigation view controller that presents the routing view.
+  private var navigationViewController: NavigationViewController?
 
   private lazy var sheetManager: SheetManager = {
     SheetManager(rootViewController: self)
@@ -51,27 +63,43 @@ final class DefaultMapsViewController: MapsViewController {
     mapView.viewport.addStatusObserver(self)
 
     sheetManager.delegate = self
+
     sheetHeightInspectionView.delegate = self
+    view.addSubview(self.sheetHeightInspectionView)
+
     stateManager.add(listener: self)
     mapCameraManager.add(listener: self)
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-
-    // Set up sheet height tracker.
-    view.superview!.addSubview(self.sheetHeightInspectionView)
-    NSLayoutConstraint.activate([
-      sheetHeightInspectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-      sheetHeightInspectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-      sheetHeightInspectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
-      // Height is tracked on a per-sheet basis.
-    ])
+    attachHeightInspectorIfNeccessary()
   }
 
+  private var attachedHeightInspector = false
+  private func attachHeightInspectorIfNeccessary() {
+    if !attachedHeightInspector {
+      // Set up sheet height tracker.
+      NSLayoutConstraint.activate([
+        sheetHeightInspectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+        sheetHeightInspectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        sheetHeightInspectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+        // Height is tracked on a per-sheet basis.
+      ])
+
+      attachedHeightInspector = true
+    }
+  }
+
+  private var hasAppeared = false
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    presentInitialSearchViewController()
+    
+    // Present the initial search view on initial appearance.
+    if !hasAppeared {
+      presentInitialSearchViewController()
+      hasAppeared = true
+    }
   }
 
   private func presentInitialSearchViewController() {
@@ -103,19 +131,23 @@ final class DefaultMapsViewController: MapsViewController {
   // MARK: - Map Movement
 
   // TODO: Make this smarter using approach from https://docs.mapbox.com/ios/maps/examples/line-gradient/
-  private func updateMapAnnotations(isRouting: Bool, selectedRoute: Route, potentialRoutes: [Route]) {
-    let selectedRouteAnnotations: [PolylineAnnotation] = selectedRoute.legs.flatMap { leg -> [RouteStep] in
+  private func updateMapAnnotations(
+    isRouting: Bool,
+    selectedRoute: MapboxDirections.Route,
+    potentialRoutes: [MapboxDirections.Route]
+  ) {
+    let selectedRouteAnnotations: [PolylineAnnotation] = selectedRoute.legs.flatMap { leg -> [MapboxDirections.RouteStep] in
       leg.steps
     }.map { step -> PolylineAnnotation in
       return .activeRouteAnnotation(
-        coordinates: step.geometry.coordinates,
+        coordinates: step.shape?.coordinates ?? [],
         isRouting: isRouting,
-        isHikeABike: step.mode == .pushingBike
+        isHikeABike: step.transportType == .walking
       )
     }
 
     polylineAnnotationManager.annotations = selectedRouteAnnotations + potentialRoutes.map {
-      .potentialRouteAnnotation(coordinates: $0.geometry.coordinates)
+      .potentialRouteAnnotation(coordinates: $0.shape?.coordinates ?? [])
     }
   }
 
@@ -143,7 +175,7 @@ final class DefaultMapsViewController: MapsViewController {
       switch result {
       case .success(let result):
         DispatchQueue.main.async {
-          if let firstRoute = result.routes.first {
+          if let firstRoute = result.routes?.first {
             // On initial state update, assume first route is selected.
             self.stateManager.state = .previewDirections(
               preview: .init(request: request, response: result, selectedRoute: firstRoute)
@@ -192,7 +224,7 @@ extension DefaultMapsViewController: StateListener {
       // sheetNavigationController.sheetPresentationController?.selectedDetentIdentifier = UISheetPresentationController.Detent.small().identifier
       requestDirections(request: request)
     case .previewDirections(let preview):
-      updateMapAnnotations(isRouting: false, selectedRoute: preview.selectedRoute, potentialRoutes: preview.response.routes)
+      updateMapAnnotations(isRouting: false, selectedRoute: preview.selectedRoute, potentialRoutes: preview.response.routes ?? [preview.selectedRoute])
     case .updateDestination(let preview):
       let searchViewController = SearchViewController(
         configuration: .newDestination,
@@ -224,22 +256,48 @@ extension DefaultMapsViewController: StateListener {
         })
       )
     case .routing(let routing):
-      // Dismiss initial sheet, show routing sheet.
-      sheetManager.dismissAllSheets(animated: true) { [weak self] in
-        guard let self else { return }
-        let viewController = RoutingViewController(stateManager: self.stateManager)
-        self.sheetManager.present(
-          viewController,
-          animated: true,
-          sheetOptions: .init(
-            detents: [.tiny()],
-            largestUndimmedDetentIdentifier: .tiny,
-            prefersGrabberVisible: false
-          ))
-      }
+      switch liveRoutingConfiguration {
+      case .mapbox:
+        // TODO: (@mattrob) This should be associated with the selected route not the `0` index.
+        let indexedRouteResponse = IndexedRouteResponse(
+          routeResponse: routing.response,
+          routeIndex: 0
+        )
+        let navigationService = MapboxNavigationService(
+          indexedRouteResponse: indexedRouteResponse,
+          customRoutingProvider: NavigationSettings.shared.directions,
+          credentials: NavigationSettings.shared.directions.credentials,
+          simulating: .onPoorGPS
+        )
+        let navigationOptions = NavigationOptions(navigationService: navigationService)
+        navigationViewController = NavigationViewController(
+          for: indexedRouteResponse,
+          navigationOptions: navigationOptions
+        )
+        navigationViewController?.modalPresentationStyle = .fullScreen
+        navigationViewController?.delegate = self
 
-      // Update route polyline display.
-      updateMapAnnotations(isRouting: true, selectedRoute: routing.selectedRoute, potentialRoutes: [])
+        sheetManager.dismissAllSheets(animated: false) {
+          self.present(self.navigationViewController!, animated: true, completion: nil)
+        }
+      case .custom:
+        // Dismiss initial sheet, show routing sheet.
+        sheetManager.dismissAllSheets(animated: true) { [weak self] in
+          guard let self else { return }
+          let viewController = RoutingViewController(stateManager: self.stateManager)
+          self.sheetManager.present(
+            viewController,
+            animated: true,
+            sheetOptions: .init(
+              detents: [.tiny()],
+              largestUndimmedDetentIdentifier: .tiny,
+              prefersGrabberVisible: false
+            ))
+        }
+
+        // Update route polyline display.
+        updateMapAnnotations(isRouting: true, selectedRoute: routing.selectedRoute, potentialRoutes: [])
+      }
     }
 
     // Sync up camera position/focus.
@@ -412,7 +470,7 @@ extension DefaultMapsViewController: MapCameraStateListener {
 
       // TODO: Add handling for "possible routes" vs. just the selected route.
       // preview.response.routes.map(\.geometry.coordinates).flatMap { $0 }
-      let coordinates: [CLLocationCoordinate2D] = route.geometry.coordinates
+      let coordinates: [CLLocationCoordinate2D] = route.shape?.coordinates ?? []
 
       newState = mapView.viewport.makeOverviewViewportState(
         options: .init(
@@ -469,7 +527,7 @@ extension DefaultMapsViewController: SheetManagerDelegate {
     // been presented based on a state change. This could be refactored into
     // a more centralized approach to unify the handling of push/pop while
     // keeping internal catalog of the top-most VC.
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
       guard let self = self else { return }
       self.inspectHeight(of: presentedViewController)
     }
@@ -484,5 +542,24 @@ extension DefaultMapsViewController {
       let files = try! DebugLogHandler().files()
       sheetManager.present(DebugTableViewController(entries: files), animated: true)
     }
+  }
+}
+
+// MARK: -- NavigationViewControllerDelegate
+
+extension DefaultMapsViewController: NavigationViewControllerDelegate {
+  func navigationViewController(
+    _ navigationViewController: NavigationViewController,
+    shouldRerouteFrom location: CLLocation
+  ) -> Bool {
+    false
+  }
+
+  func navigationViewControllerDidDismiss(
+    _ navigationViewController: NavigationViewController,
+    byCanceling canceled: Bool
+  ) {
+    self.navigationViewController = nil
+    stateManager.state = .initial
   }
 }

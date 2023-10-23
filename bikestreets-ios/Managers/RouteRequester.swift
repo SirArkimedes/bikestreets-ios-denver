@@ -7,6 +7,10 @@
 
 import CoreLocation
 import Foundation
+import MapboxCoreNavigation
+import MapboxNavigation
+import MapboxDirections
+import SimplifySwift
 
 final class RouteRequester {
   enum RequestError: Error {
@@ -19,7 +23,7 @@ final class RouteRequester {
     startPoint: CLLocationCoordinate2D,
     destinationName: String,
     endPoint: CLLocationCoordinate2D,
-    completion: @escaping (Result<RouteServiceResponse, Error>) -> Void
+    completion: @escaping (Result<RouteResponse, Error>) -> Void
   ) {
     // BIKESTREETS DIRECTIONS
 
@@ -38,10 +42,14 @@ final class RouteRequester {
 
     components.queryItems = [
       URLQueryItem(name: "overview", value: "full"),
-      URLQueryItem(name: "geometries", value: "geojson"),
+      URLQueryItem(name: "geometries", value: "polyline"),
       URLQueryItem(name: "alternatives", value: "true"),
       URLQueryItem(name: "steps", value: "true"),
       URLQueryItem(name: "annotations", value: "true"),
+
+      // URLQueryItem(name: "voice_instructions", value: String(true)),
+      // let distanceMeasurementSystem: MeasurementSystem = Locale.current.usesMetricSystem ? .metric : .imperial
+      // URLQueryItem(name: "voice_units", value: distanceMeasurementSystem.rawValue),
     ]
 
     let session = URLSession.shared
@@ -64,19 +72,19 @@ final class RouteRequester {
         // let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
         // let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 
-        // Parse API response
-        let result = try JSONDecoder().decode(RouteServiceResponse.self, from: data)
-
-        // Write log file
-        try DebugLogHandler().write(
-          request: .init(
-            originName: originName,
-            originPoint: startPoint,
-            destinationName: destinationName,
-            destinationPoint: endPoint
-          ),
-          response: result
+        let routeOptions = NavigationRouteOptions(
+          coordinates: [startPoint, endPoint],
+          profileIdentifier: .cycling
         )
+        routeOptions.shapeFormat = .polyline
+
+        let decoder = JSONDecoder()
+        decoder.userInfo = [
+          .options: routeOptions,
+          .credentials: Directions.shared.credentials,
+        ]
+
+        let result = try decoder.decode(RouteResponse.self, from: data)
 
         // Return parsed response
         completion(.success(result))

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapboxDirections
 
 // TODO: Convert to Combine if you're smarter than I am.
 protocol MapCameraStateListener: AnyObject {
