@@ -58,6 +58,9 @@ class MapsViewController: UIViewController, ExampleController {
     // Show user location puck
     mapView.location.options.puckType = .puck2D()
 
+    // Hide Mapbox 'i' button
+      mapView.ornaments.options.attributionButton.margins = .init(x: -10000, y: 0)
+
     // Show Mapbox styles
     updateMapStyle()
     DispatchQueue.main.async {

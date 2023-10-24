@@ -342,7 +342,6 @@ extension DefaultMapsViewController: SizeTrackingListener {
 
       // Update Mapbox attribution.
       let mapboxOrnamentYInset = frame.height - 8
-      mapView.ornaments.options.attributionButton.margins = .init(x: 8.0, y: mapboxOrnamentYInset)
       mapView.ornaments.options.logo.margins = .init(x: 8.0, y: mapboxOrnamentYInset)
     }
   }

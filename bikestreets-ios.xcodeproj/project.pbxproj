@@ -51,6 +51,7 @@
 		35A4829B2A37B1E6001035BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35A4829A2A37B1E6001035BB /* Assets.xcassets */; };
 		35A482A62A37B279001035BB /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 35A482A52A37B279001035BB /* MapboxMaps */; };
 		35A482A92A37BD4C001035BB /* MapboxDirections in Frameworks */ = {isa = PBXBuildFile; productRef = 35A482A82A37BD4C001035BB /* MapboxDirections */; };
+		35D13F762AE7FF3400A31CB0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 35D13F752AE7FF3400A31CB0 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +92,7 @@
 		35A482932A37B1E4001035BB /* BikeStreets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeStreets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A4829A2A37B1E6001035BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		35A482AF2A37C02E001035BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		35D13F752AE7FF3400A31CB0 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		35F04BCD2A61C5D1008083A1 /* Denver, CO.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Denver, CO.gpx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,6 +183,7 @@
 		350BDE392A7007F900D4DE31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				35D13F752AE7FF3400A31CB0 /* Settings.bundle */,
 				350BDE3A2A7007F900D4DE31 /* 1-bikestreets-master-v0.3.geojson */,
 				350BDE3B2A7007F900D4DE31 /* 4-bikesidewalks-master-v0.3.geojson */,
 				350BDE3C2A7007F900D4DE31 /* 2-trails-master-v0.3.geojson */,
@@ -368,6 +371,7 @@
 				350BDE402A7007FF00D4DE31 /* 3-bikelanes-master-v0.3.geojson in Resources */,
 				350BDE432A7007FF00D4DE31 /* 1-bikestreets-master-v0.3.geojson in Resources */,
 				35A4829B2A37B1E6001035BB /* Assets.xcassets in Resources */,
+				35D13F762AE7FF3400A31CB0 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
