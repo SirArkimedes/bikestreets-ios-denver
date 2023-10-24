@@ -3,508 +3,427 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D18D00124930D2200ED86C1 /* bike streets terms v1.0.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D18D00024930D2200ED86C1 /* bike streets terms v1.0.html */; };
-		4D212A9023CABEA20085B916 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D212A8F23CABEA20085B916 /* Mapbox.framework */; };
-		4D212A9123CABEA20085B916 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D212A8F23CABEA20085B916 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4D212A9823CC1E790085B916 /* 1-bikestreets-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 4D212A9623CC1E790085B916 /* 1-bikestreets-master-v0.3.geojson */; };
-		4D212A9A23CCDADC0085B916 /* 5-walk-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 4D212A9923CCDADC0085B916 /* 5-walk-master-v0.3.geojson */; };
-		4D212A9C23CCDB600085B916 /* 2-trails-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 4D212A9B23CCDB600085B916 /* 2-trails-master-v0.3.geojson */; };
-		4D212A9E23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 4D212A9D23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson */; };
-		4D212AA023CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 4D212A9F23CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson */; };
-		4D4516E123EC8EB5008830E9 /* BikeStreetsStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4516E023EC8EB5008830E9 /* BikeStreetsStyles.swift */; };
-		4D4CF0D0240EF5C900298500 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4CF0CF240EF5C900298500 /* TermsViewController.swift */; };
-		4D4CF0D32414282600298500 /* TermsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4CF0D22414282600298500 /* TermsManager.swift */; };
-		4D4CF0D524157A6B00298500 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4CF0D424157A6B00298500 /* Logger.swift */; };
-		4D7FDD56237B1872002FFE23 /* MapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */; };
-		4D7FDD59237B3120002FFE23 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FDD58237B3120002FFE23 /* UserSettings.swift */; };
-		4DBB44992435381400E936DE /* bike streets map style.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DBB44982435381400E936DE /* bike streets map style.json */; };
-		4DDE54B7233EBB0C0051BF83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */; };
-		4DDE54B9233EBB0C0051BF83 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54B8233EBB0C0051BF83 /* MapViewController.swift */; };
-		4DDE54BC233EBB0C0051BF83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54BA233EBB0C0051BF83 /* Main.storyboard */; };
-		4DDE54BE233EBB0C0051BF83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54BD233EBB0C0051BF83 /* Assets.xcassets */; };
-		4DDE54C1233EBB0C0051BF83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE54BF233EBB0C0051BF83 /* LaunchScreen.storyboard */; };
-		4DDE54CC233EBB0C0051BF83 /* bikestreets_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54CB233EBB0C0051BF83 /* bikestreets_iosTests.swift */; };
-		4DDE54D7233EBB0C0051BF83 /* bikestreets_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE54D6233EBB0C0051BF83 /* bikestreets_iosUITests.swift */; };
+		35065C9C2A7C69E600C7CCAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065C9B2A7C69E600C7CCAF /* AppDelegate.swift */; };
+		35065CA12A7D24AD00C7CCAF /* DefaultMapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CA02A7D24AD00C7CCAF /* DefaultMapsViewController.swift */; };
+		35065CA32A7D2EB400C7CCAF /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CA22A7D2EB400C7CCAF /* SearchViewController.swift */; };
+		35065CA62A7D44C700C7CCAF /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CA52A7D44C700C7CCAF /* LocationSearchTableViewController.swift */; };
+		35065CA82A7D451B00C7CCAF /* MKPlacemark+PrettyAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CA72A7D451B00C7CCAF /* MKPlacemark+PrettyAddress.swift */; };
+		35065CAB2A7D45E400C7CCAF /* SizeTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CAA2A7D45E400C7CCAF /* SizeTrackingView.swift */; };
+		35065CAD2A7D9A8F00C7CCAF /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CAC2A7D9A8F00C7CCAF /* StateManager.swift */; };
+		35065CAF2A7D9B8300C7CCAF /* RouteRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CAE2A7D9B8300C7CCAF /* RouteRequester.swift */; };
+		35065CB22A7D9E5700C7CCAF /* PolylineAnnotation+ActiveRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CB12A7D9E5700C7CCAF /* PolylineAnnotation+ActiveRoute.swift */; };
+		35065CB42A7DA3AB00C7CCAF /* DirectionPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CB32A7DA3AB00C7CCAF /* DirectionPreviewViewController.swift */; };
+		35065CBA2A803A4000C7CCAF /* UISheetPresentationController+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CB92A803A4000C7CCAF /* UISheetPresentationController+Configuration.swift */; };
+		35065CBD2A803BFC00C7CCAF /* RoutingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CBC2A803BFC00C7CCAF /* RoutingViewController.swift */; };
+		35065CBF2A803C1900C7CCAF /* UINavigationController+Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CBE2A803C1900C7CCAF /* UINavigationController+Sheet.swift */; };
+		35065CC22A8043E900C7CCAF /* ScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35065CC12A8043E900C7CCAF /* ScreenManager.swift */; };
+		350BDE3F2A7007FF00D4DE31 /* 2-trails-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3C2A7007F900D4DE31 /* 2-trails-master-v0.3.geojson */; };
+		350BDE402A7007FF00D4DE31 /* 3-bikelanes-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3E2A7007F900D4DE31 /* 3-bikelanes-master-v0.3.geojson */; };
+		350BDE412A7007FF00D4DE31 /* 4-bikesidewalks-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3B2A7007F900D4DE31 /* 4-bikesidewalks-master-v0.3.geojson */; };
+		350BDE422A7007FF00D4DE31 /* 5-walk-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3D2A7007F900D4DE31 /* 5-walk-master-v0.3.geojson */; };
+		350BDE432A7007FF00D4DE31 /* 1-bikestreets-master-v0.3.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 350BDE3A2A7007F900D4DE31 /* 1-bikestreets-master-v0.3.geojson */; };
+		350BDE462A700E0D00D4DE31 /* BikeStreetsStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BDE452A700E0D00D4DE31 /* BikeStreetsStyles.swift */; };
+		3516451A2A81CC73001EDC99 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351645192A81CC73001EDC99 /* UIView+Constraints.swift */; };
+		3516451E2A81D826001EDC99 /* RoutePlaceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3516451D2A81D826001EDC99 /* RoutePlaceRowView.swift */; };
+		351645202A827F08001EDC99 /* PossibleRoutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3516451F2A827F08001EDC99 /* PossibleRoutesView.swift */; };
+		351645222A827FD9001EDC99 /* UIView+InsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351645212A827FD9001EDC99 /* UIView+InsetView.swift */; };
+		351645242A8288D6001EDC99 /* UIFont+Preferred.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351645232A8288D6001EDC99 /* UIFont+Preferred.swift */; };
+		351645262A86DAC2001EDC99 /* BikeStreetsColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351645252A86DAC2001EDC99 /* BikeStreetsColors.swift */; };
+		3547E64B2AB7D0AC004FA7F7 /* DebugTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3547E64A2AB7D0AC004FA7F7 /* DebugTableViewController.swift */; };
+		3547E64D2AB7D209004FA7F7 /* DebugTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3547E64C2AB7D209004FA7F7 /* DebugTableViewCell.swift */; };
+		3547E64F2AB88E8A004FA7F7 /* DebugLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3547E64E2AB88E8A004FA7F7 /* DebugLogHandler.swift */; };
+		3550D9682A98ECC200C70EE5 /* SearchConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D9672A98ECC200C70EE5 /* SearchConfiguration.swift */; };
+		3550D96B2A9CFBAC00C70EE5 /* MapControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D96A2A9CFBAC00C70EE5 /* MapControlView.swift */; };
+		3550D96E2A9D002E00C70EE5 /* SheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D96D2A9D002E00C70EE5 /* SheetManager.swift */; };
+		3550D9702A9D351300C70EE5 /* CompassManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D96F2A9D351300C70EE5 /* CompassManager.swift */; };
+		355256F12A46295600A15512 /* SimplifySwift in Frameworks */ = {isa = PBXBuildFile; productRef = 355256F02A46295600A15512 /* SimplifySwift */; };
+		357FE2FD2A4F754400806743 /* MapboxSearch in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FC2A4F754400806743 /* MapboxSearch */; };
+		357FE2FF2A4F754400806743 /* MapboxSearchUI in Frameworks */ = {isa = PBXBuildFile; productRef = 357FE2FE2A4F754400806743 /* MapboxSearchUI */; };
+		359CB5C52AD97FD9004560A2 /* MapboxCoreNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 359CB5C42AD97FD9004560A2 /* MapboxCoreNavigation */; };
+		359CB5C72AD97FD9004560A2 /* MapboxNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 359CB5C62AD97FD9004560A2 /* MapboxNavigation */; };
+		359CB5CF2AD9BC53004560A2 /* MapboxCoreNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 359CB5CE2AD9BC53004560A2 /* MapboxCoreNavigation */; };
+		359CB5D12AD9BC53004560A2 /* MapboxNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 359CB5D02AD9BC53004560A2 /* MapboxNavigation */; };
+		35A2F0BF2A4F7957002BF520 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */; };
+		35A4829B2A37B1E6001035BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35A4829A2A37B1E6001035BB /* Assets.xcassets */; };
+		35A482A62A37B279001035BB /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 35A482A52A37B279001035BB /* MapboxMaps */; };
+		35A482A92A37BD4C001035BB /* MapboxDirections in Frameworks */ = {isa = PBXBuildFile; productRef = 35A482A82A37BD4C001035BB /* MapboxDirections */; };
+		35D13F762AE7FF3400A31CB0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 35D13F752AE7FF3400A31CB0 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		4DDE54C8233EBB0C0051BF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DDE54AB233EBB0C0051BF83 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4DDE54B2233EBB0C0051BF83;
-			remoteInfo = "bikestreets-ios";
-		};
-		4DDE54D3233EBB0C0051BF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DDE54AB233EBB0C0051BF83 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4DDE54B2233EBB0C0051BF83;
-			remoteInfo = "bikestreets-ios";
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		4D212A9223CABEA20085B916 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				4D212A9123CABEA20085B916 /* Mapbox.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		4D18D00024930D2200ED86C1 /* bike streets terms v1.0.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "bike streets terms v1.0.html"; sourceTree = "<group>"; };
-		4D212A8F23CABEA20085B916 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mapbox.framework; path = Carthage/Build/iOS/Mapbox.framework; sourceTree = "<group>"; };
-		4D212A9623CC1E790085B916 /* 1-bikestreets-master-v0.3.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-bikestreets-master-v0.3.geojson"; sourceTree = "<group>"; };
-		4D212A9923CCDADC0085B916 /* 5-walk-master-v0.3.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-walk-master-v0.3.geojson"; sourceTree = "<group>"; };
-		4D212A9B23CCDB600085B916 /* 2-trails-master-v0.3.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-trails-master-v0.3.geojson"; sourceTree = "<group>"; };
-		4D212A9D23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3-bikelanes-master-v0.3.geojson"; sourceTree = "<group>"; };
-		4D212A9F23CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "4-bikesidewalks-master-v0.3.geojson"; sourceTree = "<group>"; };
-		4D4516E023EC8EB5008830E9 /* BikeStreetsStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStreetsStyles.swift; sourceTree = "<group>"; };
-		4D4CF0CF240EF5C900298500 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
-		4D4CF0D22414282600298500 /* TermsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsManager.swift; sourceTree = "<group>"; };
-		4D4CF0D424157A6B00298500 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSettingsViewController.swift; sourceTree = "<group>"; };
-		4D7FDD58237B3120002FFE23 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
-		4DBB44982435381400E936DE /* bike streets map style.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bike streets map style.json"; sourceTree = "<group>"; };
-		4DDE54B3233EBB0C0051BF83 /* Bike Streets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bike Streets.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4DDE54B8233EBB0C0051BF83 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		4DDE54BB233EBB0C0051BF83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4DDE54BD233EBB0C0051BF83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4DDE54C0233EBB0C0051BF83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		4DDE54C2233EBB0C0051BF83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4DDE54C7233EBB0C0051BF83 /* bikestreets-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "bikestreets-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DDE54CB233EBB0C0051BF83 /* bikestreets_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikestreets_iosTests.swift; sourceTree = "<group>"; };
-		4DDE54CD233EBB0C0051BF83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4DDE54D2233EBB0C0051BF83 /* bikestreets-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "bikestreets-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DDE54D6233EBB0C0051BF83 /* bikestreets_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikestreets_iosUITests.swift; sourceTree = "<group>"; };
-		4DDE54D8233EBB0C0051BF83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35065C9B2A7C69E600C7CCAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		35065CA02A7D24AD00C7CCAF /* DefaultMapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMapsViewController.swift; sourceTree = "<group>"; };
+		35065CA22A7D2EB400C7CCAF /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		35065CA52A7D44C700C7CCAF /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
+		35065CA72A7D451B00C7CCAF /* MKPlacemark+PrettyAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPlacemark+PrettyAddress.swift"; sourceTree = "<group>"; };
+		35065CAA2A7D45E400C7CCAF /* SizeTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeTrackingView.swift; sourceTree = "<group>"; };
+		35065CAC2A7D9A8F00C7CCAF /* StateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
+		35065CAE2A7D9B8300C7CCAF /* RouteRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRequester.swift; sourceTree = "<group>"; };
+		35065CB12A7D9E5700C7CCAF /* PolylineAnnotation+ActiveRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PolylineAnnotation+ActiveRoute.swift"; sourceTree = "<group>"; };
+		35065CB32A7DA3AB00C7CCAF /* DirectionPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionPreviewViewController.swift; sourceTree = "<group>"; };
+		35065CB92A803A4000C7CCAF /* UISheetPresentationController+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISheetPresentationController+Configuration.swift"; sourceTree = "<group>"; };
+		35065CBC2A803BFC00C7CCAF /* RoutingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingViewController.swift; sourceTree = "<group>"; };
+		35065CBE2A803C1900C7CCAF /* UINavigationController+Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Sheet.swift"; sourceTree = "<group>"; };
+		35065CC12A8043E900C7CCAF /* ScreenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenManager.swift; sourceTree = "<group>"; };
+		350BDE3A2A7007F900D4DE31 /* 1-bikestreets-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "1-bikestreets-master-v0.3.geojson"; sourceTree = "<group>"; };
+		350BDE3B2A7007F900D4DE31 /* 4-bikesidewalks-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "4-bikesidewalks-master-v0.3.geojson"; sourceTree = "<group>"; };
+		350BDE3C2A7007F900D4DE31 /* 2-trails-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2-trails-master-v0.3.geojson"; sourceTree = "<group>"; };
+		350BDE3D2A7007F900D4DE31 /* 5-walk-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "5-walk-master-v0.3.geojson"; sourceTree = "<group>"; };
+		350BDE3E2A7007F900D4DE31 /* 3-bikelanes-master-v0.3.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = "3-bikelanes-master-v0.3.geojson"; sourceTree = "<group>"; };
+		350BDE452A700E0D00D4DE31 /* BikeStreetsStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStreetsStyles.swift; sourceTree = "<group>"; };
+		351645192A81CC73001EDC99 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
+		3516451D2A81D826001EDC99 /* RoutePlaceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePlaceRowView.swift; sourceTree = "<group>"; };
+		3516451F2A827F08001EDC99 /* PossibleRoutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PossibleRoutesView.swift; sourceTree = "<group>"; };
+		351645212A827FD9001EDC99 /* UIView+InsetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+InsetView.swift"; sourceTree = "<group>"; };
+		351645232A8288D6001EDC99 /* UIFont+Preferred.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Preferred.swift"; sourceTree = "<group>"; };
+		351645252A86DAC2001EDC99 /* BikeStreetsColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStreetsColors.swift; sourceTree = "<group>"; };
+		3547E64A2AB7D0AC004FA7F7 /* DebugTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugTableViewController.swift; sourceTree = "<group>"; };
+		3547E64C2AB7D209004FA7F7 /* DebugTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugTableViewCell.swift; sourceTree = "<group>"; };
+		3547E64E2AB88E8A004FA7F7 /* DebugLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogHandler.swift; sourceTree = "<group>"; };
+		3550D9672A98ECC200C70EE5 /* SearchConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConfiguration.swift; sourceTree = "<group>"; };
+		3550D96A2A9CFBAC00C70EE5 /* MapControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapControlView.swift; sourceTree = "<group>"; };
+		3550D96D2A9D002E00C70EE5 /* SheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetManager.swift; sourceTree = "<group>"; };
+		3550D96F2A9D351300C70EE5 /* CompassManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassManager.swift; sourceTree = "<group>"; };
+		35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
+		35A482932A37B1E4001035BB /* BikeStreets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeStreets.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		35A4829A2A37B1E6001035BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		35A482AF2A37C02E001035BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		35D13F752AE7FF3400A31CB0 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		35F04BCD2A61C5D1008083A1 /* Denver, CO.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Denver, CO.gpx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4DDE54B0233EBB0C0051BF83 /* Frameworks */ = {
+		35A482902A37B1E4001035BB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D212A9023CABEA20085B916 /* Mapbox.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DDE54C4233EBB0C0051BF83 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DDE54CF233EBB0C0051BF83 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				35A482A62A37B279001035BB /* MapboxMaps in Frameworks */,
+				359CB5D12AD9BC53004560A2 /* MapboxNavigation in Frameworks */,
+				359CB5C72AD97FD9004560A2 /* MapboxNavigation in Frameworks */,
+				355256F12A46295600A15512 /* SimplifySwift in Frameworks */,
+				357FE2FD2A4F754400806743 /* MapboxSearch in Frameworks */,
+				359CB5CF2AD9BC53004560A2 /* MapboxCoreNavigation in Frameworks */,
+				359CB5C52AD97FD9004560A2 /* MapboxCoreNavigation in Frameworks */,
+				35A482A92A37BD4C001035BB /* MapboxDirections in Frameworks */,
+				357FE2FF2A4F754400806743 /* MapboxSearchUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4D212A8E23CABEA20085B916 /* Frameworks */ = {
+		35065CA42A7D44B900C7CCAF /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				4D212A8F23CABEA20085B916 /* Mapbox.framework */,
+				3516451C2A81D813001EDC99 /* Extensions */,
+				3516451B2A81D80C001EDC99 /* Views */,
+				35065CA22A7D2EB400C7CCAF /* SearchViewController.swift */,
+				35065CA52A7D44C700C7CCAF /* LocationSearchTableViewController.swift */,
+				35065CB32A7DA3AB00C7CCAF /* DirectionPreviewViewController.swift */,
+				3550D9672A98ECC200C70EE5 /* SearchConfiguration.swift */,
 			);
-			name = Frameworks;
+			path = Search;
 			sourceTree = "<group>";
 		};
-		4D212A9423CC1E630085B916 /* geojson */ = {
+		35065CA92A7D45D000C7CCAF /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				4D212A9623CC1E790085B916 /* 1-bikestreets-master-v0.3.geojson */,
-				4D212A9B23CCDB600085B916 /* 2-trails-master-v0.3.geojson */,
-				4D212A9D23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson */,
-				4D212A9F23CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson */,
-				4D212A9923CCDADC0085B916 /* 5-walk-master-v0.3.geojson */,
+				3550D9692A9CFB9E00C70EE5 /* Controls */,
+				35065CB02A7D9E4500C7CCAF /* Annotations */,
+				35A2F0BE2A4F7957002BF520 /* MapsViewController.swift */,
+				35065CA02A7D24AD00C7CCAF /* DefaultMapsViewController.swift */,
+				35065CAA2A7D45E400C7CCAF /* SizeTrackingView.swift */,
 			);
-			path = geojson;
+			path = Map;
 			sourceTree = "<group>";
 		};
-		4D32C50B23634DD800D59696 /* Network */ = {
+		35065CB02A7D9E4500C7CCAF /* Annotations */ = {
 			isa = PBXGroup;
 			children = (
+				35065CB12A7D9E5700C7CCAF /* PolylineAnnotation+ActiveRoute.swift */,
 			);
-			path = Network;
+			path = Annotations;
 			sourceTree = "<group>";
 		};
-		4D4516DF23EC8E90008830E9 /* Map Style */ = {
+		35065CB82A803A3000C7CCAF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				4D4516E023EC8EB5008830E9 /* BikeStreetsStyles.swift */,
+				35065CB92A803A4000C7CCAF /* UISheetPresentationController+Configuration.swift */,
+				35065CBE2A803C1900C7CCAF /* UINavigationController+Sheet.swift */,
+				351645192A81CC73001EDC99 /* UIView+Constraints.swift */,
+				351645212A827FD9001EDC99 /* UIView+InsetView.swift */,
+				351645232A8288D6001EDC99 /* UIFont+Preferred.swift */,
 			);
-			path = "Map Style";
+			path = Extensions;
 			sourceTree = "<group>";
 		};
-		4D4CF0D1241427DA00298500 /* Logging */ = {
+		35065CBB2A803BE800C7CCAF /* Routing */ = {
 			isa = PBXGroup;
 			children = (
-				4D4CF0D22414282600298500 /* TermsManager.swift */,
-				4D4CF0D424157A6B00298500 /* Logger.swift */,
+				35065CBC2A803BFC00C7CCAF /* RoutingViewController.swift */,
 			);
-			path = Logging;
+			path = Routing;
 			sourceTree = "<group>";
 		};
-		4D7FDD57237B30CF002FFE23 /* User Data Storage */ = {
+		35065CC02A8043D100C7CCAF /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				4D7FDD58237B3120002FFE23 /* UserSettings.swift */,
+				3550D96F2A9D351300C70EE5 /* CompassManager.swift */,
+				35065CAE2A7D9B8300C7CCAF /* RouteRequester.swift */,
+				35065CC12A8043E900C7CCAF /* ScreenManager.swift */,
+				35065CAC2A7D9A8F00C7CCAF /* StateManager.swift */,
 			);
-			path = "User Data Storage";
+			path = Managers;
 			sourceTree = "<group>";
 		};
-		4DBB449324310F4D00E936DE /* terms */ = {
+		350BDE392A7007F900D4DE31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4D18D00024930D2200ED86C1 /* bike streets terms v1.0.html */,
-			);
-			name = terms;
-			path = Resources/terms;
-			sourceTree = "<group>";
-		};
-		4DBB44972435381400E936DE /* map style */ = {
-			isa = PBXGroup;
-			children = (
-				4DBB44982435381400E936DE /* bike streets map style.json */,
-			);
-			name = "map style";
-			path = "Resources/map style";
-			sourceTree = "<group>";
-		};
-		4DD903492342EF1D001C7093 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				4D4CF0D1241427DA00298500 /* Logging */,
-				4D4516DF23EC8E90008830E9 /* Map Style */,
-				4D32C50B23634DD800D59696 /* Network */,
-				4D7FDD57237B30CF002FFE23 /* User Data Storage */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		4DDE54AA233EBB0C0051BF83 = {
-			isa = PBXGroup;
-			children = (
-				4DDE54B5233EBB0C0051BF83 /* bikestreets-ios */,
-				4DDE54CA233EBB0C0051BF83 /* bikestreets-iosTests */,
-				4DDE54D5233EBB0C0051BF83 /* bikestreets-iosUITests */,
-				4DDE54B4233EBB0C0051BF83 /* Products */,
-				E7AB0668C46210F34889EDB4 /* Pods */,
-				4D212A8E23CABEA20085B916 /* Frameworks */,
-			);
-			sourceTree = "<group>";
-		};
-		4DDE54B4233EBB0C0051BF83 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4DDE54B3233EBB0C0051BF83 /* Bike Streets.app */,
-				4DDE54C7233EBB0C0051BF83 /* bikestreets-iosTests.xctest */,
-				4DDE54D2233EBB0C0051BF83 /* bikestreets-iosUITests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		4DDE54B5233EBB0C0051BF83 /* bikestreets-ios */ = {
-			isa = PBXGroup;
-			children = (
-				4DDE54BF233EBB0C0051BF83 /* LaunchScreen.storyboard */,
-				4DDE54B6233EBB0C0051BF83 /* AppDelegate.swift */,
-				4DDE54BA233EBB0C0051BF83 /* Main.storyboard */,
-				4DDE54B8233EBB0C0051BF83 /* MapViewController.swift */,
-				4D4CF0CF240EF5C900298500 /* TermsViewController.swift */,
-				4D7FDD55237B1872002FFE23 /* MapSettingsViewController.swift */,
-				4DDE54BD233EBB0C0051BF83 /* Assets.xcassets */,
-				4DDE54C2233EBB0C0051BF83 /* Info.plist */,
-				4DD903492342EF1D001C7093 /* Classes */,
-				4DDE54E4233EC12A0051BF83 /* Resources */,
-				4DBB44972435381400E936DE /* map style */,
-				4DBB449324310F4D00E936DE /* terms */,
-			);
-			path = "bikestreets-ios";
-			sourceTree = "<group>";
-		};
-		4DDE54CA233EBB0C0051BF83 /* bikestreets-iosTests */ = {
-			isa = PBXGroup;
-			children = (
-				4DDE54CB233EBB0C0051BF83 /* bikestreets_iosTests.swift */,
-				4DDE54CD233EBB0C0051BF83 /* Info.plist */,
-			);
-			path = "bikestreets-iosTests";
-			sourceTree = "<group>";
-		};
-		4DDE54D5233EBB0C0051BF83 /* bikestreets-iosUITests */ = {
-			isa = PBXGroup;
-			children = (
-				4DDE54D6233EBB0C0051BF83 /* bikestreets_iosUITests.swift */,
-				4DDE54D8233EBB0C0051BF83 /* Info.plist */,
-			);
-			path = "bikestreets-iosUITests";
-			sourceTree = "<group>";
-		};
-		4DDE54E4233EC12A0051BF83 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				4D212A9423CC1E630085B916 /* geojson */,
+				35D13F752AE7FF3400A31CB0 /* Settings.bundle */,
+				350BDE3A2A7007F900D4DE31 /* 1-bikestreets-master-v0.3.geojson */,
+				350BDE3B2A7007F900D4DE31 /* 4-bikesidewalks-master-v0.3.geojson */,
+				350BDE3C2A7007F900D4DE31 /* 2-trails-master-v0.3.geojson */,
+				350BDE3D2A7007F900D4DE31 /* 5-walk-master-v0.3.geojson */,
+				350BDE3E2A7007F900D4DE31 /* 3-bikelanes-master-v0.3.geojson */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		E7AB0668C46210F34889EDB4 /* Pods */ = {
+		350BDE442A700E0400D4DE31 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
+				350BDE452A700E0D00D4DE31 /* BikeStreetsStyles.swift */,
+				351645252A86DAC2001EDC99 /* BikeStreetsColors.swift */,
 			);
-			path = Pods;
+			path = Styles;
+			sourceTree = "<group>";
+		};
+		3516451B2A81D80C001EDC99 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3516451D2A81D826001EDC99 /* RoutePlaceRowView.swift */,
+				3516451F2A827F08001EDC99 /* PossibleRoutesView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3516451C2A81D813001EDC99 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				35065CA72A7D451B00C7CCAF /* MKPlacemark+PrettyAddress.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3547E6492AB7D090004FA7F7 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				3547E64A2AB7D0AC004FA7F7 /* DebugTableViewController.swift */,
+				3547E64C2AB7D209004FA7F7 /* DebugTableViewCell.swift */,
+				3547E64E2AB88E8A004FA7F7 /* DebugLogHandler.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
+		3550D9692A9CFB9E00C70EE5 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				3550D96A2A9CFBAC00C70EE5 /* MapControlView.swift */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		3550D96C2A9D001900C70EE5 /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				3550D96D2A9D002E00C70EE5 /* SheetManager.swift */,
+			);
+			path = Sheets;
+			sourceTree = "<group>";
+		};
+		35A4828A2A37B1E4001035BB = {
+			isa = PBXGroup;
+			children = (
+				35F04BCC2A61C5C1008083A1 /* GPX */,
+				35A482952A37B1E4001035BB /* bikestreets-ios */,
+				35A482942A37B1E4001035BB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		35A482942A37B1E4001035BB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				35A482932A37B1E4001035BB /* BikeStreets.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		35A482952A37B1E4001035BB /* bikestreets-ios */ = {
+			isa = PBXGroup;
+			children = (
+				35065C9B2A7C69E600C7CCAF /* AppDelegate.swift */,
+				35A4829A2A37B1E6001035BB /* Assets.xcassets */,
+				3547E6492AB7D090004FA7F7 /* Debug */,
+				35065CB82A803A3000C7CCAF /* Extensions */,
+				35A482AF2A37C02E001035BB /* Info.plist */,
+				35065CC02A8043D100C7CCAF /* Managers */,
+				35065CA92A7D45D000C7CCAF /* Map */,
+				350BDE392A7007F900D4DE31 /* Resources */,
+				35065CBB2A803BE800C7CCAF /* Routing */,
+				35065CA42A7D44B900C7CCAF /* Search */,
+				3550D96C2A9D001900C70EE5 /* Sheets */,
+				350BDE442A700E0400D4DE31 /* Styles */,
+			);
+			path = "bikestreets-ios";
+			sourceTree = "<group>";
+		};
+		35F04BCC2A61C5C1008083A1 /* GPX */ = {
+			isa = PBXGroup;
+			children = (
+				35F04BCD2A61C5D1008083A1 /* Denver, CO.gpx */,
+			);
+			path = GPX;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4DDE54B2233EBB0C0051BF83 /* bikestreets-ios */ = {
+		35A482922A37B1E4001035BB /* BikeStreets */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4DDE54DB233EBB0C0051BF83 /* Build configuration list for PBXNativeTarget "bikestreets-ios" */;
+			buildConfigurationList = 35A482A12A37B1E6001035BB /* Build configuration list for PBXNativeTarget "BikeStreets" */;
 			buildPhases = (
-				4DDE54AF233EBB0C0051BF83 /* Sources */,
-				4DDE54B0233EBB0C0051BF83 /* Frameworks */,
-				4DDE54B1233EBB0C0051BF83 /* Resources */,
-				4D212A9223CABEA20085B916 /* Embed Frameworks */,
-				4D212A9323CABEBA0085B916 /* ShellScript */,
+				35A4828F2A37B1E4001035BB /* Sources */,
+				35A482902A37B1E4001035BB /* Frameworks */,
+				35A482912A37B1E4001035BB /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "bikestreets-ios";
-			productName = "bikestreets-ios";
-			productReference = 4DDE54B3233EBB0C0051BF83 /* Bike Streets.app */;
+			name = BikeStreets;
+			packageProductDependencies = (
+				35A482A52A37B279001035BB /* MapboxMaps */,
+				35A482A82A37BD4C001035BB /* MapboxDirections */,
+				355256F02A46295600A15512 /* SimplifySwift */,
+				357FE2FC2A4F754400806743 /* MapboxSearch */,
+				357FE2FE2A4F754400806743 /* MapboxSearchUI */,
+				359CB5C42AD97FD9004560A2 /* MapboxCoreNavigation */,
+				359CB5C62AD97FD9004560A2 /* MapboxNavigation */,
+				359CB5CE2AD9BC53004560A2 /* MapboxCoreNavigation */,
+				359CB5D02AD9BC53004560A2 /* MapboxNavigation */,
+			);
+			productName = MapboxTester;
+			productReference = 35A482932A37B1E4001035BB /* BikeStreets.app */;
 			productType = "com.apple.product-type.application";
-		};
-		4DDE54C6233EBB0C0051BF83 /* bikestreets-iosTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4DDE54DE233EBB0C0051BF83 /* Build configuration list for PBXNativeTarget "bikestreets-iosTests" */;
-			buildPhases = (
-				4DDE54C3233EBB0C0051BF83 /* Sources */,
-				4DDE54C4233EBB0C0051BF83 /* Frameworks */,
-				4DDE54C5233EBB0C0051BF83 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4DDE54C9233EBB0C0051BF83 /* PBXTargetDependency */,
-			);
-			name = "bikestreets-iosTests";
-			productName = "bikestreets-iosTests";
-			productReference = 4DDE54C7233EBB0C0051BF83 /* bikestreets-iosTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		4DDE54D1233EBB0C0051BF83 /* bikestreets-iosUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4DDE54E1233EBB0C0051BF83 /* Build configuration list for PBXNativeTarget "bikestreets-iosUITests" */;
-			buildPhases = (
-				4DDE54CE233EBB0C0051BF83 /* Sources */,
-				4DDE54CF233EBB0C0051BF83 /* Frameworks */,
-				4DDE54D0233EBB0C0051BF83 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4DDE54D4233EBB0C0051BF83 /* PBXTargetDependency */,
-			);
-			name = "bikestreets-iosUITests";
-			productName = "bikestreets-iosUITests";
-			productReference = 4DDE54D2233EBB0C0051BF83 /* bikestreets-iosUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		4DDE54AB233EBB0C0051BF83 /* Project object */ = {
+		35A4828B2A37B1E4001035BB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1030;
-				LastUpgradeCheck = 1030;
-				ORGANIZATIONNAME = "Bike Streets";
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					4DDE54B2233EBB0C0051BF83 = {
-						CreatedOnToolsVersion = 10.3;
-					};
-					4DDE54C6233EBB0C0051BF83 = {
-						CreatedOnToolsVersion = 10.3;
-						TestTargetID = 4DDE54B2233EBB0C0051BF83;
-					};
-					4DDE54D1233EBB0C0051BF83 = {
-						CreatedOnToolsVersion = 10.3;
-						TestTargetID = 4DDE54B2233EBB0C0051BF83;
+					35A482922A37B1E4001035BB = {
+						CreatedOnToolsVersion = 14.3;
 					};
 				};
 			};
-			buildConfigurationList = 4DDE54AE233EBB0C0051BF83 /* Build configuration list for PBXProject "bikestreets-ios" */;
-			compatibilityVersion = "Xcode 9.3";
+			buildConfigurationList = 35A4828E2A37B1E4001035BB /* Build configuration list for PBXProject "bikestreets-ios" */;
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 4DDE54AA233EBB0C0051BF83;
-			productRefGroup = 4DDE54B4233EBB0C0051BF83 /* Products */;
+			mainGroup = 35A4828A2A37B1E4001035BB;
+			packageReferences = (
+				35A482A42A37B279001035BB /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
+				35A482A72A37BD4C001035BB /* XCRemoteSwiftPackageReference "mapbox-directions-swift" */,
+				355256EF2A46295600A15512 /* XCRemoteSwiftPackageReference "Simplify-Swift" */,
+				357FE2FB2A4F754400806743 /* XCRemoteSwiftPackageReference "search-ios" */,
+				359CB5CD2AD9BC53004560A2 /* XCRemoteSwiftPackageReference "mapbox-navigation-ios" */,
+			);
+			productRefGroup = 35A482942A37B1E4001035BB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4DDE54B2233EBB0C0051BF83 /* bikestreets-ios */,
-				4DDE54C6233EBB0C0051BF83 /* bikestreets-iosTests */,
-				4DDE54D1233EBB0C0051BF83 /* bikestreets-iosUITests */,
+				35A482922A37B1E4001035BB /* BikeStreets */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4DDE54B1233EBB0C0051BF83 /* Resources */ = {
+		35A482912A37B1E4001035BB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D212A9C23CCDB600085B916 /* 2-trails-master-v0.3.geojson in Resources */,
-				4D212A9823CC1E790085B916 /* 1-bikestreets-master-v0.3.geojson in Resources */,
-				4DDE54C1233EBB0C0051BF83 /* LaunchScreen.storyboard in Resources */,
-				4DDE54BE233EBB0C0051BF83 /* Assets.xcassets in Resources */,
-				4D212A9A23CCDADC0085B916 /* 5-walk-master-v0.3.geojson in Resources */,
-				4D212A9E23CCEFDC0085B916 /* 3-bikelanes-master-v0.3.geojson in Resources */,
-				4D18D00124930D2200ED86C1 /* bike streets terms v1.0.html in Resources */,
-				4D212AA023CD35020085B916 /* 4-bikesidewalks-master-v0.3.geojson in Resources */,
-				4DDE54BC233EBB0C0051BF83 /* Main.storyboard in Resources */,
-				4DBB44992435381400E936DE /* bike streets map style.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DDE54C5233EBB0C0051BF83 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DDE54D0233EBB0C0051BF83 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				350BDE3F2A7007FF00D4DE31 /* 2-trails-master-v0.3.geojson in Resources */,
+				350BDE422A7007FF00D4DE31 /* 5-walk-master-v0.3.geojson in Resources */,
+				350BDE412A7007FF00D4DE31 /* 4-bikesidewalks-master-v0.3.geojson in Resources */,
+				350BDE402A7007FF00D4DE31 /* 3-bikelanes-master-v0.3.geojson in Resources */,
+				350BDE432A7007FF00D4DE31 /* 1-bikestreets-master-v0.3.geojson in Resources */,
+				35A4829B2A37B1E6001035BB /* Assets.xcassets in Resources */,
+				35D13F762AE7FF3400A31CB0 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		4D212A9323CABEBA0085B916 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Mapbox.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/MapboxMobileEvents.framework",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		4DDE54AF233EBB0C0051BF83 /* Sources */ = {
+		35A4828F2A37B1E4001035BB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DDE54B9233EBB0C0051BF83 /* MapViewController.swift in Sources */,
-				4D7FDD59237B3120002FFE23 /* UserSettings.swift in Sources */,
-				4D7FDD56237B1872002FFE23 /* MapSettingsViewController.swift in Sources */,
-				4D4516E123EC8EB5008830E9 /* BikeStreetsStyles.swift in Sources */,
-				4D4CF0D0240EF5C900298500 /* TermsViewController.swift in Sources */,
-				4DDE54B7233EBB0C0051BF83 /* AppDelegate.swift in Sources */,
-				4D4CF0D32414282600298500 /* TermsManager.swift in Sources */,
-				4D4CF0D524157A6B00298500 /* Logger.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DDE54C3233EBB0C0051BF83 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4DDE54CC233EBB0C0051BF83 /* bikestreets_iosTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DDE54CE233EBB0C0051BF83 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4DDE54D7233EBB0C0051BF83 /* bikestreets_iosUITests.swift in Sources */,
+				351645242A8288D6001EDC99 /* UIFont+Preferred.swift in Sources */,
+				35065CA32A7D2EB400C7CCAF /* SearchViewController.swift in Sources */,
+				3550D9682A98ECC200C70EE5 /* SearchConfiguration.swift in Sources */,
+				351645202A827F08001EDC99 /* PossibleRoutesView.swift in Sources */,
+				35065CB42A7DA3AB00C7CCAF /* DirectionPreviewViewController.swift in Sources */,
+				3516451A2A81CC73001EDC99 /* UIView+Constraints.swift in Sources */,
+				3547E64B2AB7D0AC004FA7F7 /* DebugTableViewController.swift in Sources */,
+				35065CBD2A803BFC00C7CCAF /* RoutingViewController.swift in Sources */,
+				35065C9C2A7C69E600C7CCAF /* AppDelegate.swift in Sources */,
+				3550D96B2A9CFBAC00C70EE5 /* MapControlView.swift in Sources */,
+				35065CBA2A803A4000C7CCAF /* UISheetPresentationController+Configuration.swift in Sources */,
+				35A2F0BF2A4F7957002BF520 /* MapsViewController.swift in Sources */,
+				35065CC22A8043E900C7CCAF /* ScreenManager.swift in Sources */,
+				35065CA82A7D451B00C7CCAF /* MKPlacemark+PrettyAddress.swift in Sources */,
+				351645262A86DAC2001EDC99 /* BikeStreetsColors.swift in Sources */,
+				35065CAD2A7D9A8F00C7CCAF /* StateManager.swift in Sources */,
+				3547E64F2AB88E8A004FA7F7 /* DebugLogHandler.swift in Sources */,
+				35065CAF2A7D9B8300C7CCAF /* RouteRequester.swift in Sources */,
+				3550D96E2A9D002E00C70EE5 /* SheetManager.swift in Sources */,
+				3516451E2A81D826001EDC99 /* RoutePlaceRowView.swift in Sources */,
+				351645222A827FD9001EDC99 /* UIView+InsetView.swift in Sources */,
+				35065CA12A7D24AD00C7CCAF /* DefaultMapsViewController.swift in Sources */,
+				350BDE462A700E0D00D4DE31 /* BikeStreetsStyles.swift in Sources */,
+				35065CAB2A7D45E400C7CCAF /* SizeTrackingView.swift in Sources */,
+				35065CB22A7D9E5700C7CCAF /* PolylineAnnotation+ActiveRoute.swift in Sources */,
+				3547E64D2AB7D209004FA7F7 /* DebugTableViewCell.swift in Sources */,
+				3550D9702A9D351300C70EE5 /* CompassManager.swift in Sources */,
+				35065CA62A7D44C700C7CCAF /* LocationSearchTableViewController.swift in Sources */,
+				35065CBF2A803C1900C7CCAF /* UINavigationController+Sheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		4DDE54C9233EBB0C0051BF83 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4DDE54B2233EBB0C0051BF83 /* bikestreets-ios */;
-			targetProxy = 4DDE54C8233EBB0C0051BF83 /* PBXContainerItemProxy */;
-		};
-		4DDE54D4233EBB0C0051BF83 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4DDE54B2233EBB0C0051BF83 /* bikestreets-ios */;
-			targetProxy = 4DDE54D3233EBB0C0051BF83 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		4DDE54BA233EBB0C0051BF83 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4DDE54BB233EBB0C0051BF83 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4DDE54BF233EBB0C0051BF83 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4DDE54C0233EBB0C0051BF83 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		4DDE54D9233EBB0C0051BF83 /* Debug */ = {
+		35A4829F2A37B1E6001035BB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -523,13 +442,13 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -548,7 +467,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -558,14 +477,13 @@
 			};
 			name = Debug;
 		};
-		4DDE54DA233EBB0C0051BF83 /* Release */ = {
+		35A482A02A37B1E6001035BB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -584,13 +502,13 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -603,7 +521,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -613,178 +531,177 @@
 			};
 			name = Release;
 		};
-		4DDE54DC233EBB0C0051BF83 /* Debug */ = {
+		35A482A22A37B1E6001035BB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = JPF6V6763Y;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "bikestreets-ios/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Bike Streets";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your current location will be displayed on the map and used for directions and estimated travel times.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your current location will be displayed on the map and used for directions and estimated travel times.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				OTHER_SWIFT_FLAGS = "-DDEBUG";
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bikestreets.bikestreets-ios";
-				PRODUCT_NAME = "Bike Streets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		4DDE54DD233EBB0C0051BF83 /* Release */ = {
+		35A482A32A37B1E6001035BB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = JPF6V6763Y;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "bikestreets-ios/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Bike Streets";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your current location will be displayed on the map and used for directions and estimated travel times.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your current location will be displayed on the map and used for directions and estimated travel times.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				OTHER_SWIFT_FLAGS = "-DRELEASE";
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bikestreets.bikestreets-ios";
-				PRODUCT_NAME = "Bike Streets";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		4DDE54DF233EBB0C0051BF83 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JPF6V6763Y;
-				INFOPLIST_FILE = "bikestreets-iosTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bikestreets.bikestreets-iosTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/bikestreets-ios.app/bikestreets-ios";
-			};
-			name = Debug;
-		};
-		4DDE54E0233EBB0C0051BF83 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JPF6V6763Y;
-				INFOPLIST_FILE = "bikestreets-iosTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bikestreets.bikestreets-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/bikestreets-ios.app/bikestreets-ios";
-			};
-			name = Release;
-		};
-		4DDE54E2233EBB0C0051BF83 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JPF6V6763Y;
-				INFOPLIST_FILE = "bikestreets-iosUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bikestreets.bikestreets-iosUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "bikestreets-ios";
-			};
-			name = Debug;
-		};
-		4DDE54E3233EBB0C0051BF83 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JPF6V6763Y;
-				INFOPLIST_FILE = "bikestreets-iosUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bikestreets.bikestreets-iosUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "bikestreets-ios";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4DDE54AE233EBB0C0051BF83 /* Build configuration list for PBXProject "bikestreets-ios" */ = {
+		35A4828E2A37B1E4001035BB /* Build configuration list for PBXProject "bikestreets-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4DDE54D9233EBB0C0051BF83 /* Debug */,
-				4DDE54DA233EBB0C0051BF83 /* Release */,
+				35A4829F2A37B1E6001035BB /* Debug */,
+				35A482A02A37B1E6001035BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4DDE54DB233EBB0C0051BF83 /* Build configuration list for PBXNativeTarget "bikestreets-ios" */ = {
+		35A482A12A37B1E6001035BB /* Build configuration list for PBXNativeTarget "BikeStreets" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4DDE54DC233EBB0C0051BF83 /* Debug */,
-				4DDE54DD233EBB0C0051BF83 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4DDE54DE233EBB0C0051BF83 /* Build configuration list for PBXNativeTarget "bikestreets-iosTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4DDE54DF233EBB0C0051BF83 /* Debug */,
-				4DDE54E0233EBB0C0051BF83 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4DDE54E1233EBB0C0051BF83 /* Build configuration list for PBXNativeTarget "bikestreets-iosUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4DDE54E2233EBB0C0051BF83 /* Debug */,
-				4DDE54E3233EBB0C0051BF83 /* Release */,
+				35A482A22A37B1E6001035BB /* Debug */,
+				35A482A32A37B1E6001035BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		355256EF2A46295600A15512 /* XCRemoteSwiftPackageReference "Simplify-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tomislav/Simplify-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		357FE2FB2A4F754400806743 /* XCRemoteSwiftPackageReference "search-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/search-ios.git";
+			requirement = {
+				kind = exactVersion;
+				version = "1.0.0-rc.6";
+			};
+		};
+		359CB5CD2AD9BC53004560A2 /* XCRemoteSwiftPackageReference "mapbox-navigation-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/mapbox-navigation-ios.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.17.0;
+			};
+		};
+		35A482A42A37B279001035BB /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.16.1;
+			};
+		};
+		35A482A72A37BD4C001035BB /* XCRemoteSwiftPackageReference "mapbox-directions-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/mapbox-directions-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.11.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		355256F02A46295600A15512 /* SimplifySwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 355256EF2A46295600A15512 /* XCRemoteSwiftPackageReference "Simplify-Swift" */;
+			productName = SimplifySwift;
+		};
+		357FE2FC2A4F754400806743 /* MapboxSearch */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 357FE2FB2A4F754400806743 /* XCRemoteSwiftPackageReference "search-ios" */;
+			productName = MapboxSearch;
+		};
+		357FE2FE2A4F754400806743 /* MapboxSearchUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 357FE2FB2A4F754400806743 /* XCRemoteSwiftPackageReference "search-ios" */;
+			productName = MapboxSearchUI;
+		};
+		359CB5C42AD97FD9004560A2 /* MapboxCoreNavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MapboxCoreNavigation;
+		};
+		359CB5C62AD97FD9004560A2 /* MapboxNavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MapboxNavigation;
+		};
+		359CB5CE2AD9BC53004560A2 /* MapboxCoreNavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 359CB5CD2AD9BC53004560A2 /* XCRemoteSwiftPackageReference "mapbox-navigation-ios" */;
+			productName = MapboxCoreNavigation;
+		};
+		359CB5D02AD9BC53004560A2 /* MapboxNavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 359CB5CD2AD9BC53004560A2 /* XCRemoteSwiftPackageReference "mapbox-navigation-ios" */;
+			productName = MapboxNavigation;
+		};
+		35A482A52A37B279001035BB /* MapboxMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35A482A42A37B279001035BB /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
+			productName = MapboxMaps;
+		};
+		35A482A82A37BD4C001035BB /* MapboxDirections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35A482A72A37BD4C001035BB /* XCRemoteSwiftPackageReference "mapbox-directions-swift" */;
+			productName = MapboxDirections;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 4DDE54AB233EBB0C0051BF83 /* Project object */;
+	rootObject = 35A4828B2A37B1E4001035BB /* Project object */;
 }
